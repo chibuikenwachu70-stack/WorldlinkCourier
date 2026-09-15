@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+```
+<title>Shipment Receipt - WORLDLINK COURIER SERVICE</title>
+
+<style>
+    body {
+        margin: 0;
+        padding: 30px;
+        background: #eef2f7;
+        font-family: Arial, sans-serif;
+        color: #1f2937;
+    }
+
+    .receipt-container {
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    .receipt {
+        background: white;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.10);
+    }
+
+    .receipt-header {
+        background: #111827;
+        color: white;
+        padding: 30px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .logo {
+        font-size: 25px;
+        font-weight: bold;
+    }
+
+    .logo span {
+        display: block;
+        font-size: 12px;
+        font-weight: normal;
+        margin-top: 5px;
+        letter-spacing: 1px;
+    }
+
+    .receipt-title {
+        text-align: right;
+        font-size: 22px;
+        font-weight: bold;
+    }
+
+    .receipt-title small {
+        display: block;
+        font-size: 12px;
+        font-weight: normal;
+        margin-top: 6px;
+        opacity: 0.8;
+    }
+
+    .tracking-box {
+        margin: 25px 30px;
+        padding: 20px;
+        background: #eef5ff;
+        border: 2px solid #1d4ed8;
+        border-radius: 8px;
+        text-align: center;
+    }
+
+    .tracking-label {
+        font-size: 12px;
+        color: #555;
+        margin-bottom: 8px;
+        font-weight: bold;
+        letter-spacing: 1px;
+    }
+
+    .tracking-number {
+        font-size: 28px;
+        font-weight: bold;
+        color: #1d4ed8;
+        letter-spacing: 2px;
+    }
+
+    .receipt-body {
+        padding: 0 30px 30px;
+    }
+
+    .section-title {
+        font-size: 16px;
+        color: #123b68;
+        font-weight: bold;
+        border-bottom: 2px solid #e5e7eb;
+        padding-bottom: 10px;
+        margin-top: 25px;
+        margin-bottom: 15px;
+    }
+
+    .details {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 14px 30px;
+    }
+
+    .detail {
+        padding: 12px;
+        background: #f8fafc;
+        border-radius: 6px;
+    }
+
+    .detail-label {
+        display: block;
+        font-size: 12px;
+        color: #777;
+        margin-bottom: 5px;
+    }
+
+    .detail-value {
+        font-size: 15px;
+        font-weight: bold;
+        color: #1f2937;
+    }
+
+    .status-box {
+        margin-top: 25px;
+        padding: 18px;
+        background: #f0fdf4;
+        border-left: 5px solid #22c55e;
+        border-radius: 6px;
+    }
+
+    .status-box strong {
+        color: #166534;
+    }
+
+    .receipt-footer {
+        border-top: 1px solid #e5e7eb;
+        padding: 22px 30px;
+        text-align: center;
+        color: #777;
+        font-size: 13px;
+    }
+
+    .footer-brand {
+        color: #123b68;
+        font-weight: bold;
+        font-size: 15px;
+        margin-bottom: 5px;
+    }
+
+    .buttons {
+        text-align: center;
+        margin-top: 25px;
+    }
+
+    .button {
+        display: inline-block;
+        padding: 12px 20px;
+        margin: 5px;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: bold;
+        border: none;
+        cursor: pointer;
+        font-size: 14px;
+    }
+
+    .print-button {
+        background: #1d4ed8;
+        color: white;
+    }
+
+    .dashboard-button {
+        background: #111827;
+        color: white;
+    }
+
+    @media print {
+
+        body {
+            background: white;
+            padding: 0;
+        }
+
+        .receipt {
+            box-shadow: none;
+        }
+
+        .buttons {
+            display: none;
+        }
+
+        .receipt-container {
+            max-width: none;
+        }
+    }
+
+    @media (max-width: 600px) {
+
+        body {
+            padding: 10px;
+        }
+
+        .receipt-header {
+            display: block;
+            text-align: center;
+        }
+
+        .receipt-title {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .details {
+            grid-template-columns: 1fr;
+        }
+
+        .tracking-number {
+            font-size: 22px;
+        }
+    }
+</style>
+```
+
+</head>
+
+<body>
+
+<div class="receipt-container">
+
+```
+<div class="receipt">
+
+    <div class="receipt-header">
+
+        <div class="logo">
+            WORLDLINK
+            <span>COURIER SERVICE</span>
+        </div>
+
+        <div class="receipt-title">
+            SHIPMENT RECEIPT
+            <small>Official Shipment Registration</small>
+        </div>
+
+    </div>
+
+
+    <div class="tracking-box">
+
+        <div class="tracking-label">
+            TRACKING NUMBER
+        </div>
+
+        <div class="tracking-number">
+            {{ shipment.tracking_number }}
+        </div>
+
+    </div>
+
+
+    <div class="receipt-body">
+
+        <div class="section-title">
+            Shipment Information
+        </div>
+
+        <div class="details">
+
+            <div class="detail">
+                <span class="detail-label">
+                    Sender
+                </span>
+
+                <span class="detail-value">
+                    {{ shipment.sender }}
+                </span>
+            </div>
+
+
+            <div class="detail">
+                <span class="detail-label">
+                    Receiver
+                </span>
+
+                <span class="detail-value">
+                    {{ shipment.receiver }}
+                </span>
+            </div>
+
+
+            <div class="detail">
+                <span class="detail-label">
+                    Origin
+                </span>
+
+                <span class="detail-value">
+                    {{ shipment.origin }}
+                </span>
+            </div>
+
+
+            <div class="detail">
+                <span class="detail-label">
+                    Destination
+                </span>
+
+                <span class="detail-value">
+                    {{ shipment.destination }}
+                </span>
+            </div>
+
+
+            <div class="detail">
+                <span class="detail-label">
+                    Current Location
+                </span>
+
+                <span class="detail-value">
+                    {{ shipment.current_location }}
+                </span>
+            </div>
+
+
+            <div class="detail">
+                <span class="detail-label">
+                    Shipment Status
+                </span>
+
+                <span class="detail-value">
+                    {{ shipment.status }}
+                </span>
+            </div>
+
+        </div>
+
+
+        <div class="section-title">
+            Shipment Status
+        </div>
+
+        <div class="status-box">
+
+            <strong>
+                {{ shipment.status }}
+            </strong>
+
+            <br>
+
+            Current location:
+            {{ shipment.current_location }}
+
+        </div>
+
+
+        <div class="section-title">
+            Tracking
+        </div>
+
+        <p>
+            Use the tracking number above on the WORLDLINK COURIER SERVICE
+            tracking page to view the latest shipment information and tracking history.
+        </p>
+
+    </div>
+
+
+    <div class="receipt-footer">
+
+        <div class="footer-brand">
+            WORLDLINK COURIER SERVICE
+        </div>
+
+        Fast. Reliable. Worldwide.
+
+        <br><br>
+
+        Thank you for choosing Worldlink Courier Service.
+
+    </div>
+
+</div>
+
+
+<div class="buttons">
+
+    <button
+        class="button print-button"
+        onclick="window.print()">
+        Print / Save Receipt
+    </button>
+
+    <a
+        href="/admin"
+        class="button dashboard-button">
+        Back to Dashboard
+    </a>
+
+</div>
+```
+
+</div>
+
+</body>
+</html>

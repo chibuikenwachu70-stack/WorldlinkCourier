@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Shipment Receipt - {{ shipment.tracking_number }}</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 30px 15px;
+            background: #eef2f7;
+            font-family: Arial, Helvetica, sans-serif;
+            color: #1f2937;
+        }
+
+        .receipt {
+            width: 100%;
+            max-width: 750px;
+            margin: auto;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+        }
+
+        .header {
+            background: #0b3d91;
+            color: white;
+            padding: 28px 35px;
+            text-align: center;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 28px;
+            letter-spacing: 1px;
+        }
+
+        .header p {
+            margin: 7px 0 0;
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .receipt-title {
+            text-align: center;
+            padding: 22px 20px 10px;
+        }
+
+        .receipt-title h2 {
+            margin: 0;
+            font-size: 23px;
+            color: #0b3d91;
+        }
+
+        .tracking-box {
+            margin: 15px 35px 25px;
+            padding: 18px;
+            background: #f1f5ff;
+            border: 2px solid #0b3d91;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .tracking-label {
+            font-size: 12px;
+            color: #555;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .tracking-number {
+            margin-top: 7px;
+            font-size: 28px;
+            font-weight: bold;
+            color: #0b3d91;
+            letter-spacing: 2px;
+        }
+
+        .details {
+            padding: 0 35px 25px;
+        }
+
+        .section-title {
+            margin-top: 22px;
+            margin-bottom: 12px;
+            padding-bottom: 7px;
+            border-bottom: 2px solid #e5e7eb;
+            color: #0b3d91;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .row {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            padding: 10px 0;
+            border-bottom: 1px solid #eeeeee;
+        }
+
+        .label {
+            font-weight: bold;
+            color: #555;
+            min-width: 170px;
+        }
+
+        .value {
+            text-align: right;
+            color: #222;
+            word-break: break-word;
+        }
+
+        .status-box {
+            margin-top: 20px;
+            padding: 16px;
+            border-radius: 8px;
+            background: #eaf7ee;
+            border: 1px solid #b8dfc3;
+            text-align: center;
+        }
+
+        .status-label {
+            font-size: 12px;
+            color: #555;
+            text-transform: uppercase;
+        }
+
+        .status {
+            margin-top: 5px;
+            font-size: 20px;
+            font-weight: bold;
+            color: #198754;
+        }
+
+        .tracking-info {
+            margin-top: 25px;
+            padding: 18px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .tracking-info h3 {
+            margin-top: 0;
+            color: #0b3d91;
+        }
+
+        .tracking-info p {
+            margin-bottom: 0;
+            line-height: 1.6;
+            font-size: 14px;
+        }
+
+        .footer {
+            background: #f5f6f8;
+            text-align: center;
+            padding: 20px;
+            font-size: 13px;
+            color: #666;
+        }
+
+        .buttons {
+            max-width: 750px;
+            margin: 20px auto 0;
+            text-align: center;
+        }
+
+        button,
+        .back-button {
+            display: inline-block;
+            border: none;
+            border-radius: 6px;
+            padding: 12px 22px;
+            margin: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            text-decoration: none;
+        }
+
+        .print-button {
+            background: #0b3d91;
+            color: white;
+        }
+
+        .back-button {
+            background: #555;
+            color: white;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
+
+            .header {
+                padding: 22px 15px;
+            }
+
+            .header h1 {
+                font-size: 22px;
+            }
+
+            .details {
+                padding: 0 20px 20px;
+            }
+
+            .tracking-box {
+                margin-left: 20px;
+                margin-right: 20px;
+            }
+
+            .tracking-number {
+                font-size: 21px;
+            }
+
+            .row {
+                flex-direction: column;
+                gap: 4px;
+            }
+
+            .value {
+                text-align: left;
+            }
+        }
+
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+
+            .receipt {
+                box-shadow: none;
+                max-width: 100%;
+            }
+
+            .buttons {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="receipt">
+
+        <div class="header">
+            <h1>WORLDLINK COURIER SERVICE</h1>
+            <p>Fast • Safe • Reliable Worldwide Delivery</p>
+        </div>
+
+        <div class="receipt-title">
+            <h2>SHIPMENT RECEIPT</h2>
+        </div>
+
+        <div class="tracking-box">
+            <div class="tracking-label">Tracking Number</div>
+
+            <div class="tracking-number">
+                {{ shipment.tracking_number }}
+            </div>
+        </div>
+
+        <div class="details">
+
+            <div class="section-title">
+                Sender Information
+            </div>
+
+            <div class="row">
+                <div class="label">Sender Name</div>
+                <div class="value">
+                    {{ shipment.sender }}
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="label">Sender Address</div>
+                <div class="value">
+                    {{ shipment.sender_address }}
+                </div>
+            </div>
+
+
+            <div class="section-title">
+                Receiver Information
+            </div>
+
+            <div class="row">
+                <div class="label">Receiver Name</div>
+                <div class="value">
+                    {{ shipment.receiver }}
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="label">Receiver Address</div>
+                <div class="value">
+                    {{ shipment.receiver_address }}
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="label">Receiver Phone</div>
+                <div class="value">
+                    {{ shipment.receiver_phone }}
+                </div>
+            </div>
+
+
+            <div class="section-title">
+                Shipment Information
+            </div>
+
+            <div class="row">
+                <div class="label">Origin</div>
+                <div class="value">
+                    {{ shipment.origin }}
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="label">Destination</div>
+                <div class="value">
+                    {{ shipment.destination }}
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="label">Current Location</div>
+                <div class="value">
+                    {{ shipment.current_location }}
+                </div>
+            </div>
+
+
+            <div class="status-box">
+
+                <div class="status-label">
+                    Shipment Status
+                </div>
+
+                <div class="status">
+                    {{ shipment.status }}
+                </div>
+
+            </div>
+
+
+            <div class="tracking-info">
+
+                <h3>
+                    Track Your Shipment
+                </h3>
+
+                <p>
+                    Use the tracking number above on the
+                    WORLDLINK COURIER SERVICE tracking page
+                    to view the latest shipment status and
+                    tracking history.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="footer">
+
+            <strong>
+                WORLDLINK COURIER SERVICE
+            </strong>
+
+            <br>
+
+            Thank you for choosing Worldlink Courier Service.
+
+        </div>
+
+    </div>
+
+
+    <div class="buttons">
+
+        <button
+            class="print-button"
+            onclick="window.print()">
+            Print / Save Receipt
+        </button>
+
+        <a
+            class="back-button"
+            href="{{ url_for('admin_dashboard') }}">
+            Back to Dashboard
+        </a>
+
+    </div>
+
+</body>
+</html>

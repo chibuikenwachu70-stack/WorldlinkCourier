@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+```
+<title>WORLDLINK COURIER SERVICE</title>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+```
+
+</head>
+
+<body>
+
+```
+<!-- Navigation -->
+<header class="navbar">
+    <div class="logo">
+        WORLDLINK
+        <span>COURIER SERVICE</span>
+    </div>
+
+    <nav>
+        <a href="/">Home</a>
+        <a href="#about">About</a>
+        <a href="#services">Services</a>
+        <a href="#tracking">Track Shipment</a>
+        <a href="#contact">Contact</a>
+    </nav>
+
+    <a href="#quote" class="quote-button">Get a Quote</a>
+</header>
+
+
+<!-- Hero Section -->
+<section class="hero">
+    <div class="hero-content">
+
+        <p class="small-title">WORLDWIDE DELIVERY SOLUTIONS</p>
+
+        <h1>
+            Fast. Reliable.
+            <span>Worldwide.</span>
+        </h1>
+
+        <p class="hero-text">
+            Your trusted partner for local and international
+            courier and logistics services.
+        </p>
+
+        <div class="hero-buttons">
+            <a href="#tracking" class="primary-button">
+                Track Your Shipment
+            </a>
+
+            <a href="#quote" class="secondary-button">
+                Get a Quote
+            </a>
+        </div>
+
+    </div>
+</section>
+
+
+<!-- Tracking Section -->
+<section class="tracking" id="tracking">
+
+    <div class="tracking-box">
+
+        <p class="small-title">SHIPMENT TRACKING</p>
+
+        <h2>Track Your Package</h2>
+
+        <p>
+            Enter your tracking number to check the status
+            of your shipment.
+        </p>
+
+        <form method="POST" action="/track">
+
+            <div class="tracking-form">
+
+                <input
+                    type="text"
+                    name="tracking_number"
+                    placeholder="Enter tracking number"
+                    required
+                >
+
+                <button type="submit">
+                    Track Shipment
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</section>
+
+
+<!-- Services -->
+<section class="services" id="services">
+
+    <div class="section-heading">
+
+        <p class="small-title">WHAT WE OFFER</p>
+
+        <h2>Our Courier Services</h2>
+
+        <p>
+            Reliable delivery solutions designed for individuals
+            and businesses.
+        </p>
+
+    </div>
+
+
+    <div class="service-grid">
+
+        <div class="service-card">
+            <div class="service-icon">01</div>
+
+            <h3>Domestic Delivery</h3>
+
+            <p>
+                Fast and dependable deliveries within your country.
+            </p>
+        </div>
+
+
+        <div class="service-card">
+            <div class="service-icon">02</div>
+
+            <h3>International Shipping</h3>
+
+            <p>
+                Send packages safely and efficiently across borders.
+            </p>
+        </div>
+
+
+        <div class="service-card">
+            <div class="service-icon">03</div>
+
+            <h3>Express Delivery</h3>
+
+            <p>
+                Priority courier services for urgent shipments.
+            </p>
+        </div>
+
+
+        <div class="service-card">
+            <div class="service-icon">04</div>
+
+            <h3>Business Logistics</h3>
+
+            <p>
+                Flexible courier solutions for businesses of all sizes.
+```

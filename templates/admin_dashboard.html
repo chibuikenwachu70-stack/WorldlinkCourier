@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+```
+<title>Admin Dashboard - WORLDLINK COURIER SERVICE</title>
+
+<link rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}">
+
+<style>
+    body {
+        margin: 0;
+        background: #f4f6f9;
+        font-family: Arial, sans-serif;
+    }
+
+    .admin-header {
+        background: #111827;
+        color: white;
+        padding: 20px 40px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .admin-logo {
+        font-size: 22px;
+        font-weight: bold;
+    }
+
+    .admin-logo span {
+        display: block;
+        font-size: 12px;
+        font-weight: normal;
+        margin-top: 4px;
+        opacity: 0.8;
+    }
+
+    .logout-button {
+        color: white;
+        text-decoration: none;
+        background: #dc2626;
+        padding: 10px 18px;
+        border-radius: 5px;
+    }
+
+    .admin-container {
+        max-width: 1400px;
+        margin: 40px auto;
+        padding: 0 25px;
+    }
+
+    .admin-container h1 {
+        margin-bottom: 8px;
+    }
+
+    .welcome-text {
+        color: #666;
+        margin-bottom: 30px;
+    }
+
+    .dashboard-actions {
+        margin-bottom: 25px;
+    }
+
+    .create-button {
+        display: inline-block;
+        background: #111827;
+        color: white;
+        text-decoration: none;
+        padding: 14px 22px;
+        border-radius: 5px;
+        font-weight: bold;
+    }
+
+    .create-button:hover {
+        background: #000;
+    }
+
+    .dashboard-card {
+        background: white;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+    }
+
+    .dashboard-card h2 {
+        margin-top: 0;
+    }
+
+    .empty-message {
+        padding: 25px;
+        background: #f5f7fb;
+        border-radius: 6px;
+        color: #666;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+    th {
+        background: #111827;
+        color: white;
+        padding: 14px;
+        text-align: left;
+        white-space: nowrap;
+    }
+
+    td {
+        padding: 14px;
+        border-bottom: 1px solid #eee;
+    }
+
+    tr:hover {
+        background: #f9fafb;
+    }
+
+    .status {
+        font-weight: bold;
+    }
+
+    .edit-button {
+        display: inline-block;
+        background: #2563eb;
+        color: white;
+        text-decoration: none;
+        padding: 9px 14px;
+        border-radius: 5px;
+        font-weight: bold;
+        white-space: nowrap;
+    }
+
+    .edit-button:hover {
+        background: #1d4ed8;
+    }
+
+    .back-home {
+        display: inline-block;
+        margin-top: 25px;
+        color: #555;
+        text-decoration: none;
+    }
+
+    @media (max-width: 800px) {
+
+        .admin-header {
+            padding: 20px;
+        }
+
+        .admin-container {
+            padding: 0 15px;
+        }
+
+        .dashboard-card {
+            padding: 20px;
+            overflow-x: auto;
+        }
+
+        table {
+            min-width: 1500px;
+        }
+    }
+</style>
+```
+
+</head>
+
+<body>
+
+<header class="admin-header">
+
+```
+<div class="admin-logo">
+    WORLDLINK
+    <span>COURIER SERVICE ADMINISTRATION</span>
+</div>
+
+<a href="/admin/logout" class="logout-button">
+    Logout
+</a>
+```
+
+</header>
+
+<main class="admin-container">
+
+```
+<h1>Admin Dashboard</h1>
+
+<p class="welcome-text">
+    Welcome to the WORLDLINK COURIER SERVICE administration area.
+</p>
+
+
+<div class="dashboard-actions">
+
+    <a href="/admin/create-shipment" class="create-button">
+        + Create New Shipment
+    </a>
+
+</div>
+
+
+<div class="dashboard-card">
+
+    <h2>Shipments</h2>
+
+    {% if shipments %}
+
+    <table>
+
+        <thead>
+            <tr>
+                <th>Tracking Number</th>
+                <th>Sender</th>
+                <th>Sender Address</th>
+                <th>Receiver</th>
+                <th>Receiver Address</th>
+                <th>Receiver Phone</th>
+                <th>Origin</th>
+                <th>Destination</th>
+                <th>Current Location</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            {% for shipment in shipments %}
+
+            <tr>
+
+                <td>
+                    {{ shipment.tracking_number }}
+                </td>
+
+                <td>
+                    {{ shipment.sender }}
+                </td>
+
+                <td>
+                    {{ shipment.sender_address }}
+                </td>
+
+                <td>
+                    {{ shipment.receiver }}
+                </td>
+
+                <td>
+                    {{ shipment.receiver_address }}
+                </td>
+
+                <td>
+                    {{ shipment.receiver_phone }}
+                </td>
+
+                <td>
+                    {{ shipment.origin }}
+                </td>
+
+                <td>
+                    {{ shipment.destination }}
+                </td>
+
+                <td>
+                    {{ shipment.current_location }}
+                </td>
+
+                <td class="status">
+                    {{ shipment.status }}
+                </td>
+
+                <td>
+                    <a
+                        href="{{ url_for('edit_shipment', shipment_id=shipment.id) }}"
+                        class="edit-button">
+                        Edit / Update
+                    </a>
+                </td>
+
+            </tr>
+
+            {% endfor %}
+
+        </tbody>
+
+    </table>
+
+    {% else %}
+
+    <div class="empty-message">
+        There are currently no shipments in the system.
+    </div>
+
+    {% endif %}
+
+</div>
+
+
+<a href="/" class="back-home">
+    ← Return to Homepage
+</a>
+```
+
+</main>
+
+</body>
+</html>

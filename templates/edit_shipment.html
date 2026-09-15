@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+```
+<title>Update Shipment - WORLDLINK COURIER SERVICE</title>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+<style>
+    body {
+        margin: 0;
+        background: #f4f6f9;
+        font-family: Arial, sans-serif;
+    }
+
+    .admin-header {
+        background: #111827;
+        color: white;
+        padding: 20px 40px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .admin-logo {
+        font-size: 22px;
+        font-weight: bold;
+    }
+
+    .admin-logo span {
+        display: block;
+        font-size: 12px;
+        font-weight: normal;
+        margin-top: 4px;
+        opacity: 0.8;
+    }
+
+    .logout-button {
+        color: white;
+        text-decoration: none;
+        background: #dc2626;
+        padding: 10px 18px;
+        border-radius: 5px;
+    }
+
+    .edit-container {
+        max-width: 800px;
+        margin: 40px auto;
+        padding: 0 25px;
+    }
+
+    .edit-card {
+        background: white;
+        padding: 35px;
+        border-radius: 10px;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+    }
+
+    .edit-card h1 {
+        margin-top: 0;
+    }
+
+    .shipment-info {
+        background: #f8fafc;
+        padding: 18px;
+        border-radius: 8px;
+        margin-bottom: 25px;
+    }
+
+    .shipment-info p {
+        margin: 8px 0;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: bold;
+    }
+
+    .form-group input,
+    .form-group select {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 14px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        font-size: 16px;
+    }
+
+    .update-button {
+        width: 100%;
+        padding: 15px;
+        border: none;
+        border-radius: 5px;
+        background: #111827;
+        color: white;
+        font-size: 16px;
+        cursor: pointer;
+        margin-top: 10px;
+    }
+
+    .back-link {
+        display: inline-block;
+        margin-top: 25px;
+        color: #555;
+        text-decoration: none;
+    }
+</style>
+```
+
+</head>
+
+<body>
+
+<header class="admin-header">
+
+```
+<div class="admin-logo">
+    WORLDLINK
+    <span>COURIER SERVICE ADMINISTRATION</span>
+</div>
+
+<a href="/admin/logout" class="logout-button">
+    Logout
+</a>
+```
+
+</header>
+
+<main class="edit-container">
+
+```
+<div class="edit-card">
+
+    <h1>Update Shipment</h1>
+
+    <div class="shipment-info">
+
+        <p>
+            <strong>Tracking Number:</strong>
+            {{ shipment.tracking_number }}
+        </p>
+
+        <p>
+            <strong>Sender:</strong>
+            {{ shipment.sender }}
+        </p>
+
+        <p>
+            <strong>Receiver:</strong>
+            {{ shipment.receiver }}
+        </p>
+
+        <p>
+            <strong>Origin:</strong>
+            {{ shipment.origin }}
+        </p>
+
+        <p>
+            <strong>Destination:</strong>
+            {{ shipment.destination }}
+        </p>
+
+    </div>
+
+    <form method="POST" action="{{ url_for('edit_shipment', shipment_id=shipment.id) }}">
+
+        <div class="form-group">
+
+            <label for="current_location">
+                Current Location
+            </label>
+
+            <input
+                type="text"
+                id="current_location"
+                name="current_location"
+                value="{{ shipment.current_location }}"
+                placeholder="Current city / country"
+                required
+            >
+
+        </div>
+
+        <div class="form-group">
+
+            <label for="status">
+                Shipment Status
+            </label>
+
+            <select id="status" name="status" required>
+
+                <option value="Shipment Received"
+                    {% if shipment.status == "Shipment Received" %}selected{% endif %}>
+                    Shipment Received
+                </option>
+
+                <option value="Processing"
+                    {% if shipment.status == "Processing" %}selected{% endif %}>
+                    Processing
+                </option>
+
+                <option value="Departed Origin"
+                    {% if shipment.status == "Departed Origin" %}selected{% endif %}>
+                    Departed Origin
+                </option>
+
+                <option value="In Transit"
+                    {% if shipment.status == "In Transit" %}selected{% endif %}>
+                    In Transit
+                </option>
+
+                <option value="Arrived at Hub"
+                    {% if shipment.status == "Arrived at Hub" %}selected{% endif %}>
+                    Arrived at Hub
+                </option>
+
+                <option value="Arrived at Destination"
+                    {% if shipment.status == "Arrived at Destination" %}selected{% endif %}>
+                    Arrived at Destination
+                </option>
+
+                <option value="Out for Delivery"
+                    {% if shipment.status == "Out for Delivery" %}selected{% endif %}>
+                    Out for Delivery
+                </option>
+
+                <option value="Delivered"
+                    {% if shipment.status == "Delivered" %}selected{% endif %}>
+                    Delivered
+                </option>
+
+            </select>
+
+        </div>
+
+        <button type="submit" class="update-button">
+            Update Shipment
+        </button>
+
+    </form>
+
+    <a href="/admin" class="back-link">
+        ← Back to Admin Dashboard
+    </a>
+
+</div>
+```
+
+</main>
+
+</body>
+</html>

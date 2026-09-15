@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+```
+<title>Track Shipment - WORLDLINK COURIER SERVICE</title>
+
+<link rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}">
+
+<style>
+    .tracking-history {
+        margin-top: 40px;
+    }
+
+    .tracking-history h2 {
+        margin-bottom: 30px;
+    }
+
+    .timeline {
+        position: relative;
+        margin-left: 15px;
+        padding-left: 35px;
+        border-left: 3px solid #dbe4f0;
+    }
+
+    .timeline-item {
+        position: relative;
+        margin-bottom: 30px;
+    }
+
+    .timeline-item:last-child {
+        margin-bottom: 0;
+    }
+
+    .timeline-dot {
+        position: absolute;
+        left: -47px;
+        top: 20px;
+        width: 18px;
+        height: 18px;
+        background: #22c55e;
+        border-radius: 50%;
+        border: 4px solid white;
+        box-shadow: 0 0 0 2px #22c55e;
+    }
+
+    .timeline-item.current .timeline-dot {
+        background: #1d4ed8;
+        box-shadow: 0 0 0 3px #1d4ed8;
+    }
+
+    .timeline-content {
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 3px 12px rgba(0, 0, 0, 0.07);
+        border: 1px solid #e5eaf1;
+    }
+
+    .timeline-item.current .timeline-content {
+        border: 2px solid #1d4ed8;
+        box-shadow: 0 4px 15px rgba(29, 78, 216, 0.12);
+    }
+
+    .timeline-content h3 {
+        margin: 0 0 10px 0;
+        color: #123b68;
+        font-size: 18px;
+    }
+
+    .timeline-item.current .timeline-content h3 {
+        color: #1d4ed8;
+    }
+
+    .current-label {
+        display: inline-block;
+        margin-left: 8px;
+        padding: 4px 8px;
+        background: #1d4ed8;
+        color: white;
+        border-radius: 12px;
+        font-size: 11px;
+        font-weight: bold;
+        vertical-align: middle;
+    }
+
+    .timeline-content p {
+        margin: 7px 0;
+    }
+
+    .timeline-date {
+        color: #777;
+        font-size: 14px;
+    }
+
+    .no-history {
+        padding: 15px;
+        background: #f5f7fb;
+        border-radius: 8px;
+        color: #666;
+    }
+
+    .status-summary {
+        margin-top: 25px;
+        padding: 18px;
+        background: #eef5ff;
+        border-left: 4px solid #1d4ed8;
+        border-radius: 7px;
+    }
+
+    .status-summary strong {
+        color: #123b68;
+    }
+</style>
+```
+
+</head>
+
+<body>
+
+<header class="navbar">
+
+```
+<div class="logo">
+    WORLDLINK
+    <span>COURIER SERVICE</span>
+</div>
+
+<nav>
+    <a href="/">Home</a>
+    <a href="/#about">About</a>
+    <a href="/#services">Services</a>
+    <a href="/track">Track Shipment</a>
+    <a href="/#contact">Contact</a>
+</nav>
+
+<a href="/#quote" class="quote-button">
+    Get a Quote
+</a>
+```
+
+</header>
+
+<section class="tracking">
+
+```
+<div class="tracking-box">
+
+    <p class="small-title">
+        SHIPMENT TRACKING
+    </p>
+
+    <h2>
+        Track Your Package
+    </h2>
+
+    <p>
+        Enter your Worldlink tracking number below.
+    </p>
+
+    <form method="POST" action="/track">
+
+        <div class="tracking-form">
+
+            <input
+                type="text"
+                name="tracking_number"
+                placeholder="Example: WLC123456789"
+                required
+            >
+
+            <button type="submit">
+                Track Shipment
+            </button>
+
+        </div>
+
+    </form>
+
+    {% if message %}
+
+    <div style="
+        margin-top: 25px;
+        padding: 15px;
+        background: #ffe8e8;
+        color: #a00000;
+        border-radius: 5px;
+    ">
+        {{ message }}
+    </div>
+
+    {% endif %}
+
+    {% if shipment %}
+
+    <div style="
+        margin-top: 35px;
+        text-align: left;
+        padding: 30px;
+        background: #f5f7fb;
+        border-radius: 8px;
+    ">
+
+        <h2>
+            Shipment Found
+        </h2>
+
+        <p>
+            <strong>Tracking Number:</strong>
+            {{ shipment.tracking_number }}
+        </p>
+
+        <p>
+            <strong>Sender:</strong>
+            {{ shipment.sender }}
+        </p>
+
+        <p>
+            <strong>Receiver:</strong>
+            {{ shipment.receiver }}
+        </p>
+
+        <p>
+            <strong>Origin:</strong>
+            {{ shipment.origin }}
+        </p>
+
+        <p>
+            <strong>Destination:</strong>
+            {{ shipment.destination }}
+        </p>
+
+        <p>
+            <strong>Current Location:</strong>
+            {{ shipment.current_location }}
+        </p>
+
+        <p>
+            <strong>Status:</strong>
+            {{ shipment.status }}
+        </p>
+
+        <div class="status-summary">
+            <strong>Latest Shipment Update:</strong><br>
+            {{ shipment.status }} — {{ shipment.current_location }}
+        </div>
+
+        <!-- TRACKING HISTORY -->
+
+        <div class="tracking-history">
+
+            <h2>
+                Tracking History
+            </h2>
+
+            {% if tracking_events %}
+
+            <div class="timeline">
+
+                {% for event in tracking_events %}
+
+                <div class="timeline-item {% if loop.first %}current{% endif %}">
+
+                    <div class="timeline-dot"></div>
+
+                    <div class="timeline-content">
+
+                        <h3>
+                            {{ event.status }}
+
+                            {% if loop.first %}
+                                <span class="current-label">CURRENT</span>
+                            {% endif %}
+                        </h3>
+
+                        <p>
+                            <strong>Location:</strong>
+                            {{ event.location }}
+                        </p>
+
+                        <p class="timeline-date">
+                            {{ event.event_time.strftime("%d %B %Y, %I:%M %p") }}
+                        </p>
+
+                    </div>
+
+                </div>
+
+                {% endfor %}
+
+            </div>
+
+            {% else %}
+
+            <div class="no-history">
+                No tracking history is available yet.
+            </div>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+    {% endif %}
+
+</div>
+```
+
+</section>
+
+<footer>
+
+```
+<div class="footer-logo">
+    WORLDLINK COURIER SERVICE
+</div>
+
+<p>
+    Fast. Reliable. Worldwide.
+</p>
+
+<p class="copyright">
+    © 2026 WORLDLINK COURIER SERVICE.
+    All rights reserved.
+</p>
+```
+
+</footer>
+
+</body>
+</html>

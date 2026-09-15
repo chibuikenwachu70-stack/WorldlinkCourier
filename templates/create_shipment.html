@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Create Shipment - WORLDLINK COURIER SERVICE</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <style>
+        body {
+            margin: 0;
+            background: #f4f6f9;
+            font-family: Arial, sans-serif;
+        }
+
+        .admin-header {
+            background: #111827;
+            color: white;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .admin-logo {
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .admin-logo span {
+            display: block;
+            font-size: 12px;
+            font-weight: normal;
+            margin-top: 4px;
+            opacity: 0.8;
+        }
+
+        .logout-button {
+            color: white;
+            text-decoration: none;
+            background: #dc2626;
+            padding: 10px 18px;
+            border-radius: 5px;
+        }
+
+        .create-container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 0 25px;
+        }
+
+        .create-card {
+            background: white;
+            padding: 35px;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .create-card h1 {
+            margin-top: 0;
+        }
+
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 14px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .create-button {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 5px;
+            background: #111827;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .create-button:hover {
+            background: #000;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 25px;
+            color: #555;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+
+<header class="admin-header">
+
+    <div class="admin-logo">
+        WORLDLINK
+        <span>COURIER SERVICE ADMINISTRATION</span>
+    </div>
+
+    <a href="/admin/logout" class="logout-button">
+        Logout
+    </a>
+
+</header>
+
+
+<main class="create-container">
+
+    <div class="create-card">
+
+        <h1>Create New Shipment</h1>
+
+        <p class="subtitle">
+            Enter the shipment information below.
+            A tracking number will be generated automatically.
+        </p>
+
+
+        <form method="POST" action="/admin/create-shipment">
+
+
+            <!-- SENDER NAME -->
+
+            <div class="form-group">
+
+                <label for="sender">
+                    Sender Name
+                </label>
+
+                <input
+                    type="text"
+                    id="sender"
+                    name="sender"
+                    placeholder="Enter sender name"
+                    required
+                >
+
+            </div>
+
+
+            <!-- SENDER ADDRESS -->
+
+            <div class="form-group">
+
+                <label for="sender_address">
+                    Sender Address
+                </label>
+
+                <input
+                    type="text"
+                    id="sender_address"
+                    name="sender_address"
+                    placeholder="Enter sender full address"
+                    required
+                >
+
+            </div>
+
+
+            <!-- RECEIVER NAME -->
+
+            <div class="form-group">
+
+                <label for="receiver">
+                    Receiver Name
+                </label>
+
+                <input
+                    type="text"
+                    id="receiver"
+                    name="receiver"
+                    placeholder="Enter receiver name"
+                    required
+                >
+
+            </div>
+
+
+            <!-- RECEIVER ADDRESS -->
+
+            <div class="form-group">
+
+                <label for="receiver_address">
+                    Receiver Address
+                </label>
+
+                <input
+                    type="text"
+                    id="receiver_address"
+                    name="receiver_address"
+                    placeholder="Enter receiver full address"
+                    required
+                >
+
+            </div>
+
+
+            <!-- RECEIVER PHONE -->
+
+            <div class="form-group">
+
+                <label for="receiver_phone">
+                    Receiver Phone Number
+                </label>
+
+                <input
+                    type="tel"
+                    id="receiver_phone"
+                    name="receiver_phone"
+                    placeholder="Enter receiver phone number"
+                    required
+                >
+
+            </div>
+
+
+            <!-- ORIGIN -->
+
+            <div class="form-group">
+
+                <label for="origin">
+                    Origin
+                </label>
+
+                <input
+                    type="text"
+                    id="origin"
+                    name="origin"
+                    placeholder="City / Country"
+                    required
+                >
+
+            </div>
+
+
+            <!-- DESTINATION -->
+
+            <div class="form-group">
+
+                <label for="destination">
+                    Destination
+                </label>
+
+                <input
+                    type="text"
+                    id="destination"
+                    name="destination"
+                    placeholder="City / Country"
+                    required
+                >
+
+            </div>
+
+
+            <!-- CURRENT LOCATION -->
+
+            <div class="form-group">
+
+                <label for="current_location">
+                    Current Location
+                </label>
+
+                <input
+                    type="text"
+                    id="current_location"
+                    name="current_location"
+                    placeholder="Current city / country"
+                >
+
+            </div>
+
+
+            <!-- SHIPMENT STATUS -->
+
+            <div class="form-group">
+
+                <label for="status">
+                    Shipment Status
+                </label>
+
+                <select id="status" name="status">
+
+                    <option value="Shipment Received">
+                        Shipment Received
+                    </option>
+
+                    <option value="Processing">
+                        Processing
+                    </option>
+
+                    <option value="In Transit">
+                        In Transit
+                    </option>
+
+                    <option value="Out for Delivery">
+                        Out for Delivery
+                    </option>
+
+                    <option value="Delivered">
+                        Delivered
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- CREATE BUTTON -->
+
+            <button
+                type="submit"
+                class="create-button"
+            >
+                Create Shipment
+            </button>
+
+        </form>
+
+
+        <a href="/admin" class="back-link">
+            ← Back to Admin Dashboard
+        </a>
+
+    </div>
+
+</main>
+
+</body>
+</html>
