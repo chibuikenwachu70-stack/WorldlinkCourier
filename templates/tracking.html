@@ -1,337 +1,703 @@
-<!DOCTYPE html>
+{% extends "base.html" %}
+{% block title %}Track Shipment | Worldlink Courier Service{% endblock %}
 
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-```
-<title>Track Shipment - WORLDLINK COURIER SERVICE</title>
-
-<link rel="stylesheet"
-      href="{{ url_for('static', filename='css/style.css') }}">
+{% block content %}
 
 <style>
-    .tracking-history {
-        margin-top: 40px;
+    .worldlink-found-banner {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        margin: 0 0 24px;
+        padding: 20px 22px;
+        background: #f0f8f4;
+        border: 1px solid #c9e6d7;
+        border-radius: 14px;
+        box-shadow: 0 8px 24px rgba(16, 61, 42, .05);
     }
 
-    .tracking-history h2 {
-        margin-bottom: 30px;
-    }
-
-    .timeline {
-        position: relative;
-        margin-left: 15px;
-        padding-left: 35px;
-        border-left: 3px solid #dbe4f0;
-    }
-
-    .timeline-item {
-        position: relative;
-        margin-bottom: 30px;
-    }
-
-    .timeline-item:last-child {
-        margin-bottom: 0;
-    }
-
-    .timeline-dot {
-        position: absolute;
-        left: -47px;
-        top: 20px;
-        width: 18px;
-        height: 18px;
-        background: #22c55e;
+    .worldlink-found-icon {
+        width: 42px;
+        height: 42px;
+        flex: 0 0 42px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         border-radius: 50%;
-        border: 4px solid white;
-        box-shadow: 0 0 0 2px #22c55e;
+        background: #1f9d68;
+        color: #fff;
+        font-size: 22px;
+        font-weight: 900;
     }
 
-    .timeline-item.current .timeline-dot {
-        background: #1d4ed8;
-        box-shadow: 0 0 0 3px #1d4ed8;
+    .worldlink-found-kicker {
+        display: block;
+        margin-bottom: 3px;
+        color: #23825a;
+        font-size: 9px;
+        font-weight: 900;
+        letter-spacing: .16em;
     }
 
-    .timeline-content {
-        background: white;
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0 3px 12px rgba(0, 0, 0, 0.07);
-        border: 1px solid #e5eaf1;
+    .worldlink-found-banner h2 {
+        margin: 0;
+        color: #123b2b;
+        font-size: 25px;
+        line-height: 1.15;
+        letter-spacing: -.025em;
     }
 
-    .timeline-item.current .timeline-content {
-        border: 2px solid #1d4ed8;
-        box-shadow: 0 4px 15px rgba(29, 78, 216, 0.12);
+    .worldlink-found-banner p {
+        margin: 5px 0 0;
+        color: #607a6d;
+        font-size: 12px;
+        line-height: 1.6;
     }
 
-    .timeline-content h3 {
-        margin: 0 0 10px 0;
-        color: #123b68;
-        font-size: 18px;
+    .worldlink-found-banner strong {
+        color: #234c3a;
     }
 
-    .timeline-item.current .timeline-content h3 {
-        color: #1d4ed8;
-    }
+    @media (max-width: 620px) {
+        .worldlink-found-banner {
+            align-items: flex-start;
+            padding: 17px;
+        }
 
-    .current-label {
-        display: inline-block;
-        margin-left: 8px;
-        padding: 4px 8px;
-        background: #1d4ed8;
-        color: white;
-        border-radius: 12px;
-        font-size: 11px;
-        font-weight: bold;
-        vertical-align: middle;
-    }
-
-    .timeline-content p {
-        margin: 7px 0;
-    }
-
-    .timeline-date {
-        color: #777;
-        font-size: 14px;
-    }
-
-    .no-history {
-        padding: 15px;
-        background: #f5f7fb;
-        border-radius: 8px;
-        color: #666;
-    }
-
-    .status-summary {
-        margin-top: 25px;
-        padding: 18px;
-        background: #eef5ff;
-        border-left: 4px solid #1d4ed8;
-        border-radius: 7px;
-    }
-
-    .status-summary strong {
-        color: #123b68;
+        .worldlink-found-banner h2 {
+            font-size: 21px;
+        }
     }
 </style>
-```
 
-</head>
 
-<body>
+<section class="page-hero tracking-page-hero">
+    <div class="container">
+        <span class="eyebrow">WORLDLINK TRACKING</span>
 
-<header class="navbar">
+        <h1>Track your shipment.</h1>
 
-```
-<div class="logo">
-    WORLDLINK
-    <span>COURIER SERVICE</span>
-</div>
+        <p>
+            Enter your Worldlink tracking number to view the latest shipment
+            status, location and delivery information.
+        </p>
 
-<nav>
-    <a href="/">Home</a>
-    <a href="/#about">About</a>
-    <a href="/#services">Services</a>
-    <a href="/track">Track Shipment</a>
-    <a href="/#contact">Contact</a>
-</nav>
-
-<a href="/#quote" class="quote-button">
-    Get a Quote
-</a>
-```
-
-</header>
-
-<section class="tracking">
-
-```
-<div class="tracking-box">
-
-    <p class="small-title">
-        SHIPMENT TRACKING
-    </p>
-
-    <h2>
-        Track Your Package
-    </h2>
-
-    <p>
-        Enter your Worldlink tracking number below.
-    </p>
-
-    <form method="POST" action="/track">
-
-        <div class="tracking-form">
-
+        <form class="track-panel" method="POST">
             <input
-                type="text"
                 name="tracking_number"
-                placeholder="Example: WLC123456789"
+                value="{{ tracking_number }}"
+                placeholder="Enter WLC tracking number"
+                autocomplete="off"
                 required
             >
 
-            <button type="submit">
-                Track Shipment
+            <button class="btn btn-primary" type="submit">
+                Track shipment →
             </button>
+        </form>
 
-        </div>
+        <small class="tracking-example">
+            Example: WLC123456789
+        </small>
+    </div>
+</section>
 
-    </form>
 
-    {% if message %}
+<section class="section tracking-section">
 
-    <div style="
-        margin-top: 25px;
-        padding: 15px;
-        background: #ffe8e8;
-        color: #a00000;
-        border-radius: 5px;
-    ">
-        {{ message }}
+<div class="container">
+
+{% if message %}
+
+    <div class="empty-state tracking-error">
+
+        <div class="empty-icon">!</div>
+
+        <span class="kicker">TRACKING RESULT</span>
+
+        <h2>Tracking information unavailable</h2>
+
+        <p>{{ message }}</p>
+
+        <a href="{{ url_for('track') }}" class="btn btn-primary">
+            Try another tracking number →
+        </a>
+
     </div>
 
+
+{% elif shipment %}
+
+    {% set current_status = shipment.status|lower %}
+
+    {# Customs-aware customer-facing shipment progress #}
+    {% if current_status == 'delivered' %}
+        {% set progress = 100 %}
+        {% set status_class = 'delivered' %}
+    {% elif current_status == 'out for delivery' %}
+        {% set progress = 92 %}
+        {% set status_class = 'delivery' %}
+    {% elif current_status == 'released from customs' %}
+        {% set progress = 82 %}
+        {% set status_class = 'customs-released' %}
+    {% elif current_status == 'customs cleared' %}
+        {% set progress = 75 %}
+        {% set status_class = 'customs-cleared' %}
+    {% elif current_status == 'clearance in progress' %}
+        {% set progress = 68 %}
+        {% set status_class = 'customs' %}
+    {% elif current_status == 'duties / taxes due' %}
+        {% set progress = 62 %}
+        {% set status_class = 'customs' %}
+    {% elif current_status == 'customs hold' %}
+        {% set progress = 58 %}
+        {% set status_class = 'customs-hold' %}
+    {% elif current_status == 'customs documentation required' %}
+        {% set progress = 58 %}
+        {% set status_class = 'customs-hold' %}
+    {% elif current_status == 'customs clearance' %}
+        {% set progress = 58 %}
+        {% set status_class = 'customs' %}
+    {% elif current_status == 'arrived at destination country' %}
+        {% set progress = 50 %}
+        {% set status_class = 'destination' %}
+    {% elif current_status == 'at sorting facility' %}
+        {% set progress = 40 %}
+        {% set status_class = 'transit' %}
+    {% elif current_status == 'in transit' %}
+        {% set progress = 30 %}
+        {% set status_class = 'transit' %}
+    {% elif current_status == 'processing' %}
+        {% set progress = 18 %}
+        {% set status_class = 'processing' %}
+    {% elif 'received' in current_status or 'created' in current_status %}
+        {% set progress = 10 %}
+        {% set status_class = 'received' %}
+    {% elif current_status == 'delivery exception' or current_status == 'address issue' or current_status == 'on hold' %}
+        {% set progress = 45 %}
+        {% set status_class = 'exception' %}
+    {% elif current_status == 'payment required' %}
+        {% set progress = 62 %}
+        {% set status_class = 'exception' %}
+    {% elif current_status == 'return to sender' %}
+        {% set progress = 35 %}
+        {% set status_class = 'exception' %}
+    {% else %}
+        {% set progress = 10 %}
+        {% set status_class = 'active' %}
     {% endif %}
 
-    {% if shipment %}
 
-    <div style="
-        margin-top: 35px;
-        text-align: left;
-        padding: 30px;
-        background: #f5f7fb;
-        border-radius: 8px;
-    ">
+    <!-- SHIPMENT FOUND BANNER -->
 
-        <h2>
-            Shipment Found
-        </h2>
+    <div class="worldlink-found-banner" role="status" aria-live="polite">
+        <div class="worldlink-found-icon">✓</div>
+        <div>
+            <span class="worldlink-found-kicker">TRACKING RESULT</span>
+            <h2>Shipment found</h2>
+            <p>
+                We found your shipment. Here are the latest tracking details
+                available for <strong>{{ shipment.tracking_number }}</strong>.
+            </p>
+        </div>
+    </div>
 
-        <p>
-            <strong>Tracking Number:</strong>
-            {{ shipment.tracking_number }}
-        </p>
+    <!-- TRACKING HEADER -->
 
-        <p>
-            <strong>Sender:</strong>
-            {{ shipment.sender }}
-        </p>
+    <div class="tracking-header">
 
-        <p>
-            <strong>Receiver:</strong>
-            {{ shipment.receiver }}
-        </p>
+        <div>
+            <span class="kicker">TRACKING NUMBER</span>
 
-        <p>
-            <strong>Origin:</strong>
-            {{ shipment.origin }}
-        </p>
-
-        <p>
-            <strong>Destination:</strong>
-            {{ shipment.destination }}
-        </p>
-
-        <p>
-            <strong>Current Location:</strong>
-            {{ shipment.current_location }}
-        </p>
-
-        <p>
-            <strong>Status:</strong>
-            {{ shipment.status }}
-        </p>
-
-        <div class="status-summary">
-            <strong>Latest Shipment Update:</strong><br>
-            {{ shipment.status }} — {{ shipment.current_location }}
+            <h2>{{ shipment.tracking_number }}</h2>
         </div>
 
-        <!-- TRACKING HISTORY -->
+        <div class="tracking-current-status {{ status_class }}">
+            <span class="status-dot"></span>
+            {{ shipment.status }}
+        </div>
 
-        <div class="tracking-history">
+    </div>
 
-            <h2>
-                Tracking History
-            </h2>
 
-            {% if tracking_events %}
+    <!-- DELIVERY SUMMARY -->
 
-            <div class="timeline">
+    <div class="delivery-summary">
 
-                {% for event in tracking_events %}
+        <div class="delivery-summary-item">
 
-                <div class="timeline-item {% if loop.first %}current{% endif %}">
+            <span class="summary-label">
+                CURRENT LOCATION
+            </span>
 
-                    <div class="timeline-dot"></div>
+            <strong>
+                {{ shipment.current_location or 'Not updated' }}
+            </strong>
 
-                    <div class="timeline-content">
+        </div>
+
+
+        <div class="delivery-summary-item">
+
+            <span class="summary-label">
+                ESTIMATED DELIVERY
+            </span>
+
+            <strong>
+                {% if shipment.estimated_delivery %}
+                    {{ shipment.estimated_delivery.strftime('%d %b %Y') }}
+                {% else %}
+                    To be confirmed
+                {% endif %}
+            </strong>
+
+        </div>
+
+
+        <div class="delivery-summary-item">
+
+            <span class="summary-label">
+                SERVICE
+            </span>
+
+            <strong>
+                {{ shipment.service_type or 'Standard Delivery' }}
+            </strong>
+
+        </div>
+
+    </div>
+
+
+    <div class="tracking-layout">
+
+
+        <!-- MAIN TRACKING CONTENT -->
+
+        <div class="tracking-main">
+
+
+            <!-- ROUTE -->
+
+            <div class="route-card">
+
+                <div class="route-location">
+
+                    <span class="route-label">
+                        FROM
+                    </span>
+
+                    <strong>
+                        {{ shipment.origin }}
+                    </strong>
+
+                    <small>
+                        Shipment origin
+                    </small>
+
+                </div>
+
+
+                <div class="route-line">
+
+                    <div class="route-line-inner"></div>
+
+                    <span class="route-plane">
+                        →
+                    </span>
+
+                </div>
+
+
+                <div class="route-location destination">
+
+                    <span class="route-label">
+                        TO
+                    </span>
+
+                    <strong>
+                        {{ shipment.destination }}
+                    </strong>
+
+                    <small>
+                        Delivery destination
+                    </small>
+
+                </div>
+
+            </div>
+
+
+            <!-- PROGRESS -->
+
+            <div class="progress-card">
+
+                <div class="progress-top">
+
+                    <div>
+
+                        <small>
+                            SHIPMENT STATUS
+                        </small>
+
+                        <strong>
+                            {{ shipment.status }}
+                        </strong>
+
+                    </div>
+
+
+                    <div class="progress-percentage">
+                        {{ progress }}%
+                    </div>
+
+                </div>
+
+
+                <div class="progress-track">
+
+                    <div
+                        class="progress-fill {{ status_class }}"
+                        style="width: {{ progress }}%;"
+                    ></div>
+
+                </div>
+
+
+                <div class="progress-labels">
+
+                    <span class="{% if progress >= 10 %}active{% endif %}">
+                        Received
+                    </span>
+
+                    <span class="{% if progress >= 30 %}active{% endif %}">
+                        In transit
+                    </span>
+
+                    <span class="{% if progress >= 58 %}active{% endif %}">
+                        Customs
+                    </span>
+
+                    <span class="{% if progress >= 92 %}active{% endif %}">
+                        Delivery
+                    </span>
+
+                    <span class="{% if progress >= 100 %}active{% endif %}">
+                        Delivered
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- TRACKING EVENTS -->
+
+            <div class="events-card">
+
+                <div class="card-heading">
+
+                    <div>
+
+                        <span class="kicker">
+                            SHIPMENT ACTIVITY
+                        </span>
 
                         <h3>
-                            {{ event.status }}
-
-                            {% if loop.first %}
-                                <span class="current-label">CURRENT</span>
-                            {% endif %}
+                            Tracking history
                         </h3>
 
-                        <p>
-                            <strong>Location:</strong>
-                            {{ event.location }}
-                        </p>
+                    </div>
 
-                        <p class="timeline-date">
-                            {{ event.event_time.strftime("%d %B %Y, %I:%M %p") }}
-                        </p>
+                    <span class="event-count">
+                        {{ tracking_events|length }}
+                        {% if tracking_events|length == 1 %}
+                            event
+                        {% else %}
+                            events
+                        {% endif %}
+                    </span>
+
+                </div>
+
+
+                {% if tracking_events %}
+
+                <div class="timeline">
+
+                    {% for event in tracking_events %}
+
+                    <div class="timeline-item {% if loop.first %}current{% endif %}">
+
+                        <div class="timeline-marker">
+
+                            <div class="timeline-dot"></div>
+
+                            {% if not loop.last %}
+                                <div class="timeline-line"></div>
+                            {% endif %}
+
+                        </div>
+
+
+                        <div class="timeline-content">
+
+                            <div class="timeline-heading">
+
+                                <strong>
+                                    {{ event.status }}
+                                </strong>
+
+                                {% if loop.first %}
+                                    <span class="latest-badge">
+                                        Latest
+                                    </span>
+                                {% endif %}
+
+                            </div>
+
+
+                            <span class="timeline-location">
+                                {{ event.location }}
+                            </span>
+
+
+                            {% if event.note %}
+
+                            <p class="timeline-note">
+                                {{ event.note }}
+                            </p>
+
+                            {% endif %}
+
+
+                            <time>
+                                {{ event.event_time.strftime('%d %b %Y, %H:%M') }}
+                                UTC
+                            </time>
+
+                        </div>
+
+                    </div>
+
+                    {% endfor %}
+
+                </div>
+
+                {% else %}
+
+                <div class="no-events">
+
+                    <div class="empty-icon">
+                        —
+                    </div>
+
+                    <h3>
+                        No tracking events yet
+                    </h3>
+
+                    <p>
+                        Tracking activity will appear here once shipment
+                        updates are recorded.
+                    </p>
+
+                </div>
+
+                {% endif %}
+
+            </div>
+
+
+        </div>
+
+
+        <!-- SIDEBAR -->
+
+        <aside class="tracking-side">
+
+
+            <!-- SHIPMENT DETAILS -->
+
+            <div class="side-card">
+
+                <span class="kicker">
+                    PACKAGE INFORMATION
+                </span>
+
+                <h3>
+                    Shipment details
+                </h3>
+
+
+                <dl>
+
+                    <div>
+                        <dt>Sender</dt>
+                        <dd>{{ shipment.sender }}</dd>
+                    </div>
+
+
+                    <div>
+                        <dt>Receiver</dt>
+                        <dd>{{ shipment.receiver }}</dd>
+                    </div>
+
+
+                    {% if shipment.package_description %}
+
+                    <div>
+                        <dt>Package</dt>
+                        <dd>
+                            {{ shipment.package_description }}
+                        </dd>
+                    </div>
+
+                    {% endif %}
+
+
+                    {% if shipment.weight is not none %}
+
+                    <div>
+                        <dt>Weight</dt>
+                        <dd>
+                            {{ "%.2f"|format(shipment.weight) }} kg
+                        </dd>
+                    </div>
+
+                    {% endif %}
+
+
+                    <div>
+                        <dt>Service</dt>
+                        <dd>
+                            {{ shipment.service_type or 'Standard Delivery' }}
+                        </dd>
+                    </div>
+
+
+                    <div>
+                        <dt>Estimated delivery</dt>
+
+                        <dd>
+
+                            {% if shipment.estimated_delivery %}
+
+                                {{ shipment.estimated_delivery.strftime('%d %b %Y') }}
+
+                            {% else %}
+
+                                To be confirmed
+
+                            {% endif %}
+
+                        </dd>
+
+                    </div>
+
+                </dl>
+
+            </div>
+
+
+            <!-- CURRENT LOCATION -->
+
+            <div class="side-card location-card">
+
+                <span class="kicker">
+                    LIVE SHIPMENT INFORMATION
+                </span>
+
+                <h3>
+                    Current location
+                </h3>
+
+                <div class="current-location">
+
+                    <span class="location-pin">
+                        ●
+                    </span>
+
+                    <div>
+
+                        <strong>
+                            {{ shipment.current_location or 'Not updated' }}
+                        </strong>
+
+                        <span>
+                            Latest recorded location
+                        </span>
 
                     </div>
 
                 </div>
 
-                {% endfor %}
+            </div>
+
+
+            <!-- SUPPORT -->
+
+            <div class="side-card help-card">
+
+                <span class="kicker">
+                    NEED HELP?
+                </span>
+
+                <h3>
+                    Questions about this shipment?
+                </h3>
+
+                <p>
+                    Contact Worldlink support and keep your tracking number
+                    available so our team can assist you.
+                </p>
+
+                <a href="{{ url_for('support') }}">
+                    Contact support →
+                </a>
 
             </div>
 
-            {% else %}
 
-            <div class="no-history">
-                No tracking history is available yet.
+        </aside>
+
+    </div>
+
+
+{% else %}
+
+
+    <!-- EMPTY TRACKING STATE -->
+
+    <div class="tracking-intro">
+
+        <div class="intro-box">
+
+            <div class="intro-icon">
+                ⌕
             </div>
 
-            {% endif %}
+            <span class="kicker">
+                SHIPMENT TRACKING
+            </span>
+
+            <h2>
+                Enter a tracking number above
+            </h2>
+
+            <p>
+                Your shipment status, current location and tracking history
+                will appear here.
+            </p>
 
         </div>
 
     </div>
 
-    {% endif %}
+
+{% endif %}
 
 </div>
-```
 
 </section>
 
-<footer>
-
-```
-<div class="footer-logo">
-    WORLDLINK COURIER SERVICE
-</div>
-
-<p>
-    Fast. Reliable. Worldwide.
-</p>
-
-<p class="copyright">
-    © 2026 WORLDLINK COURIER SERVICE.
-    All rights reserved.
-</p>
-```
-
-</footer>
-
-</body>
-</html>
+{% endblock %}

@@ -399,6 +399,7 @@ def home():
         "index.html"
     )
 
+
 @app.route(
     "/track",
     methods=["GET", "POST"],
@@ -1155,6 +1156,25 @@ def chat_send():
         or ""
     ).strip()
 
+    # If this is an existing conversation, recover the customer
+    # details from the first saved message. This means a returning
+    # customer does not have to enter their name and email again.
+    if conversation_id:
+        first_message = (
+            ChatMessage.query
+            .filter_by(conversation_id=conversation_id)
+            .order_by(ChatMessage.created_at.asc())
+            .first()
+        )
+
+        if first_message:
+            if not customer_name:
+                customer_name = first_message.customer_name
+            if not customer_email:
+                customer_email = first_message.customer_email
+            if not tracking_number:
+                tracking_number = first_message.tracking_number or ""
+
     if not customer_name:
 
         return jsonify({
@@ -1384,6 +1404,97 @@ def admin_chats():
         unread=
             unread,
     )
+
+
+# =========================================================
+# ADMIN CHAT JSON API
+# =========================================================
+
+@app.route("/api/admin/chat/<conversation_id>")
+@admin_required
+def admin_chat_api(conversation_id):
+
+    conversation_id = conversation_id.strip()
+
+    messages = (
+        ChatMessage.query
+        .filter_by(conversation_id=conversation_id)
+        .order_by(ChatMessage.created_at.asc())
+        .all()
+    )
+
+    if not messages:
+        return jsonify({"success": False, "error": "Conversation not found."}), 404
+
+    # The administrator is actively viewing this conversation, so
+    # customer messages retrieved here are considered read.
+    ChatMessage.query.filter_by(
+        conversation_id=conversation_id,
+        sender_type="customer",
+    ).update(
+        {"is_read": True},
+        synchronize_session=False,
+    )
+    db.session.commit()
+
+    return jsonify({
+        "success": True,
+        "conversation_id": conversation_id,
+        "messages": [
+            {
+                "id": m.id,
+                "sender_type": m.sender_type,
+                "customer_name": m.customer_name,
+                "message": m.message,
+                "created_at": m.created_at.isoformat(),
+            }
+            for m in messages
+        ],
+    })
+
+
+# =========================================================
+# ADMIN CHAT LIST JSON API
+# =========================================================
+
+@app.route("/api/admin/chats")
+@admin_required
+def admin_chats_api():
+
+    rows = (
+        ChatMessage.query
+        .order_by(ChatMessage.created_at.desc())
+        .all()
+    )
+
+    conversations = {}
+
+    for row in rows:
+        if row.conversation_id not in conversations:
+            conversations[row.conversation_id] = {
+                "conversation_id": row.conversation_id,
+                "customer_name": row.customer_name,
+                "customer_email": row.customer_email,
+                "tracking_number": row.tracking_number,
+                "last_message": row.message,
+                "last_message_at": row.created_at.isoformat(),
+                "unread": 0,
+            }
+
+        if row.sender_type == "customer" and not row.is_read:
+            conversations[row.conversation_id]["unread"] += 1
+
+    conversation_list = list(conversations.values())
+    conversation_list.sort(
+        key=lambda item: item["last_message_at"],
+        reverse=True,
+    )
+
+    return jsonify({
+        "success": True,
+        "unread": get_unread_chat_count(),
+        "conversations": conversation_list,
+    })
 
 
 # =========================================================

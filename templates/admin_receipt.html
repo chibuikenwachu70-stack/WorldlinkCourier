@@ -1,0 +1,453 @@
+{% extends "base.html" %}
+
+{% block title %}Shipment Receipt | {{ shipment.tracking_number }}{% endblock %}
+
+{% block content %}
+
+<style>
+* { box-sizing: border-box; }
+
+.wld-page {
+    min-height: calc(100vh - 58px);
+    height: calc(100vh - 58px);
+    padding: 7px;
+    background: #061d3b;
+    overflow: hidden;
+}
+
+.wld-document {
+    width: min(900px, 100%);
+    height: 100%;
+    margin: 0 auto;
+    overflow: hidden;
+    border: 1px solid #168cff;
+    border-radius: 10px;
+    background: linear-gradient(145deg,#07346d,#031d3d);
+    box-shadow: 0 10px 35px rgba(0,0,0,.3);
+}
+
+.wld-header {
+    padding: 9px 14px 7px;
+    background: linear-gradient(110deg,#06295b,#041c3a);
+}
+
+.wld-header-row {
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:12px;
+}
+
+.wld-logo { width:145px; display:block; }
+.wld-tagline { margin-top:2px; color:#8db8e6; font-size:5px; }
+
+.wld-document-title { text-align:right; }
+.wld-document-title span {
+    display:block; color:#5db7ff; font-size:5px; font-weight:900;
+    letter-spacing:.15em;
+}
+.wld-document-title h1 {
+    margin:2px 0 0; color:#fff; font-size:19px; line-height:1;
+}
+
+.wld-contact-strip {
+    display:grid;
+    grid-template-columns:2fr 1fr 1fr 1fr;
+    margin-top:7px;
+    border:1px solid rgba(80,170,255,.3);
+    border-radius:5px;
+    overflow:hidden;
+    background:#052650;
+}
+.wld-contact { padding:5px 7px; border-right:1px solid rgba(80,170,255,.2); }
+.wld-contact:last-child { border-right:0; }
+.wld-contact small {
+    display:block; color:#59b5ff; font-size:4.5px; font-weight:900;
+    letter-spacing:.1em; margin-bottom:2px;
+}
+.wld-contact strong { display:block; color:#fff; font-size:6px; word-break:break-word; }
+.wld-contact span { display:block; margin-top:1px; color:#789dc3; font-size:4.5px; }
+
+.wld-body { padding:7px 11px 8px; }
+
+.wld-hero {
+    padding:8px 10px;
+    border:1px solid #1595ff;
+    border-radius:6px;
+    background:linear-gradient(105deg,#0750a6,#063875);
+}
+.wld-hero-label { color:#63c1ff; font-size:5px; font-weight:900; letter-spacing:.14em; }
+.wld-hero h2 {
+    margin:2px 0; color:#fff; font-size:13px; line-height:1.05;
+}
+.wld-hero p { margin:0; color:#b8d6f4; font-size:5.5px; }
+
+.wld-tracking {
+    display:grid;
+    grid-template-columns:1.4fr 1fr;
+    margin-top:6px;
+    padding:6px 8px;
+    border-radius:5px;
+    background:#03234b;
+}
+.wld-tracking-block { padding-right:8px; border-right:1px solid rgba(90,180,255,.25); }
+.wld-tracking-block:last-child { padding-left:8px; padding-right:0; border:0; }
+.wld-label {
+    display:block; color:#5db9ff; font-size:4.5px; font-weight:900;
+    letter-spacing:.1em; margin-bottom:2px;
+}
+.wld-tracking-number { color:#fff; font-size:16px; font-weight:900; letter-spacing:.02em; }
+.wld-muted { color:#779bc0; font-size:4.5px; }
+.wld-status { display:flex; align-items:center; gap:4px; color:#49ed9a; font-size:8px; font-weight:900; }
+.wld-check {
+    width:15px; height:15px; display:inline-flex; align-items:center; justify-content:center;
+    border-radius:50%; background:#28df78; color:#063121; font-size:9px;
+}
+.wld-status-description { margin-top:2px; color:#9cbad8; font-size:4.5px; }
+
+.wld-section {
+    margin-top:5px;
+    border:1px solid rgba(42,145,255,.65);
+    border-radius:5px;
+    overflow:hidden;
+    background:#062b5b;
+}
+.wld-section-title {
+    padding:4px 7px;
+    color:#fff;
+    background:#0758b7;
+    font-size:5px;
+    font-weight:900;
+    letter-spacing:.1em;
+}
+.wld-summary { display:grid; grid-template-columns:repeat(4,1fr); }
+.wld-summary-item { padding:5px 7px; border-right:1px solid rgba(75,165,255,.2); }
+.wld-summary-item:last-child { border:0; }
+.wld-summary-item small,.wld-party small,.wld-route-box small,.wld-package-item small {
+    display:block; color:#62baff; font-size:4px; font-weight:900;
+    letter-spacing:.09em; margin-bottom:2px;
+}
+.wld-summary-item strong,.wld-party strong,.wld-route-box strong,.wld-package-item strong {
+    color:#fff; font-size:6.5px;
+}
+
+.wld-parties { display:grid; grid-template-columns:1fr 1fr; gap:5px; padding:5px; }
+.wld-party { padding:6px 7px; border:1px solid rgba(70,164,255,.35); border-radius:4px; background:#052650; }
+.wld-party p { margin:2px 0 0; color:#91b0cf; font-size:5px; line-height:1.2; }
+
+.wld-route { padding:5px; display:grid; grid-template-columns:1fr 35px 1fr; align-items:center; }
+.wld-route-box { padding:6px 7px; border:1px solid rgba(65,164,255,.35); border-radius:4px; background:#052650; }
+.wld-route-arrow { text-align:center; color:#48b6ff; font-size:15px; }
+
+.wld-package { display:grid; grid-template-columns:repeat(4,1fr); }
+.wld-package-item { padding:5px 7px; border-right:1px solid rgba(76,166,255,.2); }
+.wld-package-item:last-child { border:0; }
+
+.wld-track-box {
+    margin-top:5px;
+    padding:6px 8px;
+    border:1px solid #1398ff;
+    border-radius:5px;
+    background:#0750a2;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:8px;
+}
+.wld-track-box strong { color:#fff; font-size:7px; }
+.wld-track-box p { margin:1px 0 0; color:#b5d4f2; font-size:4.5px; }
+.wld-track-code { padding:4px 7px; border:1px solid #46baff; border-radius:4px; color:#fff; font-size:5px; font-weight:900; }
+
+.wld-footer {
+    margin-top:5px;
+    padding-top:5px;
+    border-top:1px solid rgba(75,156,230,.25);
+    display:grid;
+    grid-template-columns:1.2fr 1fr 1fr;
+    gap:8px;
+}
+.wld-footer h3 { margin:0 0 2px; color:#fff; font-size:5px; }
+.wld-footer p { margin:1px 0; color:#7f9fbe; font-size:4.5px; line-height:1.2; }
+.wld-footer-brand { font-size:10px !important; font-weight:900; color:#fff !important; }
+
+.wld-actions {
+    width:min(900px,100%);
+    margin:4px auto 0;
+    display:flex;
+    justify-content:flex-end;
+    gap:4px;
+}
+.wld-actions a,.wld-actions button {
+    padding:4px 7px; border:1px solid #4b6f99; border-radius:4px;
+    background:#062951; color:#d8ecff; text-decoration:none; font-size:6px;
+    font-weight:800; cursor:pointer;
+}
+.wld-actions .primary { border-color:#168dff; background:#0874e8; color:#fff; }
+
+@media (max-width:600px) {
+    .wld-page {
+        height: calc(100vh - 50px);
+        min-height: 0;
+        padding: 3px;
+    }
+    .wld-document { border-radius:6px; }
+    .wld-header { padding:5px 7px 4px; }
+    .wld-logo { width:105px; }
+    .wld-tagline { font-size:3.5px; }
+    .wld-document-title h1 { font-size:14px; }
+    .wld-document-title span { font-size:3.5px; }
+    .wld-contact-strip { margin-top:4px; }
+    .wld-contact { padding:3px 4px; }
+    .wld-contact small { font-size:3px; }
+    .wld-contact strong { font-size:4.2px; }
+    .wld-contact span { font-size:3.2px; }
+    .wld-body { padding:4px 5px 5px; }
+    .wld-hero { padding:5px 6px; }
+    .wld-hero h2 { font-size:10px; }
+    .wld-hero p { font-size:4px; }
+    .wld-tracking { margin-top:4px; padding:4px 5px; }
+    .wld-tracking-number { font-size:11px; }
+    .wld-status { font-size:6px; }
+    .wld-check { width:11px; height:11px; font-size:6px; }
+    .wld-section { margin-top:3px; }
+    .wld-section-title { padding:3px 5px; font-size:3.5px; }
+    .wld-summary-item { padding:3px 4px; }
+    .wld-summary-item small,.wld-party small,.wld-route-box small,.wld-package-item small { font-size:3px; margin-bottom:1px; }
+    .wld-summary-item strong,.wld-party strong,.wld-route-box strong,.wld-package-item strong { font-size:4.5px; }
+    .wld-parties { gap:3px; padding:3px; }
+    .wld-party { padding:4px 5px; }
+    .wld-party p { font-size:3.5px; }
+    .wld-route { padding:3px; grid-template-columns:1fr 22px 1fr; }
+    .wld-route-box { padding:4px 5px; }
+    .wld-route-arrow { font-size:10px; }
+    .wld-package-item { padding:3px 4px; }
+    .wld-track-box { margin-top:3px; padding:4px 5px; }
+    .wld-track-box strong { font-size:5px; }
+    .wld-track-box p { font-size:3.3px; }
+    .wld-track-code { padding:3px 4px; font-size:3.8px; }
+    .wld-footer { margin-top:3px; padding-top:3px; gap:4px; }
+    .wld-footer h3 { font-size:3.5px; }
+    .wld-footer p { font-size:3.2px; }
+    .wld-footer-brand { font-size:7px !important; }
+    .wld-actions { margin-top:2px; }
+    .wld-actions a,.wld-actions button { padding:3px 5px; font-size:4px; }
+}
+
+@media print {
+    .site-header,.footer,.wld-actions { display:none !important; }
+    .wld-page { height:100vh; min-height:0; padding:0; }
+    .wld-document { width:100%; height:100vh; border:0; box-shadow:none; }
+    .wld-document,.wld-hero,.wld-section,.wld-track-box,.wld-contact-strip {
+        -webkit-print-color-adjust:exact; print-color-adjust:exact;
+    }
+}
+</style>
+
+
+<section class="wld-page">
+<article class="wld-document">
+
+<header class="wld-header">
+    <div class="wld-header-row">
+        <div>
+            <img class="wld-logo"
+                 src="{{ url_for('static', filename='images/worldlink-logo.png') }}"
+                 alt="Worldlink Courier Service">
+            <div class="wld-tagline">Delivering More Than Parcels. Delivering Confidence.</div>
+        </div>
+
+        <div class="wld-document-title">
+            <span>WORLDLINK SHIPMENT DOCUMENT</span>
+            <h1>RECEIPT</h1>
+        </div>
+    </div>
+
+    <div class="wld-contact-strip">
+        <div class="wld-contact">
+            <small>SHIPMENT DESK</small>
+            <strong>shipping@worldlinkcourierservice.com</strong>
+            <span>Dedicated shipment enquiries</span>
+        </div>
+        <div class="wld-contact">
+            <small>PHONE</small>
+            <strong>+44 7700000011</strong>
+            <span>Customer support</span>
+        </div>
+        <div class="wld-contact">
+            <small>SUPPORT</small>
+            <strong>24/7 Support</strong>
+            <span>Worldlink customer service</span>
+        </div>
+        <div class="wld-contact">
+            <small>OPERATING LOCATION</small>
+            <strong>{{ shipment.origin }}</strong>
+            <span>Shipment origin</span>
+        </div>
+    </div>
+</header>
+
+<div class="wld-body">
+
+<section class="wld-hero">
+    <span class="wld-hero-label">THANK YOU</span>
+    <h2>Thank you for choosing Worldlink Courier Service.</h2>
+    <p>Keep this receipt and your tracking number for future shipment enquiries.</p>
+
+    <div class="wld-tracking">
+        <div class="wld-tracking-block">
+            <span class="wld-label">TRACKING NUMBER</span>
+            <div class="wld-tracking-number">{{ shipment.tracking_number }}</div>
+            <span class="wld-muted">Keep this number for shipment tracking.</span>
+        </div>
+
+        <div class="wld-tracking-block">
+            <span class="wld-label">CURRENT STATUS</span>
+            <div class="wld-status">
+                <span class="wld-check">✓</span>
+                {{ shipment.status }}
+            </div>
+            <div class="wld-status-description">
+                Your shipment has been successfully registered and is now in our system.
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="wld-section">
+    <div class="wld-section-title">SHIPMENT SUMMARY</div>
+    <div class="wld-summary">
+        <div class="wld-summary-item">
+            <small>CURRENT LOCATION</small>
+            <strong>{{ shipment.current_location or 'Not updated' }}</strong>
+        </div>
+        <div class="wld-summary-item">
+            <small>ESTIMATED DELIVERY</small>
+            <strong>{% if shipment.estimated_delivery %}{{ shipment.estimated_delivery.strftime('%d %b %Y') }}{% else %}To be confirmed{% endif %}</strong>
+        </div>
+        <div class="wld-summary-item">
+            <small>SERVICE</small>
+            <strong>{{ shipment.service_type or 'Standard' }}</strong>
+        </div>
+        <div class="wld-summary-item">
+            <small>DOCUMENT DATE</small>
+            <strong>{% if shipment.created_at %}{{ shipment.created_at.strftime('%d %b %Y, %H:%M') }}{% else %}Not available{% endif %}</strong>
+        </div>
+    </div>
+</section>
+
+<section class="wld-section">
+    <div class="wld-section-title">SHIPMENT PARTIES</div>
+    <div class="wld-parties">
+        <div class="wld-party">
+            <small>SENDER</small>
+            <strong>{{ shipment.sender }}</strong>
+            <p>{{ shipment.sender_address or 'Address not provided' }}</p>
+        </div>
+        <div class="wld-party">
+            <small>RECEIVER</small>
+            <strong>{{ shipment.receiver }}</strong>
+            <p>{{ shipment.receiver_address or 'Address not provided' }}</p>
+            <p>{{ shipment.receiver_phone or 'Phone not provided' }}</p>
+        </div>
+    </div>
+</section>
+
+<section class="wld-section">
+    <div class="wld-section-title">DELIVERY ROUTE</div>
+    <div class="wld-route">
+        <div class="wld-route-box">
+            <small>FROM</small>
+            <strong>{{ shipment.origin }}</strong>
+        </div>
+        <div class="wld-route-arrow">→</div>
+        <div class="wld-route-box">
+            <small>TO</small>
+            <strong>{{ shipment.destination }}</strong>
+        </div>
+    </div>
+</section>
+
+<section class="wld-section">
+    <div class="wld-section-title">PACKAGE DETAILS</div>
+    <div class="wld-package">
+        <div class="wld-package-item">
+            <small>WEIGHT</small>
+            <strong>{{ "%.2f"|format(shipment.weight or 0) }} kg</strong>
+        </div>
+        <div class="wld-package-item">
+            <small>SERVICE</small>
+            <strong>{{ shipment.service_type or 'Standard' }}</strong>
+        </div>
+        <div class="wld-package-item">
+            <small>PACKAGE TYPE</small>
+            <strong>{{ shipment.package_description or 'Parcel' }}</strong>
+        </div>
+        <div class="wld-package-item">
+            <small>DOCUMENT DATE</small>
+            <strong>{% if shipment.created_at %}{{ shipment.created_at.strftime('%d %b %Y, %H:%M') }}{% else %}Not available{% endif %}</strong>
+        </div>
+    </div>
+</section>
+
+
+
+<section class="wld-track-box">
+    <div>
+        <strong>Track this shipment</strong>
+        <p>Use the tracking number above on the Worldlink tracking page to view the latest status, location and tracking history.</p>
+    </div>
+    <div class="wld-track-code">{{ shipment.tracking_number }}</div>
+</section>
+
+<footer class="wld-footer">
+    <div>
+        <div class="wld-footer-brand">WORLDLINK</div>
+        <p>COURIER SERVICE</p>
+        <p>Delivering More Than Parcels. Delivering Confidence.</p>
+    </div>
+    <div>
+        <h3>CONTACT INFORMATION</h3>
+        <p>+44 7700000011</p>
+        <p>shipping@worldlinkcourierservice.com</p>
+        <p>24/7 Shipment Desk</p>
+    </div>
+    <div>
+        <h3>WORLDLINK</h3>
+        <p>Track a Shipment</p>
+        <p>Our Services</p>
+        <p>Customer Support</p>
+        <p>Shipment Receipt</p>
+    </div>
+</footer>
+
+</div>
+</article>
+
+<div class="wld-actions">
+    <a href="{{ url_for('admin_dashboard') }}">← Back to dashboard</a>
+
+    <button type="button" onclick="saveWorldlinkReceipt()">
+        Save Receipt
+    </button>
+
+    <button class="primary" type="button" onclick="window.print()">
+        Print / Save PDF
+    </button>
+</div>
+
+<script>
+function saveWorldlinkReceipt() {
+    const originalTitle = document.title;
+    document.title = "Worldlink_Shipment_Receipt_{{ shipment.tracking_number }}";
+
+    // Opens the browser's native save/print dialog.
+    // Customers can choose "Save as PDF" from the destination/printer options.
+    window.print();
+
+    setTimeout(function () {
+        document.title = originalTitle;
+    }, 1000);
+}
+</script>
+</section>
+{% endblock %}
