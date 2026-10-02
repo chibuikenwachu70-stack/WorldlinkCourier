@@ -16,7 +16,7 @@ from flask import (
 )
 
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import or_
+from sqlalchemy import or_, inspect, text
 from werkzeug.security import generate_password_hash, check_password_hash
 
 
@@ -1561,12 +1561,147 @@ def admin_chat_reply(conversation_id):
 
 
 # =========================================================
-# DATABASE INITIALIZATION
+# DATABASE INITIALIZATION + SAFE SCHEMA MIGRATION
 # =========================================================
 
-with app.app_context():
+def initialize_database():
 
-    db.create_all()
+    with app.app_context():
+
+        # Create any completely new tables.
+        db.create_all()
+
+        inspector = inspect(db.engine)
+
+        # -------------------------------------------------
+        # SHIPMENT TABLE MIGRATION
+        # -------------------------------------------------
+
+        shipment_columns = {
+            column["name"]
+            for column in inspector.get_columns("shipment")
+        }
+
+        # Add service_type if missing
+        if "service_type" not in shipment_columns:
+
+            db.session.execute(
+                text(
+                    """
+                    ALTER TABLE shipment
+                    ADD COLUMN service_type
+                    VARCHAR(100)
+                    NOT NULL
+                    DEFAULT 'International Express'
+                    """
+                )
+            )
+
+            db.session.commit()
+
+        # Add package_description if missing
+        if "package_description" not in shipment_columns:
+
+            db.session.execute(
+                text(
+                    """
+                    ALTER TABLE shipment
+                    ADD COLUMN package_description
+                    VARCHAR(255)
+                    NOT NULL
+                    DEFAULT 'Parcel'
+                    """
+                )
+            )
+
+            db.session.commit()
+
+        # Add weight if missing
+        if "weight" not in shipment_columns:
+
+            db.session.execute(
+                text(
+                    """
+                    ALTER TABLE shipment
+                    ADD COLUMN weight
+                    DOUBLE PRECISION
+                    NOT NULL
+                    DEFAULT 0
+                    """
+                )
+            )
+
+            db.session.commit()
+
+        # Add estimated_delivery if missing
+        if "estimated_delivery" not in shipment_columns:
+
+            db.session.execute(
+                text(
+                    """
+                    ALTER TABLE shipment
+                    ADD COLUMN estimated_delivery
+                    DATE
+                    """
+                )
+            )
+
+            db.session.commit()
+
+        # Add created_at if missing
+        if "created_at" not in shipment_columns:
+
+            db.session.execute(
+                text(
+                    """
+                    ALTER TABLE shipment
+                    ADD COLUMN created_at
+                    TIMESTAMP
+                    NOT NULL
+                    DEFAULT CURRENT_TIMESTAMP
+                    """
+                )
+            )
+
+            db.session.commit()
+
+        # -------------------------------------------------
+        # TRACKING EVENT MIGRATION
+        # -------------------------------------------------
+
+        inspector = inspect(db.engine)
+
+        if inspector.has_table("tracking_event"):
+
+            tracking_columns = {
+                column["name"]
+                for column in inspector.get_columns(
+                    "tracking_event"
+                )
+            }
+
+            if "note" not in tracking_columns:
+
+                db.session.execute(
+                    text(
+                        """
+                        ALTER TABLE tracking_event
+                        ADD COLUMN note
+                        VARCHAR(255)
+                        """
+                    )
+                )
+
+                db.session.commit()
+
+        # -------------------------------------------------
+        # CREATE ANY OTHER MISSING TABLES
+        # -------------------------------------------------
+
+        db.create_all()
+
+
+initialize_database()
 
 
 # =========================================================
