@@ -79,31 +79,54 @@ ADMIN_PASSWORD_HASH = generate_password_hash(
 
 # =========================================================
 # SHIPMENT STATUSES
-# =========================================================
 
 STATUSES = [
     "Shipment Received",
+    "Shipment Confirmed",
+    "Pickup Scheduled",
+    "Picked Up",
+
     "Processing",
+    "Departed Origin Facility",
     "In Transit",
+
+    "Arrived at Transit Hub",
     "At Sorting Facility",
+    "Departed Sorting Facility",
+
+    "Arrived at Destination Country",
     "Customs Clearance",
+    "Customs Cleared",
+    "Held by Customs",
+    "Awaiting Documentation",
+    "Awaiting Payment",
+    "Released from Customs",
+
+    "Arrived at Local Facility",
     "Out for Delivery",
+
+    "Delivery Attempted",
+    "Delivery Rescheduled",
+    "Recipient Unavailable",
+    "Address Issue",
+
     "Delivered",
+
     "Delivery Exception",
     "On Hold",
+    "Returned to Sender",
+    "Cancelled",
 ]
 
 
-STATUS_ORDER = {
-    "Shipment Received": 1,
-    "Processing": 2,
-    "In Transit": 3,
-    "At Sorting Facility": 4,
-    "Customs Clearance": 5,
-    "Out for Delivery": 6,
-    "Delivered": 7,
-}
+# =========================================================
+# SHIPMENT STATUS ORDER
+# =========================================================
 
+STATUS_ORDER = {
+    status: position
+    for position, status in enumerate(STATUSES, start=1)
+}
 
 # =========================================================
 # DATABASE MODELS
