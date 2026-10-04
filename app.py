@@ -66,14 +66,16 @@ ADMIN_USERNAME = os.getenv(
 
 ADMIN_PASSWORD = os.getenv(
     "ADMIN_PASSWORD",
-    "change-this-password",
 )
 
-ADMIN_PASSWORD_HASH = os.getenv(
-    "ADMIN_PASSWORD_HASH",
-    generate_password_hash(ADMIN_PASSWORD),
-)
+if not ADMIN_PASSWORD:
+    raise RuntimeError(
+        "ADMIN_PASSWORD environment variable is not set."
+    )
 
+ADMIN_PASSWORD_HASH = generate_password_hash(
+    ADMIN_PASSWORD
+)
 
 # =========================================================
 # SHIPMENT STATUSES
