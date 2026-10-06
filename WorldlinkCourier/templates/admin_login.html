@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Worldlink Admin Login</title><link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"></head>
+<body class="admin-login-page">
+<div class="login-box">
+    <a class="brand" href="{{ url_for('home') }}"><span class="brand-mark">W</span><span class="brand-text"><b>WORLDLINK</b><small>ADMIN PORTAL</small></span></a>
+    <h1>Admin sign in</h1><p>Manage shipments, tracking updates and parcel records.</p>
+    {% if message %}<div class="flash error">{{ message }}</div>{% endif %}
+    <form method="POST">
+        <label>Username<input name="username" autocomplete="username" required></label>
+        <label>Password<input type="password" name="password" autocomplete="current-password" required></label>
+        <button class="btn btn-primary full" type="submit">Sign in</button>
+    </form>
+</div>
+</body></html>

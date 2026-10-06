@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Live Chats | Worldlink Admin</title>
+<style>
+*{box-sizing:border-box}html,body{margin:0;padding:0}body{font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;background:#f4f7fb;color:#17375d}.shell{display:grid;grid-template-columns:245px minmax(0,1fr);min-height:100vh}.sidebar{background:#08254b;color:#fff;padding:22px 16px;display:flex;flex-direction:column}.logo{background:#fff;border-radius:10px;padding:10px 12px;margin-bottom:26px}.logo img{display:block;width:100%;max-width:185px;margin:auto}.label{color:#8fa9ca;font-size:10px;font-weight:800;letter-spacing:.16em;margin:5px 10px 10px;text-transform:uppercase}.nav{display:grid;gap:5px}.nav a{display:flex;align-items:center;gap:11px;min-height:43px;padding:0 12px;border-radius:9px;color:#dbe8f8;text-decoration:none;font-size:13px;font-weight:700}.nav a:hover,.nav a.active{background:#143b6d;color:#fff}.nav-icon{width:22px;text-align:center}.spacer{flex:1}.user{border-top:1px solid rgba(255,255,255,.12);padding:17px 10px 13px}.user small{display:block;color:#8fa9ca;font-size:10px;margin-bottom:5px}.user strong{font-size:13px}.logout{display:flex;gap:9px;padding:11px 10px;color:#cbd9ea;text-decoration:none;font-size:12px;font-weight:700}.main{min-width:0}.top{height:68px;background:#fff;border-bottom:1px solid #dfe7f1;display:flex;align-items:center;justify-content:space-between;padding:0 30px}.top-title{font-size:13px;font-weight:800}.top-title span{color:#8292a7;font-weight:600}.secure{font-size:11px;font-weight:700;color:#55708f}.dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:#23a36d;margin-right:7px}.content{max-width:1200px;margin:auto;padding:36px 30px 55px}.heading{display:flex;justify-content:space-between;align-items:end;gap:20px;margin-bottom:25px}.eyebrow{display:block;color:#3974ff;font-size:10px;font-weight:900;letter-spacing:.18em;margin-bottom:8px}.heading h1{margin:0;color:#0a2b54;font-size:36px;letter-spacing:-.035em}.heading p{margin:8px 0 0;color:#6e829d;font-size:13px}.back{display:inline-flex;align-items:center;min-height:42px;padding:0 15px;border:1px solid #d3dfec;border-radius:9px;background:#fff;color:#183b64;text-decoration:none;font-size:12px;font-weight:800}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:22px}.stat{background:#fff;border:1px solid #dce5ef;border-radius:13px;padding:20px 22px;box-shadow:0 8px 28px rgba(19,52,91,.04)}.stat small{display:block;color:#8292a7;font-size:9px;font-weight:900;letter-spacing:.14em;margin-bottom:8px}.stat strong{font-size:25px;color:#0a2b54}.card{background:#fff;border:1px solid #dce5ef;border-radius:14px;overflow:hidden;box-shadow:0 8px 28px rgba(19,52,91,.055)}.card-head{display:flex;justify-content:space-between;align-items:center;padding:19px 22px;border-bottom:1px solid #e7edf4}.card-head h2{margin:0;font-size:15px;color:#15375d}.badge{background:#eaf2ff;color:#1d60c8;border-radius:999px;padding:6px 10px;font-size:10px;font-weight:900}.conversation{display:flex;justify-content:space-between;align-items:center;gap:20px;padding:20px 22px;border-bottom:1px solid #edf1f5;text-decoration:none;color:inherit}.conversation:last-child{border-bottom:0}.conversation:hover{background:#f9fbfe}.person{display:flex;gap:14px;min-width:0}.avatar{width:40px;height:40px;flex:0 0 40px;border-radius:50%;background:#eaf2ff;color:#2465d1;display:flex;align-items:center;justify-content:center;font-weight:900}.details{min-width:0}.name{font-size:13px;font-weight:900;color:#17375d}.email{font-size:10px;color:#7f90a6;margin-top:3px}.message{font-size:11px;color:#60758e;margin-top:8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:650px}.time{font-size:9px;color:#9aa7b6;margin-top:7px}.open{display:inline-flex;align-items:center;justify-content:center;min-height:38px;padding:0 14px;border-radius:8px;background:#1465ff;color:#fff;font-size:10px;font-weight:800;white-space:nowrap}.unread{display:inline-flex;margin-left:8px;padding:4px 7px;border-radius:999px;background:#ff5263;color:#fff;font-size:8px;font-weight:900}@media(max-width:800px){.shell{grid-template-columns:1fr}.sidebar{display:none}.content{padding:25px 15px 45px}.heading{align-items:flex-start;flex-direction:column}.back{width:100%;justify-content:center}.stats{grid-template-columns:1fr}.conversation{align-items:flex-start;flex-direction:column}.open{width:100%}.message{max-width:100%}}
+</style>
+</head>
+<body>
+<div class="shell">
+<aside class="sidebar">
+<div class="logo"><img src="{{ url_for('static', filename='images/worldlink-logo.png') }}" alt="Worldlink Courier Service"></div>
+<div class="label">Administration</div>
+<nav class="nav">
+<a href="{{ url_for('admin_dashboard') }}"><span class="nav-icon">▦</span>Dashboard</a>
+<a href="{{ url_for('admin_dashboard') }}"><span class="nav-icon">▤</span>Shipments</a>
+<a href="{{ url_for('create_shipment') }}"><span class="nav-icon">＋</span>Create Shipment</a>
+<a href="{{ url_for('admin_chats') }}" class="active"><span class="nav-icon">◉</span>Live Chat{% if unread and unread > 0 %}<span style="margin-left:auto;background:#ff5263;color:#fff;border-radius:999px;padding:2px 6px;font-size:9px">{{ unread }}</span>{% endif %}</a>
+</nav>
+<div class="spacer"></div>
+<div class="user"><small>Signed in as</small><strong>{{ session.get('admin_username','Administrator') }}</strong></div>
+<a class="logout" href="{{ url_for('admin_logout') }}">↪ <span>Sign out</span></a>
+</aside>
+<main class="main">
+<header class="top"><div class="top-title">Worldlink Control Center <span>/ Live Chat</span></div><div class="secure"><span class="dot"></span>Admin session active</div></header>
+<section class="content">
+<div class="heading"><div><span class="eyebrow">CUSTOMER SUPPORT</span><h1>Live Chats</h1><p>Manage customer conversations and respond to shipment questions in real time.</p></div><a class="back" href="{{ url_for('admin_dashboard') }}">← Return to Admin Dashboard</a></div>
+<div class="stats">
+<div class="stat"><small>CONVERSATIONS</small><strong>{{ conversations|length }}</strong></div>
+<div class="stat"><small>UNREAD MESSAGES</small><strong>{{ unread }}</strong></div>
+<div class="stat"><small>SUPPORT STATUS</small><strong>Online</strong></div>
+</div>
+<div class="card">
+<div class="card-head"><h2>Customer conversations</h2><span class="badge">{{ unread }} unread</span></div>
+{% if conversations %}
+{% for chat in conversations %}
+<a class="conversation" href="{{ url_for('admin_chat', conversation_id=chat.conversation_id) }}">
+<div class="person">
+<div class="avatar">{{ (chat.customer_name or 'C')[:1]|upper }}</div>
+<div class="details">
+<div class="name">{{ chat.customer_name or 'Customer' }}{% if chat.unread %}<span class="unread">{{ chat.unread }} unread</span>{% endif %}</div>
+<div class="email">{{ chat.customer_email or 'No email provided' }}</div>
+<div class="message">{{ chat.last_message or 'No message' }}</div>
+<div class="time">{{ chat.last_message_at.strftime('%d %b %Y %H:%M') if chat.last_message_at else '' }}</div>
+</div>
+</div>
+<span class="open">Open Conversation →</span>
+</a>
+{% endfor %}
+{% else %}
+<div style="padding:45px;text-align:center;color:#7c8da3;font-size:13px">No customer conversations yet.</div>
+{% endif %}
+</div>
+</section>
+</main>
+</div>
+</body>
+</html>

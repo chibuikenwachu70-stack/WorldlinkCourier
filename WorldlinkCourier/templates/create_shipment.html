@@ -1,0 +1,827 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Create Shipment | Worldlink Admin</title>
+    <style>
+        * { box-sizing: border-box; }
+        html, body { margin: 0; padding: 0; }
+        body {
+            font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+            background: #f4f7fb;
+        }
+        button, input, select, textarea { font-family: inherit; }
+    </style>
+</head>
+<body>
+
+
+
+<style>
+    .wl-create-admin {
+        min-height: calc(100vh - 82px);
+        background: #f4f7fb;
+        color: #102d52;
+    }
+
+    .wl-create-shell {
+        display: grid;
+        grid-template-columns: 245px minmax(0, 1fr);
+        min-height: calc(100vh - 82px);
+    }
+
+    .wl-create-sidebar {
+        background: #08254b;
+        color: #fff;
+        padding: 22px 16px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .wl-create-logo {
+        background: #fff;
+        border-radius: 10px;
+        padding: 10px 12px;
+        margin-bottom: 26px;
+    }
+
+    .wl-create-logo img {
+        display: block;
+        width: 100%;
+        max-width: 185px;
+        height: auto;
+        margin: 0 auto;
+    }
+
+    .wl-create-label {
+        color: #8fa9ca;
+        font-size: 10px;
+        font-weight: 800;
+        letter-spacing: .16em;
+        margin: 5px 10px 10px;
+        text-transform: uppercase;
+    }
+
+    .wl-create-nav {
+        display: grid;
+        gap: 5px;
+    }
+
+    .wl-create-nav a {
+        display: flex;
+        align-items: center;
+        gap: 11px;
+        min-height: 43px;
+        padding: 0 12px;
+        border-radius: 9px;
+        color: #dbe8f8;
+        text-decoration: none;
+        font-size: 13px;
+        font-weight: 700;
+    }
+
+    .wl-create-nav a:hover,
+    .wl-create-nav a.active {
+        background: #143b6d;
+        color: #fff;
+    }
+
+    .wl-create-nav-icon {
+        width: 22px;
+        text-align: center;
+        font-size: 16px;
+    }
+
+    .wl-create-spacer {
+        flex: 1;
+        min-height: 35px;
+    }
+
+    .wl-create-user {
+        border-top: 1px solid rgba(255,255,255,.12);
+        padding: 17px 10px 13px;
+    }
+
+    .wl-create-user small {
+        display: block;
+        color: #8fa9ca;
+        font-size: 10px;
+        margin-bottom: 5px;
+    }
+
+    .wl-create-user strong {
+        color: #fff;
+        font-size: 13px;
+    }
+
+    .wl-create-logout {
+        display: flex;
+        gap: 9px;
+        align-items: center;
+        padding: 11px 10px;
+        color: #cbd9ea;
+        text-decoration: none;
+        font-size: 12px;
+        font-weight: 700;
+    }
+
+    .wl-create-main {
+        min-width: 0;
+    }
+
+    .wl-create-topbar {
+        height: 68px;
+        background: #fff;
+        border-bottom: 1px solid #dfe7f1;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 28px;
+    }
+
+    .wl-create-top-title {
+        color: #17375d;
+        font-size: 13px;
+        font-weight: 700;
+    }
+
+    .wl-create-top-title span {
+        color: #8292a7;
+        font-weight: 600;
+    }
+
+    .wl-create-secure {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        color: #55708f;
+        font-size: 11px;
+        font-weight: 700;
+    }
+
+    .wl-create-dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: #23a36d;
+    }
+
+    .wl-create-content {
+        padding: 35px 30px 55px;
+        max-width: 1250px;
+        margin: 0 auto;
+    }
+
+    .wl-create-heading {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        gap: 20px;
+        margin-bottom: 25px;
+    }
+
+    .wl-create-eyebrow {
+        display: block;
+        color: #3974ff;
+        font-size: 10px;
+        font-weight: 900;
+        letter-spacing: .18em;
+        margin-bottom: 8px;
+    }
+
+    .wl-create-heading h1 {
+        margin: 0;
+        color: #0a2b54;
+        font-size: 32px;
+        letter-spacing: -.03em;
+    }
+
+    .wl-create-heading p {
+        margin: 8px 0 0;
+        color: #6e829d;
+        font-size: 13px;
+        line-height: 1.6;
+    }
+
+    .wl-create-back {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 42px;
+        padding: 0 15px;
+        border: 1px solid #d3dfec;
+        border-radius: 9px;
+        background: #fff;
+        color: #183b64;
+        text-decoration: none;
+        font-size: 12px;
+        font-weight: 800;
+        white-space: nowrap;
+    }
+
+    .wl-create-card {
+        background: #fff;
+        border: 1px solid #dce5ef;
+        border-radius: 14px;
+        box-shadow: 0 8px 28px rgba(19, 52, 91, .055);
+        overflow: hidden;
+    }
+
+    .wl-create-card-head {
+        padding: 22px 26px;
+        border-bottom: 1px solid #e8eef5;
+    }
+
+    .wl-create-card-head small {
+        color: #3974ff;
+        font-size: 10px;
+        font-weight: 900;
+        letter-spacing: .15em;
+    }
+
+    .wl-create-card-head h2 {
+        margin: 7px 0 0;
+        color: #102f56;
+        font-size: 20px;
+    }
+
+    .wl-create-card-head p {
+        margin: 7px 0 0;
+        color: #7890aa;
+        font-size: 12px;
+    }
+
+    .wl-create-body {
+        padding: 27px;
+    }
+
+    .wl-section {
+        margin-bottom: 29px;
+    }
+
+    .wl-section:last-child {
+        margin-bottom: 0;
+    }
+
+    .wl-section-heading {
+        display: flex;
+        align-items: baseline;
+        gap: 9px;
+        padding-bottom: 11px;
+        border-bottom: 1px solid #e6edf5;
+        margin-bottom: 18px;
+    }
+
+    .wl-section-number {
+        color: #3974ff;
+        font-size: 10px;
+        font-weight: 900;
+    }
+
+    .wl-section-heading h3 {
+        margin: 0;
+        color: #16375d;
+        font-size: 14px;
+    }
+
+    .wl-grid-two {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+    }
+
+    .wl-grid-three {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 16px;
+    }
+
+    .wl-field {
+        margin-bottom: 17px;
+    }
+
+    .wl-field:last-child {
+        margin-bottom: 0;
+    }
+
+    .wl-field label {
+        display: block;
+        color: #183a60;
+        font-size: 11px;
+        font-weight: 800;
+        margin-bottom: 7px;
+    }
+
+    .wl-field input,
+    .wl-field select,
+    .wl-field textarea {
+        width: 100%;
+        box-sizing: border-box;
+        border: 1px solid #d2ddea;
+        border-radius: 8px;
+        background: #fff;
+        color: #17375d;
+        padding: 11px 12px;
+        font: inherit;
+        font-size: 13px;
+        outline: none;
+    }
+
+    .wl-field input:focus,
+    .wl-field select:focus,
+    .wl-field textarea:focus {
+        border-color: #3974ff;
+        box-shadow: 0 0 0 3px rgba(57,116,255,.09);
+    }
+
+    .wl-field textarea {
+        min-height: 90px;
+        resize: vertical;
+    }
+
+    .wl-required {
+        color: #d84b4b;
+    }
+
+    .wl-help {
+        display: block;
+        margin-top: 6px;
+        color: #8a9aaf;
+        font-size: 10px;
+        line-height: 1.5;
+    }
+
+    .wl-create-actions {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+        padding: 18px 26px;
+        background: #fafbfd;
+        border-top: 1px solid #e8eef5;
+    }
+
+    .wl-action-group {
+        display: flex;
+        gap: 9px;
+    }
+
+    .wl-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 41px;
+        padding: 0 15px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-size: 11px;
+        font-weight: 800;
+        cursor: pointer;
+    }
+
+    .wl-btn-secondary {
+        border: 1px solid #d1dce9;
+        background: #fff;
+        color: #173a61;
+    }
+
+    .wl-btn-primary {
+        border: 1px solid #1465ff;
+        background: #1465ff;
+        color: #fff;
+    }
+
+    @media (max-width: 850px) {
+        .wl-create-shell {
+            grid-template-columns: 1fr;
+        }
+
+        .wl-create-sidebar {
+            display: none;
+        }
+
+        .wl-create-content {
+            padding: 25px 15px 45px;
+        }
+
+        .wl-create-heading {
+            align-items: flex-start;
+            flex-direction: column;
+        }
+
+        .wl-create-back {
+            width: 100%;
+        }
+
+        .wl-grid-two,
+        .wl-grid-three {
+            grid-template-columns: 1fr;
+        }
+
+        .wl-create-actions {
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+        .wl-action-group {
+            width: 100%;
+        }
+
+        .wl-action-group .wl-btn {
+            flex: 1;
+        }
+    }
+</style>
+
+<section class="wl-create-admin">
+
+    <div class="wl-create-shell">
+
+        <aside class="wl-create-sidebar">
+
+            <div class="wl-create-logo">
+                <img
+                    src="{{ url_for('static', filename='images/worldlink-logo.png') }}"
+                    alt="Worldlink Courier Service"
+                >
+            </div>
+
+            <div class="wl-create-label">Administration</div>
+
+            <nav class="wl-create-nav">
+
+                <a href="{{ url_for('admin_dashboard') }}">
+                    <span class="wl-create-nav-icon">▦</span>
+                    <span>Dashboard</span>
+                </a>
+
+                <a href="{{ url_for('admin_dashboard') }}">
+                    <span class="wl-create-nav-icon">▤</span>
+                    <span>Shipments</span>
+                </a>
+
+                <a href="{{ url_for('create_shipment') }}" class="active">
+                    <span class="wl-create-nav-icon">＋</span>
+                    <span>Create Shipment</span>
+                </a>
+
+                <a href="{{ url_for('admin_chats') }}">
+                    <span class="wl-create-nav-icon">◉</span>
+                    <span>Live Chat</span>
+                </a>
+
+            </nav>
+
+            <div class="wl-create-spacer"></div>
+
+            <div class="wl-create-user">
+                <small>Signed in as</small>
+                <strong>{{ session.get('admin_username', 'Administrator') }}</strong>
+            </div>
+
+            <a
+                href="{{ url_for('admin_logout') }}"
+                class="wl-create-logout"
+            >
+                <span>↪</span>
+                <span>Sign out</span>
+            </a>
+
+        </aside>
+
+
+        <main class="wl-create-main">
+
+            <header class="wl-create-topbar">
+
+                <div class="wl-create-top-title">
+                    Worldlink Control Center
+                    <span>/ Create Shipment</span>
+                </div>
+
+                <div class="wl-create-secure">
+                    <span class="wl-create-dot"></span>
+                    Admin session active
+                </div>
+
+            </header>
+
+
+            <section class="wl-create-content">
+
+                <div class="wl-create-heading">
+
+                    <div>
+                        <span class="wl-create-eyebrow">
+                            SHIPMENT MANAGEMENT
+                        </span>
+
+                        <h1>Create shipment</h1>
+
+                        <p>
+                            Register a new parcel and generate a unique
+                            Worldlink tracking number.
+                        </p>
+                    </div>
+
+                    <a
+                        href="{{ url_for('admin_dashboard') }}"
+                        class="wl-create-back"
+                    >
+                        ← Return to Admin Dashboard
+                    </a>
+
+                </div>
+
+
+                <form
+                    method="POST"
+                    action="{{ url_for('create_shipment') }}"
+                >
+
+                    <article class="wl-create-card">
+
+                        <header class="wl-create-card-head">
+                            <small>NEW SHIPMENT</small>
+                            <h2>Shipment information</h2>
+                            <p>
+                                Enter the sender, receiver, route and package
+                                information below.
+                            </p>
+                        </header>
+
+
+                        <div class="wl-create-body">
+
+                            <section class="wl-section">
+
+                                <div class="wl-section-heading">
+                                    <span class="wl-section-number">01</span>
+                                    <h3>Sender & Receiver</h3>
+                                </div>
+
+                                <div class="wl-grid-two">
+
+                                    <div class="wl-field">
+                                        <label for="sender">
+                                            Sender <span class="wl-required">*</span>
+                                        </label>
+                                        <input
+                                            id="sender"
+                                            name="sender"
+                                            type="text"
+                                            placeholder="Full sender name"
+                                            required
+                                        >
+                                    </div>
+
+                                    <div class="wl-field">
+                                        <label for="sender_address">
+                                            Sender address
+                                        </label>
+                                        <input
+                                            id="sender_address"
+                                            name="sender_address"
+                                            type="text"
+                                            placeholder="Sender's address"
+                                        >
+                                    </div>
+
+                                    <div class="wl-field">
+                                        <label for="receiver">
+                                            Receiver <span class="wl-required">*</span>
+                                        </label>
+                                        <input
+                                            id="receiver"
+                                            name="receiver"
+                                            type="text"
+                                            placeholder="Full receiver name"
+                                            required
+                                        >
+                                    </div>
+
+                                    <div class="wl-field">
+                                        <label for="receiver_address">
+                                            Receiver address
+                                        </label>
+                                        <input
+                                            id="receiver_address"
+                                            name="receiver_address"
+                                            type="text"
+                                            placeholder="Delivery address"
+                                        >
+                                    </div>
+
+                                    <div class="wl-field">
+                                        <label for="receiver_phone">
+                                            Receiver phone
+                                        </label>
+                                        <input
+                                            id="receiver_phone"
+                                            name="receiver_phone"
+                                            type="tel"
+                                            placeholder="Contact number"
+                                        >
+                                    </div>
+
+                                </div>
+
+                            </section>
+
+
+                            <section class="wl-section">
+
+                                <div class="wl-section-heading">
+                                    <span class="wl-section-number">02</span>
+                                    <h3>Route & Location</h3>
+                                </div>
+
+                                <div class="wl-grid-two">
+
+                                    <div class="wl-field">
+                                        <label for="origin">
+                                            Origin <span class="wl-required">*</span>
+                                        </label>
+                                        <input
+                                            id="origin"
+                                            name="origin"
+                                            type="text"
+                                            placeholder="e.g. Nairobi, Kenya"
+                                            required
+                                        >
+                                    </div>
+
+                                    <div class="wl-field">
+                                        <label for="destination">
+                                            Destination <span class="wl-required">*</span>
+                                        </label>
+                                        <input
+                                            id="destination"
+                                            name="destination"
+                                            type="text"
+                                            placeholder="e.g. London, United Kingdom"
+                                            required
+                                        >
+                                    </div>
+
+                                    <div class="wl-field">
+                                        <label for="current_location">
+                                            Current location
+                                        </label>
+                                        <input
+                                            id="current_location"
+                                            name="current_location"
+                                            type="text"
+                                            placeholder="Latest known location"
+                                        >
+                                        <span class="wl-help">
+                                            If blank, the origin will be used.
+                                        </span>
+                                    </div>
+
+                                    <div class="wl-field">
+                                        <label for="estimated_delivery">
+                                            Estimated delivery
+                                        </label>
+                                        <input
+                                            id="estimated_delivery"
+                                            name="estimated_delivery"
+                                            type="date"
+                                        >
+                                    </div>
+
+                                </div>
+
+                            </section>
+
+
+                            <section class="wl-section">
+
+                                <div class="wl-section-heading">
+                                    <span class="wl-section-number">03</span>
+                                    <h3>Service & Package</h3>
+                                </div>
+
+                                <div class="wl-grid-two">
+
+                                    <div class="wl-field">
+                                        <label for="service_type">
+                                            Service type
+                                        </label>
+
+                                        <select
+                                            id="service_type"
+                                            name="service_type"
+                                        >
+                                            <option value="International Express">
+                                                International Express
+                                            </option>
+                                            <option value="Standard Delivery">
+                                                Standard Delivery
+                                            </option>
+                                            <option value="Priority Express">
+                                                Priority Express
+                                            </option>
+                                            <option value="Business Logistics">
+                                                Business Logistics
+                                            </option>
+                                        </select>
+                                    </div>
+
+                                    <div class="wl-field">
+                                        <label for="status">
+                                            Initial status
+                                        </label>
+
+                                        <select
+                                            id="status"
+                                            name="status"
+                                        >
+                                            {% for s in statuses %}
+                                                <option
+                                                    value="{{ s }}"
+                                                    {% if s == 'Shipment Received' %}
+                                                        selected
+                                                    {% endif %}
+                                                >
+                                                    {{ s }}
+                                                </option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+
+                                    <div class="wl-field">
+                                        <label for="package_description">
+                                            Package description
+                                        </label>
+
+                                        <input
+                                            id="package_description"
+                                            name="package_description"
+                                            type="text"
+                                            placeholder="e.g. Documents, clothing, electronics"
+                                        >
+                                    </div>
+
+                                    <div class="wl-field">
+                                        <label for="weight">
+                                            Weight (kg)
+                                        </label>
+
+                                        <input
+                                            id="weight"
+                                            name="weight"
+                                            type="number"
+                                            min="0"
+                                            step="0.01"
+                                            placeholder="0.00"
+                                        >
+                                    </div>
+
+                                </div>
+
+                            </section>
+
+                        </div>
+
+
+                        <footer class="wl-create-actions">
+
+                            <div class="wl-action-group">
+
+                                <a
+                                    href="{{ url_for('admin_dashboard') }}"
+                                    class="wl-btn wl-btn-secondary"
+                                >
+                                    ← Dashboard
+                                </a>
+
+                            </div>
+
+                            <div class="wl-action-group">
+
+                                <button
+                                    type="submit"
+                                    class="wl-btn wl-btn-primary"
+                                >
+                                    Create Shipment
+                                </button>
+
+                            </div>
+
+                        </footer>
+
+                    </article>
+
+                </form>
+
+            </section>
+
+        </main>
+
+    </div>
+
+</section>
+</body>
+</html>

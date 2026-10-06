@@ -1,0 +1,515 @@
+{% extends "base.html" %}
+
+{% block title %}Support | Worldlink Courier Service{% endblock %}
+
+{% block content %}
+
+<style>
+    .wl-support {
+        background: #f5f8fc;
+        color: #102f56;
+        min-height: calc(100vh - 82px);
+    }
+
+    .wl-support-hero {
+        background: linear-gradient(135deg, #eef5ff 0%, #f7faff 100%);
+        border-bottom: 1px solid #e1e9f3;
+    }
+
+    .wl-support-hero-inner {
+        max-width: 1120px;
+        margin: 0 auto;
+        padding: 62px 28px 58px;
+    }
+
+    .wl-kicker {
+        display: block;
+        color: #3974ff;
+        font-size: 10px;
+        font-weight: 900;
+        letter-spacing: .18em;
+        margin-bottom: 10px;
+    }
+
+    .wl-support-hero h1 {
+        margin: 0;
+        color: #0a2b54;
+        font-size: clamp(38px, 5vw, 58px);
+        letter-spacing: -.045em;
+        line-height: 1.02;
+    }
+
+    .wl-support-hero p {
+        max-width: 690px;
+        margin: 16px 0 0;
+        color: #637a97;
+        font-size: 15px;
+        line-height: 1.75;
+    }
+
+    .wl-support-content {
+        max-width: 1120px;
+        margin: 0 auto;
+        padding: 48px 28px 70px;
+    }
+
+    .wl-contact-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+        margin-bottom: 38px;
+    }
+
+    .wl-contact-card {
+        background: #fff;
+        border: 1px solid #dce5ef;
+        border-radius: 14px;
+        padding: 24px;
+        box-shadow: 0 8px 28px rgba(19, 52, 91, .045);
+    }
+
+    .wl-contact-icon {
+        width: 42px;
+        height: 42px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 10px;
+        background: #eaf2ff;
+        color: #1465ff;
+        font-size: 18px;
+        font-weight: 900;
+        margin-bottom: 17px;
+    }
+
+    .wl-contact-card h2 {
+        margin: 0 0 8px;
+        color: #12355c;
+        font-size: 17px;
+    }
+
+    .wl-contact-card p {
+        margin: 0 0 13px;
+        color: #71849c;
+        font-size: 12px;
+        line-height: 1.65;
+    }
+
+    .wl-contact-card a {
+        color: #1465ff;
+        font-size: 12px;
+        font-weight: 800;
+        text-decoration: none;
+        word-break: break-word;
+    }
+
+    .wl-main-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1.4fr) minmax(300px, .8fr);
+        gap: 20px;
+    }
+
+    .wl-panel {
+        background: #fff;
+        border: 1px solid #dce5ef;
+        border-radius: 14px;
+        padding: 28px;
+        box-shadow: 0 8px 28px rgba(19, 52, 91, .045);
+    }
+
+    .wl-panel-kicker {
+        color: #3974ff;
+        font-size: 9px;
+        font-weight: 900;
+        letter-spacing: .16em;
+    }
+
+    .wl-panel h2 {
+        margin: 7px 0 9px;
+        color: #102f56;
+        font-size: 25px;
+        letter-spacing: -.025em;
+    }
+
+    .wl-panel > p {
+        margin: 0 0 22px;
+        color: #71849c;
+        font-size: 12px;
+        line-height: 1.7;
+    }
+
+    .wl-actions {
+        display: grid;
+        gap: 10px;
+    }
+
+    .wl-action {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 15px;
+        padding: 15px 16px;
+        border: 1px solid #dce5ef;
+        border-radius: 10px;
+        color: #17375d;
+        text-decoration: none;
+        background: #fbfcfe;
+    }
+
+    .wl-action:hover {
+        border-color: #b9cde7;
+        background: #f7faff;
+    }
+
+    .wl-action strong {
+        display: block;
+        font-size: 12px;
+    }
+
+    .wl-action span {
+        display: block;
+        color: #8191a6;
+        font-size: 10px;
+        margin-top: 4px;
+    }
+
+    .wl-arrow {
+        color: #1465ff;
+        font-size: 16px;
+        font-weight: 900;
+    }
+
+    .wl-hours {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        margin-top: 19px;
+        padding: 12px 14px;
+        border-radius: 9px;
+        background: #f2faf6;
+        color: #267553;
+        font-size: 11px;
+        font-weight: 800;
+    }
+
+    .wl-online-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #24a56d;
+    }
+
+    .wl-faq {
+        display: grid;
+        gap: 0;
+    }
+
+    .wl-faq-item {
+        padding: 16px 0;
+        border-top: 1px solid #e7edf4;
+    }
+
+    .wl-faq-item:first-child {
+        border-top: 0;
+        padding-top: 0;
+    }
+
+    .wl-faq-item strong {
+        display: block;
+        color: #17375d;
+        font-size: 12px;
+        margin-bottom: 5px;
+    }
+
+    .wl-faq-item p {
+        margin: 0;
+        color: #71849c;
+        font-size: 11px;
+        line-height: 1.65;
+    }
+
+    .wl-bottom-cta {
+        margin-top: 20px;
+        background: #092b55;
+        color: #fff;
+        border-radius: 14px;
+        padding: 25px 28px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+    }
+
+    .wl-bottom-cta h2 {
+        margin: 0 0 6px;
+        font-size: 20px;
+    }
+
+    .wl-bottom-cta p {
+        margin: 0;
+        color: #c3d3e8;
+        font-size: 11px;
+        line-height: 1.6;
+    }
+
+    .wl-track-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 42px;
+        padding: 0 16px;
+        border-radius: 8px;
+        background: #fff;
+        color: #12365e;
+        text-decoration: none;
+        font-size: 11px;
+        font-weight: 900;
+        white-space: nowrap;
+    }
+
+    @media (max-width: 850px) {
+        .wl-contact-grid,
+        .wl-main-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .wl-support-hero-inner,
+        .wl-support-content {
+            padding-left: 17px;
+            padding-right: 17px;
+        }
+
+        .wl-bottom-cta {
+            align-items: flex-start;
+            flex-direction: column;
+        }
+
+        .wl-track-btn {
+            width: 100%;
+        }
+    }
+</style>
+
+<section class="wl-support">
+
+    <div class="wl-support-hero">
+        <div class="wl-support-hero-inner">
+            <span class="wl-kicker">WORLDLINK CUSTOMER SUPPORT</span>
+
+            <h1>How can we help?</h1>
+
+            <p>
+                Get help with shipment tracking, delivery questions,
+                shipping information and customer service. Our support
+                options are available here so you can reach the right
+                channel without being redirected to another page.
+            </p>
+        </div>
+    </div>
+
+
+    <div class="wl-support-content">
+
+        <div class="wl-contact-grid">
+
+            <article class="wl-contact-card">
+                <div class="wl-contact-icon">✉</div>
+
+                <h2>Email Support</h2>
+
+                <p>
+                    Send Worldlink a message about your shipment or
+                    general courier question.
+                </p>
+
+                <a href="mailto:courierservicew05@gmail.com">
+                    courierservicew05@gmail.com
+                </a>
+            </article>
+
+
+            <article class="wl-contact-card">
+                <div class="wl-contact-icon">☎</div>
+
+                <h2>Phone Support</h2>
+
+                <p>
+                    Speak directly with the Worldlink support team
+                    about an urgent shipment question.
+                </p>
+
+                <a href="tel:+447700000011">
+                    +44 7700000011
+                </a>
+            </article>
+
+
+            <article class="wl-contact-card">
+                <div class="wl-contact-icon">●</div>
+
+                <h2>Live Chat</h2>
+
+                <p>
+                    Send a message through the Worldlink website and
+                    continue the conversation with support.
+                </p>
+
+                <a
+                    href="#worldlink-chat-launcher"
+                    onclick="if(typeof openWorldlinkChat === 'function'){openWorldlinkChat();return false;}"
+                >
+                    Open Live Chat →
+                </a>
+            </article>
+
+        </div>
+
+
+        <div class="wl-main-grid">
+
+            <section class="wl-panel">
+
+                <span class="wl-panel-kicker">
+                    SUPPORT OPTIONS
+                </span>
+
+                <h2>Choose how you want to contact us.</h2>
+
+                <p>
+                    For shipment-specific questions, include your tracking
+                    number whenever possible. This helps the support team
+                    locate the correct parcel quickly.
+                </p>
+
+
+                <div class="wl-actions">
+
+                    <a class="wl-action" href="{{ url_for('track') }}">
+                        <div>
+                            <strong>Track a shipment</strong>
+                            <span>Check status, location and tracking history.</span>
+                        </div>
+                        <span class="wl-arrow">→</span>
+                    </a>
+
+
+                    <a
+                        class="wl-action"
+                        href="mailto:courierservicew05@gmail.com?subject=Worldlink%20Shipment%20Support"
+                    >
+                        <div>
+                            <strong>Email Worldlink support</strong>
+                            <span>Send your shipment question by email.</span>
+                        </div>
+                        <span class="wl-arrow">→</span>
+                    </a>
+
+
+                    <a
+                        class="wl-action"
+                        href="tel:+447700000011"
+                    >
+                        <div>
+                            <strong>Call support</strong>
+                            <span>Speak with the support team by phone.</span>
+                        </div>
+                        <span class="wl-arrow">→</span>
+                    </a>
+
+
+                    <a
+                        class="wl-action"
+                        href="#worldlink-chat-launcher"
+                        onclick="if(typeof openWorldlinkChat === 'function'){openWorldlinkChat();return false;}"
+                    >
+                        <div>
+                            <strong>Start Live Chat</strong>
+                            <span>Message Worldlink support directly from the site.</span>
+                        </div>
+                        <span class="wl-arrow">→</span>
+                    </a>
+
+                </div>
+
+
+                <div class="wl-hours">
+                    <span class="wl-online-dot"></span>
+                    Worldlink customer support is available 24/7.
+                </div>
+
+            </section>
+
+
+            <aside class="wl-panel">
+
+                <span class="wl-panel-kicker">QUICK HELP</span>
+
+                <h2>Common questions</h2>
+
+                <div class="wl-faq">
+
+                    <div class="wl-faq-item">
+                        <strong>Where is my shipment?</strong>
+                        <p>
+                            Use Track Shipment and enter your Worldlink
+                            tracking number to view the latest update.
+                        </p>
+                    </div>
+
+                    <div class="wl-faq-item">
+                        <strong>My tracking has not changed.</strong>
+                        <p>
+                            Contact support with your tracking number so
+                            the team can review the latest shipment event.
+                        </p>
+                    </div>
+
+                    <div class="wl-faq-item">
+                        <strong>Can I ask about delivery dates?</strong>
+                        <p>
+                            Yes. Include your tracking number and support
+                            can review the shipment's current delivery
+                            information.
+                        </p>
+                    </div>
+
+                    <div class="wl-faq-item">
+                        <strong>Can I speak to support immediately?</strong>
+                        <p>
+                            Use the Live Chat button for a direct website
+                            conversation with Worldlink support.
+                        </p>
+                    </div>
+
+                </div>
+
+            </aside>
+
+        </div>
+
+
+        <div class="wl-bottom-cta">
+
+            <div>
+                <h2>Need shipment information?</h2>
+
+                <p>
+                    Keep your Worldlink tracking number available when
+                    contacting support.
+                </p>
+            </div>
+
+            <a
+                class="wl-track-btn"
+                href="{{ url_for('track') }}"
+            >
+                Track Shipment
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

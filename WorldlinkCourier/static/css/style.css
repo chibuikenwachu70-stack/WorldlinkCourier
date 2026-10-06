@@ -1,0 +1,474 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap');
+:root{--ink:#10233f;--blue:#155eef;--blue-dark:#0d43b8;--green:#0da66a;--muted:#607089;--line:#e1e8f1;--soft:#f5f8fc;--white:#fff;--danger:#c93636;--shadow:0 24px 70px rgba(20,48,91,.12)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;color:var(--ink);background:var(--white);font-family:"DM Sans",Arial,sans-serif;line-height:1.6}a{color:inherit;text-decoration:none}button,input,select,textarea{font:inherit}.container{width:min(1180px,calc(100% - 40px));margin:auto}
+.site-header{position:relative;z-index:20;background:rgba(255,255,255,.96);border-bottom:1px solid var(--line)}.nav-wrap{min-height:78px;display:flex;align-items:center;gap:30px}.brand{display:inline-flex;align-items:center;gap:11px;flex-shrink:0}.brand-mark{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:var(--blue);color:white;font:800 17px "Manrope";box-shadow:0 8px 22px rgba(21,94,239,.22)}.brand-text b,.brand-text small{display:block}.brand-text b{font:800 15px/1 "Manrope";letter-spacing:.05em}.brand-text small{margin-top:4px;color:#77869b;font-size:8px;font-weight:800;letter-spacing:.18em}.main-nav{display:flex;gap:26px;margin-left:auto;color:#52637b;font-size:13px;font-weight:700}.main-nav a:hover{color:var(--blue)}.nav-cta{padding:11px 16px;border-radius:10px;color:white;background:var(--ink);font-size:12px;font-weight:800}.mobile-menu{display:none;border:0;background:transparent;font-size:22px;margin-left:auto}
+.hero{position:relative;min-height:650px;display:flex;align-items:center;overflow:hidden;background:#10233f}.hero-photo{position:absolute;inset:0;background-image:url("/static/images/courier-hero.jpg");background-size:cover;background-position:center}.hero-overlay{position:absolute;inset:0;background:linear-gradient(90deg,rgba(8,25,48,.92),rgba(8,25,48,.68) 50%,rgba(8,25,48,.2))}.hero-inner{position:relative;z-index:2;padding:85px 0}.hero-copy{max-width:710px;color:#fff}.eyebrow,.kicker{display:inline-block;color:#6ea1ff;font-size:10px;font-weight:800;letter-spacing:.16em}.hero h1,.page-hero h1,.section h2,.cta-band h2{font-family:"Manrope";letter-spacing:-.045em;line-height:1.05}.hero h1{font-size:clamp(44px,5.5vw,72px);margin:15px 0}.hero h1 span{color:#73a6ff}.hero-copy>p{max-width:600px;color:#d4dcea;font-size:17px}.hero-track{max-width:650px;margin-top:30px;padding:17px;border-radius:16px;background:white;color:var(--ink);box-shadow:var(--shadow)}.hero-track label{display:block;font-size:11px;font-weight:800;margin:0 0 8px}.track-row{display:flex;gap:9px}.track-row input{min-width:0;flex:1;padding:14px;border:1px solid #dbe3ee;border-radius:10px;outline:none}.hero-track small{display:block;margin-top:8px;color:#8290a2;font-size:10px}.hero-links{display:flex;gap:25px;margin-top:22px;color:#dbe6f7;font-size:12px;font-weight:700}.hero-links a:hover{color:white}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;border-radius:10px;padding:12px 18px;font-weight:800;font-size:12px;cursor:pointer}.btn-primary{color:#fff;background:var(--blue)}.btn-primary:hover{background:var(--blue-dark)}.btn-light{background:#fff;color:var(--ink)}.btn-outline{background:#fff;color:var(--ink);border:1px solid var(--line)}.full{width:100%}
+.quick-tools{margin-top:-1px;border-bottom:1px solid var(--line)}.quick-grid{display:grid;grid-template-columns:repeat(3,1fr)}.tool-card{display:flex;gap:15px;padding:25px;border-right:1px solid var(--line)}.tool-card:last-child{border-right:0}.tool-card:hover{background:var(--soft)}.tool-icon{width:39px;height:39px;display:grid;place-items:center;border-radius:11px;background:#eaf2ff;color:var(--blue);font-size:20px}.tool-card small{display:block;color:#8491a4;font-size:8px;font-weight:800;letter-spacing:.13em}.tool-card strong{display:block;font:800 14px "Manrope"}.tool-card p{margin:3px 0 0;color:var(--muted);font-size:11px}
+.section{padding:100px 0}.light-section{background:var(--soft)}.split{display:grid;grid-template-columns:.9fr 1.1fr;gap:80px;align-items:center}.section h2{font-size:clamp(35px,4vw,52px);margin:13px 0}.lead,.section-heading>p{color:var(--muted);max-width:610px}.check-list{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:25px;color:#42536c;font-size:12px;font-weight:700}.photo-card,.service-image{background-size:cover;background-position:center;border-radius:24px;min-height:400px;background-color:#dce7f5}.photo-logistics{background-image:linear-gradient(0deg,rgba(10,32,60,.65),transparent 60%),url("/static/images/courier-logistics.jpg");position:relative}.photo-label{position:absolute;bottom:25px;left:25px;color:white}.photo-label b,.photo-label span{display:block}.photo-label b{font-size:11px;letter-spacing:.1em}.photo-label span{font-size:12px;color:#d8e3f3}
+.section-heading{max-width:680px}.service-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:45px}.service-card{padding:28px;border:1px solid var(--line);border-radius:20px;background:#fff;min-height:250px}.service-icon{width:40px;height:40px;display:grid;place-items:center;border-radius:11px;background:#eaf2ff;color:var(--blue);font-weight:800}.service-card h3{font:800 18px "Manrope";margin:45px 0 8px}.service-card p{color:var(--muted);font-size:12px}.service-card a,.large-service a,.help-card a{color:var(--blue);font-size:12px;font-weight:800}
+.journey{display:grid;grid-template-columns:.9fr 1.1fr;gap:90px}.steps{border-top:1px solid var(--line)}.step{display:grid;grid-template-columns:45px 1fr;gap:18px;padding:22px 0;border-bottom:1px solid var(--line)}.step>b{color:var(--blue);font-size:11px}.step h3{margin:0;font:800 15px "Manrope"}.step p{margin:5px 0 0;color:var(--muted);font-size:11px}
+.cta-band{padding:70px 0;background:var(--ink);color:white}.cta-inner{display:flex;align-items:center;justify-content:space-between;gap:30px}.cta-band h2{margin:9px 0 5px;font-size:38px}.cta-band p{margin:0;color:#b9c7d9}
+.footer{padding:55px 0 25px;background:#0a1930;color:#aab8ca}.footer-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:50px}.footer-brand{color:#fff}.footer p{max-width:350px;font-size:12px}.footer-col{display:flex;flex-direction:column;gap:9px;font-size:12px}.footer-col h4{margin:0 0 8px;color:#fff}.footer-col a:hover{color:#fff}.footer-bottom{display:flex;justify-content:space-between;margin-top:45px;padding-top:20px;border-top:1px solid rgba(255,255,255,.08);font-size:10px}
+.page-hero{padding:85px 0;background:linear-gradient(135deg,#f5f8fd,#eaf2ff)}.page-hero h1{font-size:clamp(42px,5vw,62px);margin:12px 0}.page-hero p{max-width:650px;color:var(--muted);font-size:16px}.track-panel{display:flex;gap:10px;max-width:700px;margin-top:28px;padding:12px;background:white;border:1px solid var(--line);border-radius:15px;box-shadow:0 15px 45px rgba(25,53,91,.08)}.track-panel input{flex:1;border:0;outline:0;padding:10px 12px}.tracking-section{padding-top:30px}.tracking-header{display:flex;justify-content:space-between;align-items:center;gap:20px;margin-bottom:25px}.tracking-header h2{font-size:30px}.status-chip,.table-status{display:inline-block;padding:7px 10px;border-radius:8px;color:#1254c6;background:#e9f1ff;font-size:10px;font-weight:800}.tracking-layout{display:grid;grid-template-columns:1.5fr .7fr;gap:20px}.shipment-summary,.progress-card,.events-card,.side-card,.empty-state,.quote-card,.support-card,.form-card,.receipt{border:1px solid var(--line);border-radius:18px;background:white}.shipment-summary{display:grid;grid-template-columns:1fr 40px 1fr;align-items:center;padding:25px}.shipment-summary small,.progress-top small,.side-card dt,.receipt-grid small,.receipt-number small{display:block;color:#8795a8;font-size:8px;font-weight:800;letter-spacing:.13em}.shipment-summary strong{font:800 17px "Manrope"}.route-arrow{color:var(--blue);text-align:center}.progress-card{margin-top:15px;padding:22px}.progress-top{display:flex;justify-content:space-between;gap:25px}.progress-top strong{display:block;font-size:13px;margin-top:2px}.progress-track{height:7px;margin-top:24px;border-radius:20px;background:#e8edf4;overflow:hidden}.progress-fill{width:65%;height:100%;background:var(--blue);border-radius:20px}.progress-labels{display:flex;justify-content:space-between;color:#8491a4;font-size:9px;margin-top:7px}.events-card{margin-top:15px;padding:22px}.card-heading{display:flex;justify-content:space-between;align-items:center}.card-heading h3,.side-card h3{margin:0;font:800 16px "Manrope"}.card-heading span{color:#8a97a8;font-size:10px}.timeline{margin-top:20px}.timeline-item{position:relative;display:flex;gap:15px;padding:0 0 25px}.timeline-item:not(:last-child):before{content:"";position:absolute;left:5px;top:13px;width:1px;height:calc(100% - 5px);background:#dce5ef}.timeline-dot{position:relative;z-index:2;width:11px;height:11px;flex:0 0 11px;margin-top:5px;border-radius:50%;background:#cbd5e2;border:2px solid white;box-shadow:0 0 0 1px #cbd5e2}.timeline-item.current .timeline-dot{background:var(--blue);box-shadow:0 0 0 4px #eaf2ff}.timeline-content strong,.timeline-content span{display:block}.timeline-content strong{font-size:13px}.timeline-content span{color:#5c6c82;font-size:11px;margin-top:2px}.timeline-content p{margin:6px 0;color:var(--muted);font-size:10px}.timeline-content time{color:#9aa6b6;font-size:9px}.side-card{padding:22px}.side-card+.side-card{margin-top:15px}.side-card dl{margin:15px 0 0}.side-card dl>div{padding:12px 0;border-bottom:1px solid var(--line)}.side-card dl>div:last-child{border-bottom:0}.side-card dd{margin:2px 0 0;font-size:12px;font-weight:700}.help-card{background:var(--soft)}.help-card p{color:var(--muted);font-size:11px}.empty-state{padding:60px;text-align:center}.empty-icon{width:48px;height:48px;margin:auto;display:grid;place-items:center;border-radius:50%;background:#eaf2ff;color:var(--blue);font-weight:800}.empty-state h2{margin:15px 0 5px;font:800 22px "Manrope"}.empty-state p{color:var(--muted)}
+.service-list{display:grid;gap:30px}.large-service{display:grid;grid-template-columns:1fr 1fr;gap:55px;align-items:center}.large-service.reverse .service-image{order:2}.service-image{min-height:330px}.image-express{background-image:url("/static/images/courier-express.jpg")}.image-international{background-image:url("/static/images/courier-international.jpg")}.image-business{background-image:url("/static/images/courier-business.jpg")}.large-service h2{margin:10px 0}.large-service p{color:var(--muted)}
+.rate-layout{display:grid;grid-template-columns:1fr .8fr;gap:70px}.quote-card{padding:28px}.quote-card h3{font:800 20px "Manrope";margin-top:0}.quote-card label,.form-card label{display:block;margin:14px 0;color:#42536c;font-size:11px;font-weight:800}.quote-card input,.quote-card select,.form-card input,.form-card select,.form-card textarea{width:100%;margin-top:6px;padding:12px;border:1px solid #dbe3ee;border-radius:9px;outline:none;background:#fff}.quote-result{margin-top:15px;padding:12px;border-radius:9px;background:var(--soft);color:var(--muted);font-size:10px}
+.support-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.support-card{padding:28px}.support-card h2{font-size:23px}.support-card p{color:var(--muted);font-size:12px}
+.flash-wrap{position:relative;z-index:30;padding-top:12px}.flash{padding:12px 15px;border-radius:10px;font-size:12px;font-weight:700}.flash.success{color:#0b7650;background:#e8f8f1}.flash.error{color:#a52d2d;background:#fdecec}
+.admin-login-page{min-height:100vh;display:grid;place-items:center;background:linear-gradient(135deg,#edf3fb,#f8fbff)}.login-box{width:min(430px,calc(100% - 30px));padding:35px;border:1px solid var(--line);border-radius:20px;background:white;box-shadow:var(--shadow)}.login-box h1{font:800 28px "Manrope";margin:30px 0 5px}.login-box>p{color:var(--muted);font-size:12px}.login-box label{display:block;margin:15px 0;font-size:11px;font-weight:800}.login-box input{width:100%;margin-top:6px;padding:12px;border:1px solid var(--line);border-radius:9px}
+.admin-top{padding:50px 0 25px;background:var(--soft)}.admin-top-inner{display:flex;align-items:end;justify-content:space-between;gap:20px}.admin-top h1{margin:8px 0 0;font:800 38px "Manrope"}.admin-actions{display:flex;gap:8px}.admin-section{padding-top:30px}.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.stat-card{padding:20px;border:1px solid var(--line);border-radius:15px;background:white}.stat-card small{display:block;color:#8491a4;font-size:8px;font-weight:800;letter-spacing:.12em}.stat-card strong{display:block;font:800 30px "Manrope";margin-top:4px}.stat-card span{color:var(--muted);font-size:10px}.admin-filter{display:grid;grid-template-columns:1fr 220px auto auto;gap:8px;margin:25px 0}.admin-filter input,.admin-filter select{border:1px solid var(--line);border-radius:9px;padding:11px;outline:none}.table-wrap{overflow:auto;border:1px solid var(--line);border-radius:15px;background:white}table{width:100%;border-collapse:collapse;min-width:950px}th,td{text-align:left;padding:14px;border-bottom:1px solid var(--line);font-size:11px;vertical-align:middle}th{color:#8491a4;font-size:8px;letter-spacing:.12em}td strong{display:block}td small{display:block;color:#8b98a9;margin-top:3px;font-size:9px}.row-actions{display:flex;gap:8px;align-items:center}.row-actions a,.danger-link{color:var(--blue);font-size:10px;font-weight:800;border:0;background:transparent;cursor:pointer;padding:0}.danger-link{color:var(--danger)}.empty-table{text-align:center;color:var(--muted);padding:35px}
+.admin-page-hero{padding:60px 0}.form-card{padding:30px}.form-card h3{font:800 18px "Manrope";padding-bottom:12px;border-bottom:1px solid var(--line);margin-top:0;margin-bottom:10px}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 18px}.form-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:25px}.edit-layout{display:grid;grid-template-columns:1fr .6fr;gap:20px}.receipt{padding:40px}.receipt-head{display:flex;justify-content:space-between;align-items:center;padding-bottom:25px;border-bottom:1px solid var(--line);font-size:10px;font-weight:800;letter-spacing:.12em}.receipt-number{padding:30px 0}.receipt-number strong{display:block;font:800 32px "Manrope";margin-top:5px}.receipt-grid{display:grid;grid-template-columns:1fr 1fr;gap:25px;padding:25px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}.receipt-grid strong,.receipt-grid span{display:block}.receipt-grid strong{font-size:13px;margin-top:4px}.receipt-grid span{color:var(--muted);font-size:10px}.receipt-status{display:flex;gap:12px;align-items:center;padding:22px 0;flex-wrap:wrap}.receipt-status span{font-size:8px;color:#8795a8;font-weight:800}.receipt-status strong{font-size:11px}
+@media(max-width:900px){.main-nav{display:none}.mobile-menu{display:block}.nav-cta{display:none}.quick-grid,.service-grid,.support-grid,.stats-grid{grid-template-columns:1fr}.tool-card{border-right:0;border-bottom:1px solid var(--line)}.tool-card:last-child{border-bottom:0}.split,.journey,.tracking-layout,.rate-layout,.large-service,.edit-layout{grid-template-columns:1fr}.large-service.reverse .service-image{order:0}.photo-card{min-height:330px}.admin-filter{grid-template-columns:1fr 1fr}.tracking-layout{gap:15px}.footer-grid{grid-template-columns:1fr 1fr}.footer-grid>div:first-child{grid-column:1/-1}.cta-inner{align-items:flex-start;flex-direction:column}}
+@media(max-width:620px){.container{width:calc(100% - 28px)}.nav-wrap{min-height:68px}.hero{min-height:680px}.hero-inner{padding:55px 0}.hero h1{font-size:42px}.hero-copy>p{font-size:14px}.track-row,.track-panel{flex-direction:column}.track-row .btn{min-height:46px}.hero-links{flex-direction:column;gap:10px}.section{padding:70px 0}.check-list,.form-grid,.receipt-grid{grid-template-columns:1fr}.footer-grid{grid-template-columns:1fr}.footer-bottom,.tracking-header,.admin-top-inner{align-items:flex-start;flex-direction:column}.admin-filter{grid-template-columns:1fr}.admin-actions{width:100%}.admin-actions .btn{flex:1}.receipt{padding:22px}.receipt-number strong{font-size:25px}}
+@media print{.site-header,.footer,.form-actions{display:none!important}.receipt{border:0;box-shadow:none}}
+/* =========================================================
+   WORLDLINK SHIPMENT RECEIPT
+   ========================================================= */
+
+.receipt-section {
+    background: #f5f8fc;
+    min-height: 70vh;
+}
+
+.receipt {
+    max-width: 920px;
+    margin: 0 auto;
+    background: #ffffff;
+    border: 1px solid #dfe6ef;
+    border-radius: 18px;
+    padding: 42px;
+    box-shadow: 0 18px 50px rgba(15, 35, 65, 0.08);
+}
+
+.receipt-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 30px;
+    padding-bottom: 30px;
+    border-bottom: 1px solid #e5eaf1;
+}
+
+.receipt-title {
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.receipt-title span {
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    font-weight: 700;
+    color: #718096;
+}
+
+.receipt-title strong {
+    font-size: 24px;
+    color: #10233f;
+}
+
+.receipt-number {
+    margin: 32px 0;
+    padding: 25px;
+    background: #f3f7fc;
+    border: 1px solid #dce6f2;
+    border-radius: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.receipt-number small,
+.receipt-block small,
+.receipt-grid small,
+.receipt-status small,
+.receipt-route small {
+    font-size: 10px;
+    letter-spacing: 0.13em;
+    font-weight: 700;
+    color: #718096;
+}
+
+.receipt-number strong {
+    font-size: 30px;
+    letter-spacing: 0.06em;
+    color: #155eef;
+}
+
+.receipt-number span {
+    font-size: 13px;
+    color: #718096;
+}
+
+.receipt-status {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    padding: 22px 0;
+    border-bottom: 1px solid #e5eaf1;
+}
+
+.receipt-status > div {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.receipt-status strong {
+    font-size: 15px;
+    color: #10233f;
+}
+
+.receipt-section-title {
+    margin-top: 32px;
+    margin-bottom: 16px;
+    font-size: 13px;
+    font-weight: 800;
+    color: #10233f;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+.receipt-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.receipt-block {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 20px;
+    border: 1px solid #e4e9f0;
+    border-radius: 12px;
+}
+
+.receipt-block strong {
+    font-size: 16px;
+    color: #10233f;
+}
+
+.receipt-block span {
+    font-size: 13px;
+    line-height: 1.5;
+    color: #68778d;
+}
+
+.receipt-route {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 25px;
+    padding: 24px;
+    background: #f8fafc;
+    border: 1px solid #e4e9f0;
+    border-radius: 12px;
+}
+
+.receipt-route > div {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.receipt-route strong {
+    font-size: 17px;
+    color: #10233f;
+}
+
+.receipt-route-arrow {
+    font-size: 28px;
+    font-weight: 700;
+    color: #155eef;
+}
+
+.receipt-details > div {
+    padding: 18px;
+    border: 1px solid #e4e9f0;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.receipt-details strong {
+    font-size: 15px;
+    color: #10233f;
+}
+
+.receipt-information {
+    margin-top: 32px;
+    padding: 22px;
+    border-radius: 12px;
+    background: #10233f;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 25px;
+}
+
+.receipt-information strong {
+    display: block;
+    margin-bottom: 7px;
+}
+
+.receipt-information p {
+    margin: 0;
+    max-width: 560px;
+    color: #d8e1ed;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.receipt-tracking-code {
+    padding: 12px 16px;
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 8px;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+}
+
+.receipt-footer {
+    margin-top: 32px;
+    padding-top: 22px;
+    border-top: 1px solid #e5eaf1;
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    font-size: 12px;
+    color: #718096;
+}
+
+.receipt-footer div {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.receipt-footer strong {
+    color: #10233f;
+    font-size: 12px;
+}
+
+.receipt-actions {
+    margin-top: 32px;
+    padding-top: 25px;
+    border-top: 1px solid #e5eaf1;
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+}
+
+
+/* PRINT */
+
+@media print {
+
+    body {
+        background: #ffffff !important;
+    }
+
+    header,
+    nav,
+    footer,
+    .no-print,
+    .receipt-actions {
+        display: none !important;
+    }
+
+    .receipt-section {
+        padding: 0 !important;
+        background: #ffffff !important;
+        min-height: auto;
+    }
+
+    .receipt {
+        max-width: none;
+        margin: 0;
+        padding: 20px;
+        border: none;
+        border-radius: 0;
+        box-shadow: none;
+    }
+
+    .receipt-information {
+        background: #10233f !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+
+    .receipt-number {
+        background: #f3f7fc !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+
+}
+
+
+/* MOBILE */
+
+@media (max-width: 700px) {
+
+    .receipt {
+        padding: 22px;
+        border-radius: 12px;
+    }
+
+    .receipt-head {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .receipt-title {
+        text-align: left;
+    }
+
+    .receipt-number strong {
+        font-size: 22px;
+        word-break: break-word;
+    }
+
+    .receipt-status {
+        grid-template-columns: 1fr;
+    }
+
+    .receipt-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .receipt-route {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .receipt-route-arrow {
+        transform: rotate(90deg);
+        justify-self: center;
+    }
+
+    .receipt-information {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .receipt-tracking-code {
+        width: 100%;
+        box-sizing: border-box;
+        text-align: center;
+    }
+
+    .receipt-footer {
+        flex-direction: column;
+    }
+
+    .receipt-actions {
+        flex-direction: column;
+    }
+
+    .receipt-actions .btn {
+        width: 100%;
+    }
+
+}
+
+/* =========================================================
+   WORLDLINK LIVE TRACKING PROGRESS
+   Customs-aware shipment progression
+   ========================================================= */
+
+.progress-track {
+    position: relative;
+    height: 8px;
+    margin-top: 24px;
+    border-radius: 20px;
+    background: #e8edf4;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    border-radius: 20px;
+    transition: width .45s ease;
+}
+
+.progress-fill.processing,
+.progress-fill.received,
+.progress-fill.transit,
+.progress-fill.destination,
+.progress-fill.customs,
+.progress-fill.customs-hold,
+.progress-fill.customs-cleared,
+.progress-fill.customs-released {
+    background: var(--blue);
+}
+
+.progress-fill.delivery,
+.progress-fill.delivered {
+    background: var(--green);
+}
+
+.progress-fill.exception {
+    background: var(--danger);
+}
+
+.progress-labels {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+    color: #8491a4;
+    font-size: 8px;
+    font-weight: 600;
+    margin-top: 9px;
+}
+
+.progress-labels span {
+    white-space: nowrap;
+    transition: color .25s ease;
+}
+
+.progress-labels span.active {
+    color: var(--ink);
+    font-weight: 800;
+}
+
+.tracking-current-status.customs,
+.tracking-current-status.customs-hold,
+.tracking-current-status.customs-cleared,
+.tracking-current-status.customs-released {
+    color: #1254c6;
+    background: #e9f1ff;
+}
+
+.tracking-current-status.delivery,
+.tracking-current-status.delivered {
+    color: #087a4e;
+    background: #e8f8f1;
+}
+
+.tracking-current-status.exception {
+    color: #a52d2d;
+    background: #fdecec;
+}
+
+.timeline-item.customs .timeline-dot {
+    background: var(--blue);
+    box-shadow: 0 0 0 4px #eaf2ff;
+}
+
+.timeline-item.exception .timeline-dot {
+    background: var(--danger);
+    box-shadow: 0 0 0 4px #fdecec;
+}
+
+@media (max-width: 620px) {
+    .progress-labels {
+        gap: 4px;
+        font-size: 7px;
+    }
+}

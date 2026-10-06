@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}Rates & Transit Times | Worldlink Courier Service{% endblock %}
+{% block content %}
+<section class="page-hero"><div class="container"><span class="eyebrow">RATES & TRANSIT</span><h1>Plan your shipment.</h1><p>Use this page as the foundation for Worldlink's future quote and transit-time tools.</p></div></section>
+<section class="section"><div class="container rate-layout">
+    <div class="rate-copy"><span class="kicker">SHIPPING PLANNER</span><h2>Get the information you need before sending.</h2><p>For the next stage of the build, this section can connect to a full rate engine with origin, destination, weight, package type and service level.</p><div class="check-list"><div>✓ Origin and destination</div><div>✓ Package weight</div><div>✓ Service type</div><div>✓ Estimated transit time</div></div></div>
+    <form class="quote-card" onsubmit="return false;"><h3>Quick estimate</h3><label>Origin<input placeholder="e.g. Nairobi"></label><label>Destination<input placeholder="e.g. London"></label><label>Weight (kg)<input type="number" min="0" step="0.1" placeholder="2.5"></label><label>Service<select><option>International Express</option><option>Standard Delivery</option><option>Business Logistics</option></select></label><button class="btn btn-primary" type="button" onclick="showQuote()">Calculate estimate</button><div id="quote-result" class="quote-result">Rates can be connected to your final pricing rules.</div></form>
+</div></section>
+{% endblock %}
+{% block scripts %}<script>function showQuote(){document.getElementById('quote-result').textContent='Quote engine placeholder — connect your approved Worldlink rates here.';}</script>{% endblock %}
