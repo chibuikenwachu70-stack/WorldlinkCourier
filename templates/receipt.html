@@ -59,6 +59,61 @@ Shipment Receipt {{ shipment.tracking_number }} | Worldlink Courier
         font: 800 22px/1 "Manrope", Arial, sans-serif;
     }
 
+    /* COMPANY CONTACT DETAILS */
+    .wl-company-details {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 20px;
+        margin-top: 14px;
+        padding: 12px 15px;
+        background: #f5f8fc;
+        border: 1px solid #dce5ef;
+        border-radius: 9px;
+    }
+
+    .wl-company-name {
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+    }
+
+    .wl-company-name strong {
+        color: #10233f;
+        font-size: 10px;
+        letter-spacing: .04em;
+    }
+
+    .wl-company-name span {
+        color: #7a899d;
+        font-size: 7px;
+    }
+
+    .wl-company-contact {
+        display: flex;
+        align-items: center;
+        gap: 22px;
+    }
+
+    .wl-company-contact div {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+    }
+
+    .wl-company-contact small {
+        color: #8795a8;
+        font-size: 6px;
+        font-weight: 800;
+        letter-spacing: .12em;
+    }
+
+    .wl-company-contact strong {
+        color: #243b53;
+        font-size: 7.5px;
+        font-weight: 700;
+    }
+
     .wl-tracking {
         display: flex;
         align-items: center;
@@ -302,6 +357,18 @@ Shipment Receipt {{ shipment.tracking_number }} | Worldlink Courier
             flex-direction: column;
         }
 
+        .wl-company-details {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .wl-company-contact {
+            width: 100%;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 8px;
+        }
+
         .wl-summary,
         .wl-two,
         .wl-package,
@@ -428,20 +495,32 @@ Shipment Receipt {{ shipment.tracking_number }} | Worldlink Courier
 
 
         <!-- COMPANY DETAILS -->
-        <section class="wl-block">
-            <div class="wl-block-title">COMPANY DETAILS</div>
-            <div class="wl-two">
-                <div class="wl-card">
-                    <span class="wl-label">WORLDLINK COURIER SERVICE</span>
-                    <span class="wl-card-name">Delivering More Than Parcels. Delivering Confidence.</span>
-                </div>
-                <div class="wl-card">
-                    <span class="wl-label">CONTACT INFORMATION</span>
-                    <p class="wl-card-text">Email: shipping@worldlinkcourierservice.com</p>
-                    <p class="wl-card-text">Phone: +44 7700000011</p>
-                    <p class="wl-card-text">Customer Support: 24/7</p>
-                </div>
+        <section class="wl-company-details">
+
+            <div class="wl-company-name">
+                <strong>WORLDLINK COURIER SERVICE</strong>
+                <span>Billing &amp; Customer Documentation</span>
             </div>
+
+            <div class="wl-company-contact">
+
+                <div>
+                    <small>PHONE</small>
+                    <strong>+44 7700900010</strong>
+                </div>
+
+                <div>
+                    <small>EMAIL</small>
+                    <strong>support@worldlinkexpresscourier.com</strong>
+                </div>
+
+                <div>
+                    <small>WEBSITE</small>
+                    <strong>worldlinkexpresscourier.com</strong>
+                </div>
+
+            </div>
+
         </section>
 
 

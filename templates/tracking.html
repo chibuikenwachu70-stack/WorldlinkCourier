@@ -3,75 +3,7 @@
 
 {% block content %}
 
-<style>
-    .worldlink-found-banner {
-        display: flex;
-        align-items: center;
-        gap: 16px;
-        margin: 0 0 24px;
-        padding: 20px 22px;
-        background: #f0f8f4;
-        border: 1px solid #c9e6d7;
-        border-radius: 14px;
-        box-shadow: 0 8px 24px rgba(16, 61, 42, .05);
-    }
-
-    .worldlink-found-icon {
-        width: 42px;
-        height: 42px;
-        flex: 0 0 42px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 50%;
-        background: #1f9d68;
-        color: #fff;
-        font-size: 22px;
-        font-weight: 900;
-    }
-
-    .worldlink-found-kicker {
-        display: block;
-        margin-bottom: 3px;
-        color: #23825a;
-        font-size: 9px;
-        font-weight: 900;
-        letter-spacing: .16em;
-    }
-
-    .worldlink-found-banner h2 {
-        margin: 0;
-        color: #123b2b;
-        font-size: 25px;
-        line-height: 1.15;
-        letter-spacing: -.025em;
-    }
-
-    .worldlink-found-banner p {
-        margin: 5px 0 0;
-        color: #607a6d;
-        font-size: 12px;
-        line-height: 1.6;
-    }
-
-    .worldlink-found-banner strong {
-        color: #234c3a;
-    }
-
-    @media (max-width: 620px) {
-        .worldlink-found-banner {
-            align-items: flex-start;
-            padding: 17px;
-        }
-
-        .worldlink-found-banner h2 {
-            font-size: 21px;
-        }
-    }
-</style>
-
-
-<section class="page-hero tracking-page-hero">
+<section class="page-hero tracking-page-hero{% if shipment or message %} tracking-page-hero-result{% endif %}">
     <div class="container">
         <span class="eyebrow">WORLDLINK TRACKING</span>
 
@@ -127,6 +59,13 @@
 
 
 {% elif shipment %}
+<div class="shipment-found-notice">
+    <span class="shipment-found-icon">✓</span>
+    <div>
+        <strong>Shipment Found</strong>
+        <p>Your shipment has been located successfully.</p>
+    </div>
+</div>
 
     {% set current_status = shipment.status|lower %}
 
@@ -187,20 +126,6 @@
         {% set status_class = 'active' %}
     {% endif %}
 
-
-    <!-- SHIPMENT FOUND BANNER -->
-
-    <div class="worldlink-found-banner" role="status" aria-live="polite">
-        <div class="worldlink-found-icon">✓</div>
-        <div>
-            <span class="worldlink-found-kicker">TRACKING RESULT</span>
-            <h2>Shipment found</h2>
-            <p>
-                We found your shipment. Here are the latest tracking details
-                available for <strong>{{ shipment.tracking_number }}</strong>.
-            </p>
-        </div>
-    </div>
 
     <!-- TRACKING HEADER -->
 

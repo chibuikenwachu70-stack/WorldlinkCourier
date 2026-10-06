@@ -681,6 +681,11 @@
                 <span>Create Shipment</span>
             </a>
 
+            <a href="{{ url_for('admin_invoices') }}">
+                <span class="nav-icon">▣</span>
+                <span>Invoices</span>
+            </a>
+
             <a href="{{ url_for('admin_chats') }}">
                 <span class="nav-icon">◉</span>
                 <span>Live Chat</span>
@@ -961,6 +966,13 @@
                                             href="{{ url_for('shipment_receipt', shipment_id=shipment.id) }}"
                                         >
                                             Receipt
+                                        </a>
+
+                                        <a
+                                            class="action-link"
+                                            href="{{ url_for('create_invoice', shipment_id=shipment.id) }}"
+                                        >
+                                            Invoice
                                         </a>
 
                                         <a

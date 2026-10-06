@@ -21,20 +21,12 @@
         {% endblock %}
     </title>
 
-    <!-- Main Worldlink stylesheet -->
     <link
         rel="stylesheet"
         href="{{ url_for('static', filename='css/style.css') }}"
     >
 
-    <!-- Worldlink Live Chat stylesheet -->
-    <link
-        rel="stylesheet"
-        href="{{ url_for('static', filename='css/live-chat.css') }}"
-    >
-
     <style>
-
         /* =====================================================
            WORLDLINK OFFICIAL SITE BRANDING
            ===================================================== */
@@ -67,6 +59,69 @@
             white-space: nowrap;
         }
 
+        .worldlink-language-selector{
+            display:flex;
+            align-items:center;
+            gap:5px;
+            height:40px;
+            padding:0 8px;
+            border:1px solid #d9e2ec;
+            border-radius:9px;
+            background:#fff;
+            box-sizing:border-box;
+        }
+
+        .worldlink-language-globe{
+            color:#536b86;
+            font-size:12px;
+            font-weight:800;
+            line-height:1;
+        }
+
+        .worldlink-language-selector select{
+            width:105px;
+            height:30px;
+            border:0;
+            outline:0;
+            background:#fff;
+            color:#17375d;
+            font:700 10px/1 Arial,sans-serif;
+            cursor:pointer;
+        }
+
+        .worldlink-mobile-language-selector{
+            display:none;
+        }
+
+        @media (max-width: 900px) {
+            .worldlink-language-selector{
+                display:none;
+            }
+
+            .worldlink-mobile-language-selector{
+                display:flex;
+                align-items:center;
+                justify-content:space-between;
+                gap:15px;
+                padding:12px 0;
+                border-top:1px solid #edf1f5;
+                color:#17375d;
+                font-size:13px;
+                font-weight:700;
+            }
+
+            .worldlink-mobile-language-selector select{
+                min-width:135px;
+                height:34px;
+                padding:0 8px;
+                border:1px solid #d9e2ec;
+                border-radius:8px;
+                background:#fff;
+                color:#17375d;
+                font:700 11px/1 Arial,sans-serif;
+            }
+        }
+
         .worldlink-footer-logo {
             display: block;
             width: 190px;
@@ -74,6 +129,38 @@
             height: auto;
             margin-bottom: 15px;
             filter: brightness(0) invert(1);
+        }
+
+        .worldlink-footer-contact {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .worldlink-footer-contact a {
+            color: inherit;
+            text-decoration: none;
+            word-break: break-word;
+        }
+
+        .worldlink-footer-contact a:hover {
+            text-decoration: underline;
+        }
+
+        .worldlink-footer-contact .contact-label {
+            display: block;
+            margin-bottom: 2px;
+            font-size: 10px;
+            font-weight: 700;
+            opacity: .7;
+            letter-spacing: .05em;
+            text-transform: uppercase;
+        }
+
+        @media (min-width: 901px) {
+            .footer-grid.worldlink-contact-grid {
+                grid-template-columns: 1.35fr 1fr 1fr 1.2fr;
+            }
         }
 
         @media (max-width: 900px) {
@@ -97,13 +184,11 @@
         @media print {
 
             .site-header,
-            .footer,
-            #worldlink-chat-root {
+            .footer {
                 display: none !important;
             }
 
         }
-
     </style>
 
     {% block head %}{% endblock %}
@@ -121,6 +206,7 @@
 <header class="site-header">
 
     <div class="container nav-wrap">
+
 
         <a
             href="{{ url_for('home') }}"
@@ -154,6 +240,59 @@
             <a href="{{ url_for('support') }}">
                 Support
             </a>
+
+            <div class="worldlink-language-selector" aria-label="Website language">
+                <span class="worldlink-language-globe" aria-hidden="true">文</span>
+                <select id="worldlink-language-select" aria-label="Choose language">
+                    <option value="id">Bahasa Indonesia</option>
+                    <option value="ms">Bahasa Melayu</option>
+                    <option value="da">Dansk</option>
+                    <option value="de">Deutsch</option>
+                    <option value="en">English</option>
+                    <option value="es">Español</option>
+                    <option value="tl">Filipino</option>
+                    <option value="fr">Français</option>
+                    <option value="hr">Hrvatski</option>
+                    <option value="it">Italiano</option>
+                    <option value="sw">Kiswahili</option>
+                    <option value="hu">Magyar</option>
+                    <option value="nl">Nederlands</option>
+                    <option value="no">Norsk</option>
+                    <option value="pl">Polski</option>
+                    <option value="pt">Português</option>
+                    <option value="ro">Română</option>
+                    <option value="sk">Slovenčina</option>
+                    <option value="fi">Suomi</option>
+                    <option value="sv">Svenska</option>
+                    <option value="vi">Tiếng Việt</option>
+                    <option value="tr">Türkçe</option>
+                    <option value="cs">Čeština</option>
+                    <option value="el">Ελληνικά</option>
+                    <option value="bg">Български</option>
+                    <option value="ru">Русский</option>
+                    <option value="sr">Српски</option>
+                    <option value="uk">Українська</option>
+                    <option value="he">עברית</option>
+                    <option value="ur">اردو</option>
+                    <option value="ar">العربية</option>
+                    <option value="fa">فارسی</option>
+                    <option value="mr">मराठी</option>
+                    <option value="hi">हिन्दी</option>
+                    <option value="bn">বাংলা</option>
+                    <option value="pa">ਪੰਜਾਬੀ</option>
+                    <option value="gu">ગુજરાતી</option>
+                    <option value="ta">தமிழ்</option>
+                    <option value="te">తెలుగు</option>
+                    <option value="kn">ಕನ್ನಡ</option>
+                    <option value="ml">മലയാളം</option>
+                    <option value="th">ไทย</option>
+                    <option value="am">አማርኛ</option>
+                    <option value="ja">日本語</option>
+                    <option value="zh-CN">简体中文</option>
+                    <option value="zh-TW">繁體中文</option>
+                    <option value="ko">한국어</option>
+                </select>
+            </div>
 
             <a
                 href="{{ url_for('track') }}"
@@ -204,6 +343,58 @@
         <a href="{{ url_for('track') }}">
             Track Shipment
         </a>
+        <div class="worldlink-mobile-language-selector">
+            <span>Language</span>
+            <select id="worldlink-language-select-mobile" aria-label="Choose language">
+                    <option value="id">Bahasa Indonesia</option>
+                    <option value="ms">Bahasa Melayu</option>
+                    <option value="da">Dansk</option>
+                    <option value="de">Deutsch</option>
+                    <option value="en">English</option>
+                    <option value="es">Español</option>
+                    <option value="tl">Filipino</option>
+                    <option value="fr">Français</option>
+                    <option value="hr">Hrvatski</option>
+                    <option value="it">Italiano</option>
+                    <option value="sw">Kiswahili</option>
+                    <option value="hu">Magyar</option>
+                    <option value="nl">Nederlands</option>
+                    <option value="no">Norsk</option>
+                    <option value="pl">Polski</option>
+                    <option value="pt">Português</option>
+                    <option value="ro">Română</option>
+                    <option value="sk">Slovenčina</option>
+                    <option value="fi">Suomi</option>
+                    <option value="sv">Svenska</option>
+                    <option value="vi">Tiếng Việt</option>
+                    <option value="tr">Türkçe</option>
+                    <option value="cs">Čeština</option>
+                    <option value="el">Ελληνικά</option>
+                    <option value="bg">Български</option>
+                    <option value="ru">Русский</option>
+                    <option value="sr">Српски</option>
+                    <option value="uk">Українська</option>
+                    <option value="he">עברית</option>
+                    <option value="ur">اردو</option>
+                    <option value="ar">العربية</option>
+                    <option value="fa">فارسی</option>
+                    <option value="mr">मराठी</option>
+                    <option value="hi">हिन्दी</option>
+                    <option value="bn">বাংলা</option>
+                    <option value="pa">ਪੰਜਾਬੀ</option>
+                    <option value="gu">ગુજરાતી</option>
+                    <option value="ta">தமிழ்</option>
+                    <option value="te">తెలుగు</option>
+                    <option value="kn">ಕನ್ನಡ</option>
+                    <option value="ml">മലയാളം</option>
+                    <option value="th">ไทย</option>
+                    <option value="am">አማርኛ</option>
+                    <option value="ja">日本語</option>
+                    <option value="zh-CN">简体中文</option>
+                    <option value="zh-TW">繁體中文</option>
+                    <option value="ko">한국어</option>
+            </select>
+        </div>
 
     </div>
 
@@ -246,6 +437,1102 @@
 </main>
 
 
+
+<!-- =====================================================
+     WORLDLINK LIVE CHAT
+     ===================================================== -->
+
+<div id="worldlink-chat-launcher" class="worldlink-chat-launcher" aria-label="Open Worldlink live chat">
+    <span class="worldlink-chat-pulse"></span>
+
+    <div class="worldlink-chat-avatar">
+        <img
+            src="{{ url_for('static', filename='images/worldlink-logo.png') }}"
+            alt="Worldlink"
+        >
+    </div>
+
+    <div class="worldlink-chat-prompt">
+        <strong>Need help with your shipment?</strong>
+        <span>Chat with Worldlink Support</span>
+    </div>
+
+    <button
+        type="button"
+        class="worldlink-chat-close-prompt"
+        aria-label="Hide chat invitation"
+        onclick="hideWorldlinkChatPrompt(event)"
+    >×</button>
+</div>
+
+
+<div id="worldlink-chat-window" class="worldlink-chat-window" aria-hidden="true">
+
+    <div class="worldlink-chat-header">
+
+        <div class="worldlink-chat-header-main">
+
+            <div class="worldlink-chat-header-avatar">
+                <img
+                    src="{{ url_for('static', filename='images/worldlink-logo.png') }}"
+                    alt="Worldlink Courier Service"
+                >
+            </div>
+
+            <div>
+                <strong>Worldlink Support</strong>
+                <span>Shipment assistance &amp; customer support</span>
+            </div>
+
+        </div>
+
+        <button
+            type="button"
+            class="worldlink-chat-minimize"
+            aria-label="Close live chat"
+            onclick="closeWorldlinkChat()"
+        >×</button>
+
+    </div>
+
+
+    <div id="worldlink-chat-messages" class="worldlink-chat-messages">
+
+        <div class="worldlink-chat-welcome">
+            <div class="worldlink-chat-welcome-title">
+                <span class="worldlink-chat-online-dot"></span>
+                <strong>Welcome to Worldlink Support</strong>
+            </div>
+            <p>
+                How can we help you today? Choose an option below or send us a message.
+            </p>
+        </div>
+
+    </div>
+
+
+    <form id="worldlink-chat-form" class="worldlink-chat-form">
+
+        <input
+            id="worldlink-chat-name"
+            name="customer_name"
+            type="text"
+            placeholder="Your name"
+            autocomplete="name"
+            required
+        >
+
+        <input
+            id="worldlink-chat-email"
+            name="customer_email"
+            type="email"
+            placeholder="Your email"
+            autocomplete="email"
+            required
+        >
+
+        <input
+            id="worldlink-chat-tracking"
+            name="tracking_number"
+            type="text"
+            placeholder="Tracking number (optional)"
+            autocomplete="off"
+        >
+
+        <div class="worldlink-chat-compose">
+
+            <textarea
+                id="worldlink-chat-message"
+                name="message"
+                rows="2"
+                maxlength="5000"
+                placeholder="Write your message..."
+                required
+            ></textarea>
+
+            <button type="submit" aria-label="Send message">
+                ➤
+            </button>
+
+        </div>
+
+        <div id="worldlink-chat-status" class="worldlink-chat-status"></div>
+
+        <div class="worldlink-chat-quick-actions" aria-label="Quick support options">
+            <button type="button" data-chat-quick="I would like to track my shipment. My tracking number is ">Track Shipment</button>
+            <button type="button" data-chat-quick="I have a question about my delivery. ">Delivery Question</button>
+            <button type="button" data-chat-quick="I need assistance with customs or clearance. ">Customs Assistance</button>
+            <button type="button" data-chat-quick="I would like to speak with Worldlink Support. ">Talk to Support</button>
+        </div>
+
+    </form>
+
+</div>
+
+
+<style>
+
+/* =====================================================
+   WORLDLINK LIVE CHAT WIDGET
+   ===================================================== */
+
+.worldlink-chat-launcher{
+    position:fixed;
+    right:24px;
+    bottom:24px;
+    z-index:99990;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    max-width:340px;
+    cursor:pointer;
+}
+
+.worldlink-chat-avatar{
+    position:relative;
+    width:58px;
+    height:58px;
+    flex:0 0 58px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:50%;
+    background:#fff;
+    border:3px solid #1769ff;
+    box-shadow:0 10px 28px rgba(9,43,85,.25);
+    animation:worldlinkChatBlink 1.8s infinite;
+    overflow:hidden;
+}
+
+.worldlink-chat-avatar img{
+    width:46px;
+    height:46px;
+    object-fit:contain;
+}
+
+.worldlink-chat-pulse{
+    position:absolute;
+    right:2px;
+    top:1px;
+    width:12px;
+    height:12px;
+    border-radius:50%;
+    background:#20b26b;
+    border:2px solid #fff;
+    z-index:2;
+    box-shadow:0 0 0 0 rgba(32,178,107,.65);
+    animation:worldlinkChatPulse 1.7s infinite;
+}
+
+.worldlink-chat-prompt{
+    min-width:205px;
+    padding:11px 15px;
+    border-radius:12px;
+    background:#fff;
+    border:1px solid #dce5ef;
+    box-shadow:0 12px 30px rgba(9,43,85,.14);
+    display:flex;
+    flex-direction:column;
+    gap:3px;
+}
+
+.worldlink-chat-prompt strong{
+    color:#102f56;
+    font-size:12px;
+    line-height:1.3;
+}
+
+.worldlink-chat-prompt span{
+    color:#6e829d;
+    font-size:10px;
+}
+
+.worldlink-chat-close-prompt{
+    position:absolute;
+    right:-5px;
+    top:-8px;
+    width:22px;
+    height:22px;
+    border:1px solid #dce5ef;
+    border-radius:50%;
+    background:#fff;
+    color:#637a97;
+    cursor:pointer;
+    line-height:18px;
+    font-size:14px;
+    box-shadow:0 4px 12px rgba(9,43,85,.12);
+}
+
+.worldlink-chat-window{
+    position:fixed;
+    right:24px;
+    bottom:94px;
+    z-index:99991;
+    width:365px;
+    max-width:calc(100vw - 28px);
+    height:540px;
+    max-height:calc(100vh - 120px);
+    display:none;
+    flex-direction:column;
+    overflow:hidden;
+    background:#fff;
+    border:1px solid #dce5ef;
+    border-radius:16px;
+    box-shadow:0 20px 55px rgba(9,43,85,.22);
+}
+
+.worldlink-chat-window.open{
+    display:flex;
+}
+
+.worldlink-chat-header{
+    min-height:72px;
+    padding:12px 14px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    background:#092b55;
+    color:#fff;
+}
+
+.worldlink-chat-header-main{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.worldlink-chat-header-avatar{
+    width:42px;
+    height:42px;
+    border-radius:50%;
+    background:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+}
+
+.worldlink-chat-header-avatar img{
+    width:35px;
+    height:35px;
+    object-fit:contain;
+}
+
+.worldlink-chat-header strong{
+    display:block;
+    font-size:13px;
+}
+
+.worldlink-chat-header span{
+    display:block;
+    margin-top:3px;
+    color:#c9d8eb;
+    font-size:9px;
+}
+
+.worldlink-chat-minimize{
+    width:32px;
+    height:32px;
+    border:0;
+    border-radius:8px;
+    background:rgba(255,255,255,.1);
+    color:#fff;
+    cursor:pointer;
+    font-size:20px;
+}
+
+.worldlink-chat-messages{
+    flex:1;
+    overflow-y:auto;
+    padding:16px;
+    background:#f5f8fc;
+}
+
+.worldlink-chat-welcome{
+    padding:13px;
+    background:#fff;
+    border:1px solid #dce5ef;
+    border-radius:11px 11px 11px 3px;
+    color:#17375d;
+    font-size:11px;
+    line-height:1.55;
+}
+
+.worldlink-chat-welcome strong{
+    display:block;
+    margin-bottom:5px;
+    color:#102f56;
+    font-size:12px;
+}
+
+
+
+.worldlink-chat-welcome-title{
+    display:flex;
+    align-items:center;
+    gap:7px;
+}
+
+.worldlink-chat-online-dot{
+    width:8px;
+    height:8px;
+    flex:0 0 8px;
+    border-radius:50%;
+    background:#20b26b;
+    box-shadow:0 0 0 3px rgba(32,178,107,.12);
+}
+
+.worldlink-chat-quick-actions{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:7px;
+    margin-top:10px;
+}
+
+.worldlink-chat-quick-actions button{
+    min-height:34px;
+    padding:7px 8px;
+    border:1px solid #d7e1ec;
+    border-radius:8px;
+    background:#fff;
+    color:#17375d;
+    cursor:pointer;
+    font:inherit;
+    font-size:9px;
+    font-weight:700;
+    line-height:1.25;
+    transition:.15s ease;
+}
+
+.worldlink-chat-quick-actions button:hover{
+    border-color:#1769ff;
+    color:#1769ff;
+    background:#f7faff;
+}
+
+.worldlink-chat-quick-actions button:active{
+    transform:translateY(1px);
+}
+
+.worldlink-chat-welcome p{
+    margin:0;
+    color:#71849c;
+}
+
+.worldlink-chat-bubble{
+    max-width:84%;
+    margin:8px 0;
+    padding:9px 11px;
+    border-radius:11px;
+    font-size:11px;
+    line-height:1.5;
+    white-space:pre-wrap;
+    word-break:break-word;
+}
+
+.worldlink-chat-bubble.customer{
+    margin-left:auto;
+    background:#1769ff;
+    color:#fff;
+    border-radius:11px 11px 3px 11px;
+}
+
+.worldlink-chat-bubble.support,
+.worldlink-chat-bubble.admin{
+    margin-right:auto;
+    background:#fff;
+    color:#17375d;
+    border:1px solid #dce5ef;
+    border-radius:11px 11px 11px 3px;
+}
+
+.worldlink-chat-time{
+    display:block;
+    margin-top:3px;
+    opacity:.65;
+    font-size:8px;
+}
+
+.worldlink-chat-form{
+    padding:11px;
+    background:#fff;
+    border-top:1px solid #e4eaf1;
+}
+
+.worldlink-chat-form input{
+    width:100%;
+    min-height:34px;
+    margin-bottom:7px;
+    padding:0 10px;
+    border:1px solid #dce5ef;
+    border-radius:8px;
+    outline:none;
+    color:#17375d;
+    font:inherit;
+    font-size:10px;
+}
+
+.worldlink-chat-form input:focus,
+.worldlink-chat-form textarea:focus{
+    border-color:#1769ff;
+    box-shadow:0 0 0 2px rgba(23,105,255,.08);
+}
+
+.worldlink-chat-compose{
+    display:flex;
+    align-items:flex-end;
+    gap:7px;
+}
+
+.worldlink-chat-compose textarea{
+    flex:1;
+    resize:none;
+    min-height:42px;
+    max-height:90px;
+    padding:9px 10px;
+    border:1px solid #dce5ef;
+    border-radius:8px;
+    outline:none;
+    color:#17375d;
+    font:inherit;
+    font-size:10px;
+}
+
+.worldlink-chat-compose button{
+    width:42px;
+    height:42px;
+    flex:0 0 42px;
+    border:0;
+    border-radius:8px;
+    background:#1769ff;
+    color:#fff;
+    cursor:pointer;
+    font-size:17px;
+}
+
+.worldlink-chat-compose button:disabled{
+    opacity:.55;
+    cursor:not-allowed;
+}
+
+.worldlink-chat-link{
+    color:#1769ff;
+    text-decoration:underline;
+    font-weight:600;
+    word-break:break-all;
+}
+
+.worldlink-chat-status{
+    min-height:14px;
+    margin-top:5px;
+    color:#71849c;
+    font-size:9px;
+}
+
+@keyframes worldlinkChatBlink{
+    0%,100%{
+        transform:scale(1);
+        box-shadow:0 10px 28px rgba(9,43,85,.25);
+    }
+    50%{
+        transform:scale(1.07);
+        box-shadow:0 10px 34px rgba(23,105,255,.42);
+    }
+}
+
+@keyframes worldlinkChatPulse{
+    0%{
+        box-shadow:0 0 0 0 rgba(32,178,107,.65);
+    }
+    70%{
+        box-shadow:0 0 0 7px rgba(32,178,107,0);
+    }
+    100%{
+        box-shadow:0 0 0 0 rgba(32,178,107,0);
+    }
+}
+
+@media(max-width:600px){
+
+    .worldlink-chat-launcher{
+        right:14px;
+        bottom:14px;
+    }
+
+    .worldlink-chat-prompt{
+        display:none;
+    }
+
+    .worldlink-chat-window{
+        right:14px;
+        bottom:84px;
+        width:calc(100vw - 28px);
+        height:520px;
+        max-height:calc(100vh - 105px);
+    }
+
+}
+
+</style>
+
+
+<script>
+
+/* =====================================================
+   WORLDLINK LIVE CHAT JAVASCRIPT
+   ===================================================== */
+
+(function(){
+
+    const launcher =
+        document.getElementById("worldlink-chat-launcher");
+
+    const chatWindow =
+        document.getElementById("worldlink-chat-window");
+
+    const chatForm =
+        document.getElementById("worldlink-chat-form");
+
+    const messagesBox =
+        document.getElementById("worldlink-chat-messages");
+
+    const statusBox =
+        document.getElementById("worldlink-chat-status");
+
+    const nameInput =
+        document.getElementById("worldlink-chat-name");
+
+    const emailInput =
+        document.getElementById("worldlink-chat-email");
+
+    const trackingInput =
+        document.getElementById("worldlink-chat-tracking");
+
+    const messageInput =
+        document.getElementById("worldlink-chat-message");
+
+    const sendButton =
+        chatForm.querySelector("button[type='submit']");
+
+    const storageKey =
+        "worldlink_chat_conversation_id";
+
+    let conversationId =
+        localStorage.getItem(storageKey) || "";
+
+    let lastRenderedMessageId = "";
+
+    let pollTimer = null;
+
+
+    function scrollChatToBottom(){
+
+        messagesBox.scrollTop =
+            messagesBox.scrollHeight;
+
+    }
+
+
+    function formatChatTime(value){
+
+        if(!value){
+            return "";
+        }
+
+        try{
+
+            const date = new Date(value);
+
+            return date.toLocaleTimeString([], {
+                hour:"2-digit",
+                minute:"2-digit"
+            });
+
+        }catch(error){
+
+            return "";
+
+        }
+
+    }
+
+
+    function addBubble(message){
+
+        if(
+            message.id &&
+            String(message.id) ===
+            String(lastRenderedMessageId)
+        ){
+            return;
+        }
+
+        const bubble =
+            document.createElement("div");
+
+        const sender =
+            message.sender_type || "support";
+
+        bubble.className =
+            "worldlink-chat-bubble " + sender;
+
+        if(message.id){
+            bubble.dataset.chatMessageId =
+                message.id;
+        }
+
+        bubble.innerHTML =
+            formatChatMessage(message.message)
+            +
+            '<span class="worldlink-chat-time">'
+            +
+            escapeHtml(formatChatTime(message.created_at))
+            +
+            '</span>';
+
+        messagesBox.appendChild(bubble);
+
+        if(message.id){
+            lastRenderedMessageId =
+                String(message.id);
+        }
+
+        scrollChatToBottom();
+
+    }
+
+
+    function escapeHtml(value){
+
+        return String(value || "")
+            .replace(/&/g,"&amp;")
+            .replace(/</g,"&lt;")
+            .replace(/>/g,"&gt;")
+            .replace(/"/g,"&quot;")
+            .replace(/\'/g,"&#039;");
+
+    }
+
+
+    function formatChatMessage(value){
+
+        let escaped = escapeHtml(value);
+
+        /* Render markdown-style links returned by the support bot. */
+        escaped = escaped.replace(
+            /\[\*\*(.*?)\*\*\]\((https?:\/\/[^\s)]+)\)/g,
+            function(label, url){
+                return '<a href="' + url + '" target="_blank" rel="noopener noreferrer" class="worldlink-chat-link">'
+                    + label
+                    + '</a>';
+            }
+        );
+
+        /* Render any remaining plain URL as a clickable link. */
+        escaped = escaped.replace(
+            /(^|\s)(https?:\/\/[^\s<]+)/g,
+            function(prefix, url){
+                return prefix + '<a href="' + url + '" target="_blank" rel="noopener noreferrer" class="worldlink-chat-link">'
+                    + url
+                    + '</a>';
+            }
+        );
+
+        return escaped.replace(/\n/g, '<br>');
+
+    }
+
+
+    async function loadMessages(){
+
+        if(!conversationId){
+            return;
+        }
+
+        try{
+
+            const response =
+                await fetch(
+                    "/api/chat/"
+                    +
+                    encodeURIComponent(conversationId),
+                    {
+                        headers:{
+                            "Accept":"application/json"
+                        }
+                    }
+                );
+
+            if(!response.ok){
+                return;
+            }
+
+            const data =
+                await response.json();
+
+            if(!data.messages){
+                return;
+            }
+
+            for(const message of data.messages){
+
+                if(
+                    message.id &&
+                    messagesBox.querySelector(
+                        '[data-chat-message-id="' +
+                        message.id +
+                        '"]'
+                    )
+                ){
+                    continue;
+                }
+
+                const bubble =
+                    document.createElement("div");
+
+                bubble.className =
+                    "worldlink-chat-bubble "
+                    +
+                    (message.sender_type || "support");
+
+                if(message.id){
+                    bubble.dataset.chatMessageId =
+                        message.id;
+                }
+
+                bubble.innerHTML =
+                    formatChatMessage(message.message)
+                    +
+                    '<span class="worldlink-chat-time">'
+                    +
+                    escapeHtml(
+                        formatChatTime(
+                            message.created_at
+                        )
+                    )
+                    +
+                    '</span>';
+
+                messagesBox.appendChild(bubble);
+
+            }
+
+            scrollChatToBottom();
+
+        }catch(error){
+
+            /* Keep the widget usable if polling fails temporarily. */
+
+        }
+
+    }
+
+
+    function startPolling(){
+
+        if(pollTimer){
+            clearInterval(pollTimer);
+        }
+
+        loadMessages();
+
+        pollTimer =
+            setInterval(
+                loadMessages,
+                4000
+            );
+
+    }
+
+
+    window.openWorldlinkChat =
+        function(){
+
+            if(!chatWindow){
+                return;
+            }
+
+            chatWindow.classList.add("open");
+
+            chatWindow.setAttribute(
+                "aria-hidden",
+                "false"
+            );
+
+            if(launcher){
+                launcher.classList.add("is-open");
+            }
+
+            const savedName =
+                localStorage.getItem(
+                    "worldlink_chat_name"
+                );
+
+            const savedEmail =
+                localStorage.getItem(
+                    "worldlink_chat_email"
+                );
+
+            const savedTracking =
+                localStorage.getItem(
+                    "worldlink_chat_tracking"
+                );
+
+            if(savedName){
+                nameInput.value = savedName;
+            }
+
+            if(savedEmail){
+                emailInput.value = savedEmail;
+            }
+
+            if(savedTracking){
+                trackingInput.value =
+                    savedTracking;
+            }
+
+            startPolling();
+
+            setTimeout(
+                () => messageInput.focus(),
+                150
+            );
+
+        };
+
+
+    window.closeWorldlinkChat =
+        function(){
+
+            if(!chatWindow){
+                return;
+            }
+
+            chatWindow.classList.remove("open");
+
+            chatWindow.setAttribute(
+                "aria-hidden",
+                "true"
+            );
+
+            if(pollTimer){
+                clearInterval(pollTimer);
+                pollTimer = null;
+            }
+
+        };
+
+
+    window.hideWorldlinkChatPrompt =
+        function(event){
+
+            if(event){
+                event.stopPropagation();
+            }
+
+            if(launcher){
+                launcher.style.display = "none";
+            }
+
+        };
+
+
+    if(launcher){
+
+        launcher.addEventListener(
+            "click",
+            function(event){
+
+                if(
+                    event.target.closest(
+                        ".worldlink-chat-close-prompt"
+                    )
+                ){
+                    return;
+                }
+
+                window.openWorldlinkChat();
+
+            }
+        );
+
+    }
+
+
+
+
+    document.querySelectorAll("[data-chat-quick]").forEach(function(button){
+        button.addEventListener("click", function(){
+            const text = button.getAttribute("data-chat-quick") || "";
+            messageInput.value = text;
+            messageInput.focus();
+            messageInput.setSelectionRange(
+                messageInput.value.length,
+                messageInput.value.length
+            );
+            statusBox.textContent = "";
+        });
+    });
+
+    if(chatForm){
+
+        chatForm.addEventListener(
+            "submit",
+            async function(event){
+
+                event.preventDefault();
+
+                const name =
+                    nameInput.value.trim();
+
+                const email =
+                    emailInput.value.trim();
+
+                const trackingNumber =
+                    trackingInput.value.trim().toUpperCase();
+
+                const message =
+                    messageInput.value.trim();
+
+                if(!name){
+
+                    statusBox.textContent =
+                        "Please enter your name.";
+
+                    nameInput.focus();
+
+                    return;
+
+                }
+
+                if(!email){
+
+                    statusBox.textContent =
+                        "Please enter your email.";
+
+                    emailInput.focus();
+
+                    return;
+
+                }
+
+                if(!message){
+
+                    statusBox.textContent =
+                        "Please write a message.";
+
+                    messageInput.focus();
+
+                    return;
+
+                }
+
+                sendButton.disabled = true;
+
+                statusBox.textContent =
+                    "Sending...";
+
+                try{
+
+                    const response =
+                        await fetch(
+                            "/chat/send",
+                            {
+                                method:"POST",
+                                headers:{
+                                    "Content-Type":
+                                        "application/json",
+                                    "Accept":
+                                        "application/json"
+                                },
+                                body:JSON.stringify({
+
+                                    customer_name:name,
+                                    customer_email:email,
+                                    tracking_number:
+                                        trackingNumber,
+                                    message:message,
+                                    conversation_id:
+                                        conversationId
+
+                                })
+                            }
+                        );
+
+                    const data =
+                        await response.json();
+
+                    if(!response.ok || !data.success){
+
+                        throw new Error(
+                            data.error ||
+                            "Unable to send message."
+                        );
+
+                    }
+
+                    conversationId =
+                        data.conversation_id || conversationId;
+
+                    localStorage.setItem(
+                        storageKey,
+                        conversationId
+                    );
+
+                    localStorage.setItem(
+                        "worldlink_chat_name",
+                        name
+                    );
+
+                    localStorage.setItem(
+                        "worldlink_chat_email",
+                        email
+                    );
+
+                    localStorage.setItem(
+                        "worldlink_chat_tracking",
+                        trackingNumber
+                    );
+
+                    if(data.message){
+
+                        addBubble(
+                            data.message
+                        );
+
+                    }
+
+                    messageInput.value = "";
+
+                    statusBox.textContent =
+                        "Message sent. Worldlink Support will respond here.";
+
+                    startPolling();
+
+                }catch(error){
+
+                    statusBox.textContent =
+                        error.message ||
+                        "Unable to send your message. Please try again.";
+
+                }finally{
+
+                    sendButton.disabled = false;
+
+                }
+
+            }
+        );
+
+    }
+
+})();
+
+</script>
+
+
+
 <!-- =====================================================
      WORLDLINK FOOTER
      ===================================================== -->
@@ -254,7 +1541,7 @@
 
     <div class="container">
 
-        <div class="footer-grid">
+        <div class="footer-grid worldlink-contact-grid">
 
 
             <!-- BRAND -->
@@ -326,12 +1613,37 @@
                     Track a Shipment
                 </a>
 
-                <a
-                    href="javascript:void(0)"
-                    onclick="openWorldlinkChat()"
-                >
-                    Live Chat
-                </a>
+            </div>
+
+
+            <!-- CONTACT -->
+
+            <div class="footer-col worldlink-footer-contact">
+
+                <h4>
+                    Contact Us
+                </h4>
+
+                <div>
+                    <span class="contact-label">Email</span>
+                    <a href="mailto:support@worldlinkexpresscourier.com">
+                        support@worldlinkexpresscourier.com
+                    </a>
+                </div>
+
+                <div>
+                    <span class="contact-label">Phone</span>
+                    <a href="tel:+447700900010">
+                        +44 7700900010
+                    </a>
+                </div>
+
+                <div>
+                    <span class="contact-label">Support</span>
+                    <span>
+                        Customer support for shipment enquiries
+                    </span>
+                </div>
 
             </div>
 
@@ -357,182 +1669,6 @@
 </footer>
 
 
-<!-- =====================================================
-     WORLDLINK LIVE CHAT
-     ===================================================== -->
-
-<div id="worldlink-chat-root">
-
-
-    <!-- CHAT LAUNCHER -->
-
-    <button
-        id="worldlink-chat-launcher"
-        type="button"
-        aria-label="Open Worldlink Live Chat"
-        aria-expanded="false"
-    >
-
-        <span class="worldlink-chat-launcher-icon">
-            💬
-        </span>
-
-        <span class="worldlink-chat-launcher-text">
-
-            <strong>
-                Live Chat
-            </strong>
-
-            <small>
-                24/7 Support
-            </small>
-
-        </span>
-
-    </button>
-
-
-    <!-- CHAT PANEL -->
-
-    <section
-        id="worldlink-chat-panel"
-        aria-label="Worldlink Live Chat"
-    >
-
-
-        <!-- CHAT HEADER -->
-
-        <div class="worldlink-chat-header">
-
-            <div>
-
-                <strong>
-                    Worldlink Support
-                </strong>
-
-                <span>
-                    <i></i>
-                    Online support
-                </span>
-
-            </div>
-
-
-            <button
-                id="worldlink-chat-close"
-                type="button"
-                aria-label="Close chat"
-            >
-                ×
-            </button>
-
-        </div>
-
-
-        <!-- CHAT MESSAGES -->
-
-        <div
-            id="worldlink-chat-messages"
-            class="worldlink-chat-messages"
-        >
-
-            <div class="worldlink-chat-empty">
-
-                <div class="worldlink-chat-empty-icon">
-                    💬
-                </div>
-
-                <strong>
-                    Welcome to Worldlink Courier
-                </strong>
-
-                <p>
-                    Have a question about your shipment?
-                    Send us a message and our support team
-                    will assist you.
-                </p>
-
-            </div>
-
-        </div>
-
-
-        <!-- CHAT STATUS -->
-
-        <div
-            id="worldlink-chat-status"
-            class="worldlink-chat-status"
-        ></div>
-
-
-        <!-- CHAT FORM -->
-
-        <form
-            id="worldlink-chat-form"
-            class="worldlink-chat-form"
-        >
-
-            <input
-                id="worldlink-chat-name"
-                name="customer_name"
-                type="text"
-                placeholder="Your name"
-                autocomplete="name"
-                required
-            >
-
-
-            <input
-                id="worldlink-chat-email"
-                name="customer_email"
-                type="email"
-                placeholder="Email address"
-                autocomplete="email"
-                required
-            >
-
-
-            <input
-                id="worldlink-chat-tracking"
-                name="tracking_number"
-                type="text"
-                placeholder="Tracking number (optional)"
-                autocomplete="off"
-            >
-
-
-            <textarea
-                id="worldlink-chat-message"
-                name="message"
-                placeholder="How can we help you?"
-                rows="3"
-                required
-            ></textarea>
-
-
-            <button
-                id="worldlink-chat-send"
-                type="submit"
-            >
-                Send Message
-            </button>
-
-
-            <small>
-                Worldlink Courier Support • Available 24/7
-            </small>
-
-        </form>
-
-    </section>
-
-</div>
-
-
-<!-- =====================================================
-     MOBILE NAVIGATION SCRIPT
-     ===================================================== -->
-
 <script>
 
     function toggleWorldlinkMenu() {
@@ -557,11 +1693,11 @@
 </script>
 
 
-<!-- =====================================================
-     MOBILE NAVIGATION STYLES
-     ===================================================== -->
-
 <style>
+
+    /* =====================================================
+       WORLDLINK MOBILE NAVIGATION
+       ===================================================== */
 
     .worldlink-mobile-nav {
         display: none;
@@ -596,14 +1732,112 @@
 </style>
 
 
-<!-- =====================================================
-     WORLDLINK LIVE CHAT JAVASCRIPT
-     ===================================================== -->
 
-<script
-    src="{{ url_for('static', filename='js/live-chat.js') }}"
-></script>
+<div id="worldlink-google-translate-hidden" aria-hidden="true"
+     style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;"></div>
 
+<script>
+(function(){
+    const languages = {
+        'en': 'en',
+        'zh-CN': 'zh-CN',
+        'zh-TW': 'zh-TW',
+        'es': 'es',
+        'fr': 'fr',
+        'ar': 'ar',
+        'pt': 'pt',
+        'ru': 'ru',
+        'de': 'de',
+        'ja': 'ja',
+        'ko': 'ko',
+        'it': 'it',
+        'nl': 'nl',
+        'tr': 'tr',
+        'pl': 'pl',
+        'uk': 'uk',
+        'vi': 'vi',
+        'id': 'id',
+        'th': 'th',
+        'hi': 'hi',
+        'bn': 'bn',
+        'ur': 'ur',
+        'fa': 'fa',
+        'ta': 'ta',
+        'te': 'te',
+        'mr': 'mr',
+        'gu': 'gu',
+        'kn': 'kn',
+        'ml': 'ml',
+        'pa': 'pa',
+        'sw': 'sw',
+        'am': 'am',
+        'ms': 'ms',
+        'tl': 'tl',
+        'he': 'he',
+        'el': 'el',
+        'cs': 'cs',
+        'ro': 'ro',
+        'hu': 'hu',
+        'sv': 'sv',
+        'da': 'da',
+        'no': 'no',
+        'fi': 'fi',
+        'bg': 'bg',
+        'sk': 'sk',
+        'hr': 'hr',
+        'sr': 'sr'
+    };
+
+    function initWorldlinkTranslate(){
+        if (!window.google || !google.translate) return;
+
+        new google.translate.TranslateElement({
+            pageLanguage: 'en',
+            includedLanguages: 'en,zh-CN,zh-TW,es,fr,ar,pt,ru,de,ja,ko,it,nl,tr,pl,uk,vi,id,th,hi,bn,ur,fa,ta,te,mr,gu,kn,ml,pa,sw,am,ms,tl,he,el,cs,ro,hu,sv,da,no,fi,bg,sk,hr,sr',
+            autoDisplay: false
+        }, 'worldlink-google-translate-hidden');
+
+        setTimeout(bindWorldlinkLanguageSelectors, 300);
+    }
+
+    function bindWorldlinkLanguageSelectors(){
+        const googleSelect = document.querySelector(
+            '#worldlink-google-translate-hidden select.goog-te-combo'
+        );
+
+        if(!googleSelect){
+            setTimeout(bindWorldlinkLanguageSelectors, 500);
+            return;
+        }
+
+        function changeLanguage(value){
+            googleSelect.value = value;
+            googleSelect.dispatchEvent(new Event('change'));
+        }
+
+        const desktop = document.getElementById('worldlink-language-select');
+        const mobile = document.getElementById('worldlink-language-select-mobile');
+
+        if(desktop){
+            desktop.addEventListener('change', function(){
+                changeLanguage(this.value);
+                if(mobile) mobile.value = this.value;
+            });
+        }
+
+        if(mobile){
+            mobile.addEventListener('change', function(){
+                changeLanguage(this.value);
+                if(desktop) desktop.value = this.value;
+            });
+        }
+    }
+
+    window.googleTranslateElementInit = initWorldlinkTranslate;
+})();
+</script>
+
+<script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
 </body>
 </html>

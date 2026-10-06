@@ -1,0 +1,1152 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<title>{{ invoice.invoice_number }} | Worldlink</title>
+
+<style>
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    background:#f4f7fb;
+    color:#17263a;
+    font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+}
+
+.wrap{
+    max-width:980px;
+    margin:0 auto;
+    padding:30px 20px;
+}
+
+.bar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:18px;
+    gap:15px;
+}
+
+.bar h1{
+    margin:0;
+    font-size:25px;
+}
+
+.btn{
+    display:inline-flex;
+    align-items:center;
+    min-height:40px;
+    padding:0 14px;
+    border-radius:7px;
+    text-decoration:none;
+    border:1px solid #dce5ef;
+    background:#fff;
+    color:#36506d;
+    font-size:12px;
+    font-weight:750;
+}
+
+.primary{
+    background:#1769ff;
+    color:#fff;
+    border-color:#1769ff;
+}
+
+.paper{
+    background:#fff;
+    border:1px solid #dce5ef;
+    border-radius:12px;
+    padding:34px;
+    box-shadow:0 10px 30px rgba(15,36,64,.06);
+}
+
+/* HEADER */
+
+.head{
+    display:flex;
+    justify-content:space-between;
+    gap:20px;
+    border-bottom:1px solid #e5ebf2;
+    padding-bottom:20px;
+}
+
+.brand{
+    display:flex;
+    align-items:center;
+}
+
+.logo{
+    width:205px;
+    max-width:100%;
+}
+
+.meta{
+    text-align:right;
+    font-size:12px;
+    line-height:1.8;
+}
+
+.title{
+    text-transform:uppercase;
+    color:#0b1f3a;
+    font-weight:850;
+    font-size:21px;
+}
+
+/* COMPANY DETAILS */
+
+.company-details{
+    margin-top:16px;
+    padding:15px 17px;
+    background:#f7f9fc;
+    border:1px solid #e1e8f0;
+    border-radius:8px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:20px;
+}
+
+.company-main{
+    min-width:220px;
+}
+
+.company-name{
+    color:#0b1f3a;
+    font-size:13px;
+    font-weight:850;
+    text-transform:uppercase;
+    letter-spacing:.02em;
+}
+
+.company-tagline{
+    margin-top:4px;
+    color:#71839a;
+    font-size:9px;
+}
+
+.company-contact{
+    display:grid;
+    grid-template-columns:repeat(3,auto);
+    gap:22px;
+    align-items:center;
+}
+
+.company-contact > div{
+    font-size:10px;
+    line-height:1.35;
+}
+
+.contact-label{
+    display:block;
+    color:#71839a;
+    font-size:7px;
+    font-weight:850;
+    letter-spacing:.08em;
+    margin-bottom:2px;
+}
+
+.company-contact strong{
+    color:#243b53;
+    font-size:9px;
+}
+
+/* INFORMATION BOXES */
+
+.grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:14px;
+    margin-top:22px;
+}
+
+.box{
+    border:1px solid #e1e8f0;
+    border-radius:8px;
+    padding:14px;
+    font-size:12px;
+    line-height:1.6;
+}
+
+.label{
+    font-size:9px;
+    color:#71839a;
+    font-weight:850;
+    text-transform:uppercase;
+    letter-spacing:.08em;
+    margin-bottom:3px;
+}
+
+.subgrid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:14px;
+    margin-top:14px;
+}
+
+/* CHARGES */
+
+.charges{
+    margin-top:22px;
+    width:100%;
+    border-collapse:collapse;
+}
+
+.charges th,
+.charges td{
+    padding:11px;
+    border-bottom:1px solid #e8edf3;
+    text-align:left;
+    font-size:12px;
+}
+
+.charges th{
+    background:#0b1f3a;
+    color:#fff;
+}
+
+.charges td:last-child,
+.charges th:last-child{
+    text-align:right;
+}
+
+/* SUMMARY */
+
+.summary{
+    margin-left:auto;
+    max-width:390px;
+    margin-top:16px;
+}
+
+.summary-row{
+    display:flex;
+    justify-content:space-between;
+    padding:6px 0;
+    font-size:12px;
+}
+
+.summary-row.total{
+    border-top:2px solid #0b1f3a;
+    margin-top:5px;
+    padding-top:11px;
+    font-size:18px;
+    font-weight:850;
+}
+
+/* PAYMENT NOTE */
+
+.payment-note{
+    margin-top:20px;
+    padding:12px 14px;
+    background:#f7f9fc;
+    border:1px solid #e1e8f0;
+    border-left:3px solid #1769ff;
+    border-radius:7px;
+    color:#4f6278;
+    font-size:11px;
+    line-height:1.55;
+}
+
+.payment-note .label{
+    margin-bottom:5px;
+    color:#0b1f3a;
+}
+
+/* PAYMENT STRIP */
+
+.payment{
+    margin-top:18px;
+    background:#f7f9fc;
+    border:1px solid #e1e8f0;
+    border-radius:8px;
+    padding:13px;
+    font-size:12px;
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:12px;
+}
+
+/* NOTES */
+
+.notes{
+    margin-top:20px;
+    font-size:11px;
+    color:#5f7085;
+    line-height:1.5;
+}
+
+/* AUTHORIZATION */
+
+.authorization{
+    display:grid;
+    grid-template-columns:1fr 210px;
+    gap:25px;
+    align-items:end;
+    margin-top:28px;
+    padding-top:20px;
+    border-top:1px solid #e1e8f0;
+}
+
+.signature-area{
+    height:42px;
+    position:relative;
+    border-bottom:1px solid #8291a3;
+    margin-bottom:7px;
+}
+
+.signature-mark{
+    position:absolute;
+    left:18px;
+    bottom:3px;
+    font-family:"Brush Script MT","Segoe Script",cursive;
+    font-size:25px;
+    font-style:italic;
+    font-weight:600;
+    color:#183f75;
+    transform:rotate(-4deg);
+}
+
+.signature-label{
+    font-size:8px;
+    font-weight:800;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:#60748b;
+}
+
+.stamp{
+    width:175px;
+    height:78px;
+    border:2px solid #1769ff;
+    border-radius:50%;
+    display:grid;
+    place-items:center;
+    text-align:center;
+    color:#1769ff;
+    font-size:9px;
+    font-weight:850;
+    letter-spacing:.06em;
+    transform:rotate(-4deg);
+}
+
+.stamp small{
+    display:block;
+    font-size:6px;
+    margin-top:3px;
+    letter-spacing:.1em;
+}
+
+/* FOOTER */
+
+.footer{
+    margin-top:20px;
+    padding-top:12px;
+    border-top:1px solid #e5ebf2;
+    color:#71839a;
+    font-size:9px;
+    line-height:1.5;
+}
+
+/* MOBILE */
+
+@media(max-width:700px){
+
+    .wrap{
+        padding:18px 12px;
+    }
+
+    .paper{
+        padding:20px;
+    }
+
+    .head,
+    .bar{
+        flex-direction:column;
+        align-items:flex-start;
+    }
+
+    .meta{
+        text-align:left;
+    }
+
+    .grid,
+    .subgrid,
+    .payment{
+        grid-template-columns:1fr;
+    }
+
+    .company-details{
+        flex-direction:column;
+        align-items:flex-start;
+    }
+
+    .company-contact{
+        grid-template-columns:1fr;
+        gap:9px;
+    }
+
+    .authorization{
+        grid-template-columns:1fr;
+    }
+
+    .stamp{
+        justify-self:start;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<main class="wrap">
+
+    <!-- TOP BAR -->
+
+    <div class="bar">
+
+        <h1>Invoice document</h1>
+
+        <div>
+
+            <a class="btn"
+               href="{{ url_for('admin_invoices') }}">
+                ← Back
+            </a>
+
+            <a class="btn"
+               href="{{ url_for('edit_invoice', invoice_id=invoice.id) }}">
+                Edit
+            </a>
+
+            <a class="btn primary"
+               href="{{ url_for('invoice_pdf', invoice_id=invoice.id) }}">
+                Download PDF
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <!-- INVOICE PAPER -->
+
+    <article class="paper">
+
+
+        <!-- HEADER -->
+
+        <div class="head">
+
+            <div class="brand">
+
+                <img
+                    class="logo"
+                    src="{{ url_for('static', filename='images/worldlink-logo.png') }}"
+                    alt="Worldlink Courier Service"
+                >
+
+            </div>
+
+
+            <div class="meta">
+
+                <div class="title">
+                    {{ invoice.document_type }}
+                </div>
+
+                <strong>
+                    {{ invoice.invoice_number }}
+                </strong>
+
+                <br>
+
+                Issued
+                {{ invoice.created_at.strftime('%d %B %Y') }}
+
+                {% if invoice.due_date %}
+                    <br>
+                    Due
+                    {{ invoice.due_date.strftime('%d %B %Y') }}
+                {% endif %}
+
+            </div>
+
+        </div>
+
+
+        <!-- COMPANY INFORMATION -->
+
+        <div class="company-details">
+
+            <div class="company-main">
+
+                <div class="company-name">
+                    Worldlink Courier Service
+                </div>
+
+                <div class="company-tagline">
+                    Billing &amp; Customer Documentation
+                </div>
+
+            </div>
+
+
+            <div class="company-contact">
+
+                <div>
+
+                    <span class="contact-label">
+                        PHONE
+                    </span>
+
+                    <strong>
+                        +44 7700900010
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    <span class="contact-label">
+                        EMAIL
+                    </span>
+
+                    <strong>
+                        support@worldlinkexpresscourier.com
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    <span class="contact-label">
+                        WEBSITE
+                    </span>
+
+                    <strong>
+                        worldlinkexpresscourier.com
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- RECEIVER / SENDER / SHIPMENT / PACKAGE -->
+
+        <div class="grid">
+
+
+            <!-- RECEIVER -->
+
+            <div class="box">
+
+                <div class="label">
+                    Bill To / Receiver
+                </div>
+
+                <strong>
+                    {{ invoice.shipment.receiver }}
+                </strong>
+
+                <br>
+
+                {{ invoice.shipment.receiver_address }}
+
+                <br>
+
+                {{ invoice.shipment.receiver_phone }}
+
+            </div>
+
+
+            <!-- SENDER -->
+
+            <div class="box">
+
+                <div class="label">
+                    Sender
+                </div>
+
+                <strong>
+                    {{ invoice.shipment.sender }}
+                </strong>
+
+                <br>
+
+                {{ invoice.shipment.sender_address }}
+
+            </div>
+
+
+            <!-- SHIPMENT -->
+
+            <div class="box">
+
+                <div class="label">
+                    Shipment
+                </div>
+
+                <strong>
+                    {{ invoice.shipment.tracking_number }}
+                </strong>
+
+                <br>
+
+                {{ invoice.shipment.origin }}
+                →
+                {{ invoice.shipment.destination }}
+
+                <br>
+
+                {{ invoice.shipment.service_type }}
+
+            </div>
+
+
+            <!-- PACKAGE -->
+
+            <div class="box">
+
+                <div class="label">
+                    Package
+                </div>
+
+                {{ invoice.goods_description or invoice.shipment.package_description }}
+
+                <br>
+
+                Quantity:
+                {{ invoice.quantity }}
+
+                ·
+
+                Weight:
+                {{ '%.2f'|format(invoice.shipment.weight or 0) }}
+                kg
+
+            </div>
+
+        </div>
+
+
+        <!-- CUSTOMS / PAYMENT -->
+
+        <div class="subgrid">
+
+
+            <!-- CUSTOMS -->
+
+            <div class="box">
+
+                <div class="label">
+                    Customs &amp; goods
+                </div>
+
+                Customs country:
+                <strong>
+                    {{ invoice.customs_country or '—' }}
+                </strong>
+
+                <br>
+
+                Goods:
+                {{ invoice.goods_description or '—' }}
+
+                <br>
+
+                Quantity:
+                {{ invoice.quantity or 1 }}
+
+                <br>
+
+                Country of origin:
+                {{ invoice.country_of_origin or '—' }}
+
+                <br>
+
+                HS code:
+                {{ invoice.hs_code or '—' }}
+
+                <br>
+
+                Declared value:
+                {{ invoice.declared_currency or invoice.currency }}
+                {{ '%.2f'|format(invoice.declared_value or 0) }}
+
+            </div>
+
+
+            <!-- PAYMENT DETAILS -->
+
+            <div class="box">
+
+                <div class="label">
+                    Payment details
+                </div>
+
+                Status:
+                <strong>
+                    {{ invoice.payment_status }}
+                </strong>
+
+                <br>
+
+                Method:
+                {{ invoice.payment_method or '—' }}
+
+                <br>
+
+                Amount paid:
+                {{ invoice.currency }}
+                {{ '%.2f'|format(invoice.amount_paid or 0) }}
+
+                <br>
+
+                Balance due:
+                <strong>
+                    {{ invoice.currency }}
+                    {{ '%.2f'|format([total-(invoice.amount_paid or 0),0]|max) }}
+                </strong>
+
+                <br>
+
+                Due date:
+                {{ invoice.due_date.strftime('%d %B %Y') if invoice.due_date else '—' }}
+
+            </div>
+
+        </div>
+
+
+        <!-- CHARGES -->
+
+        <table class="charges">
+
+            <thead>
+
+                <tr>
+
+                    <th>
+                        Description
+                    </th>
+
+                    <th>
+                        Amount
+                    </th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody>
+
+
+                {% if invoice.shipping_amount %}
+
+                <tr>
+
+                    <td>
+                        Courier / shipping service
+                    </td>
+
+                    <td>
+                        {{ invoice.currency }}
+                        {{ '%.2f'|format(invoice.shipping_amount) }}
+                    </td>
+
+                </tr>
+
+                {% endif %}
+
+
+                {% if invoice.customs_amount %}
+
+                <tr>
+
+                    <td>
+                        Customs billing
+                    </td>
+
+                    <td>
+                        {{ invoice.currency }}
+                        {{ '%.2f'|format(invoice.customs_amount) }}
+                    </td>
+
+                </tr>
+
+                {% endif %}
+
+
+                {% if invoice.handling_amount %}
+
+                <tr>
+
+                    <td>
+                        Handling / clearance
+                    </td>
+
+                    <td>
+                        {{ invoice.currency }}
+                        {{ '%.2f'|format(invoice.handling_amount) }}
+                    </td>
+
+                </tr>
+
+                {% endif %}
+
+
+                {% if invoice.other_amount %}
+
+                <tr>
+
+                    <td>
+                        Other service charge
+                    </td>
+
+                    <td>
+                        {{ invoice.currency }}
+                        {{ '%.2f'|format(invoice.other_amount) }}
+                    </td>
+
+                </tr>
+
+                {% endif %}
+
+
+                {% if invoice.tax_amount %}
+
+                <tr>
+
+                    <td>
+                        Tax
+                    </td>
+
+                    <td>
+                        {{ invoice.currency }}
+                        {{ '%.2f'|format(invoice.tax_amount) }}
+                    </td>
+
+                </tr>
+
+                {% endif %}
+
+
+                {% if invoice.discount_amount %}
+
+                <tr>
+
+                    <td>
+                        Discount
+                    </td>
+
+                    <td>
+                        -
+                        {{ invoice.currency }}
+                        {{ '%.2f'|format(invoice.discount_amount) }}
+                    </td>
+
+                </tr>
+
+                {% endif %}
+
+
+                {% if not (
+                    invoice.shipping_amount
+                    or invoice.customs_amount
+                    or invoice.handling_amount
+                    or invoice.other_amount
+                    or invoice.tax_amount
+                    or invoice.discount_amount
+                ) %}
+
+                <tr>
+
+                    <td>
+                        Billing amount
+                    </td>
+
+                    <td>
+                        {{ invoice.currency }}
+                        0.00
+                    </td>
+
+                </tr>
+
+                {% endif %}
+
+
+            </tbody>
+
+        </table>
+
+
+        <!-- SUMMARY -->
+
+        <div class="summary">
+
+
+            <div class="summary-row">
+
+                <span>
+                    Subtotal
+                </span>
+
+                <span>
+
+                    {{ invoice.currency }}
+
+                    {{
+                        '%.2f'|format(
+                            (invoice.shipping_amount or 0)
+                            +(invoice.customs_amount or 0)
+                            +(invoice.handling_amount or 0)
+                            +(invoice.other_amount or 0)
+                        )
+                    }}
+
+                </span>
+
+            </div>
+
+
+            <div class="summary-row">
+
+                <span>
+                    Tax
+                </span>
+
+                <span>
+
+                    {{ invoice.currency }}
+                    {{ '%.2f'|format(invoice.tax_amount or 0) }}
+
+                </span>
+
+            </div>
+
+
+            <div class="summary-row">
+
+                <span>
+                    Discount
+                </span>
+
+                <span>
+
+                    -
+                    {{ invoice.currency }}
+                    {{ '%.2f'|format(invoice.discount_amount or 0) }}
+
+                </span>
+
+            </div>
+
+
+            <div class="summary-row total">
+
+                <span>
+                    Total
+                </span>
+
+                <span>
+
+                    {{ invoice.currency }}
+                    {{ '%.2f'|format(total) }}
+
+                </span>
+
+            </div>
+
+
+            <div class="summary-row">
+
+                <span>
+                    Amount paid
+                </span>
+
+                <span>
+
+                    {{ invoice.currency }}
+                    {{ '%.2f'|format(invoice.amount_paid or 0) }}
+
+                </span>
+
+            </div>
+
+
+            <div class="summary-row">
+
+                <span>
+                    Balance due
+                </span>
+
+                <span>
+
+                    {{ invoice.currency }}
+                    {{
+                        '%.2f'|format(
+                            [total-(invoice.amount_paid or 0),0]|max
+                        )
+                    }}
+
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <!-- PAYMENT INFORMATION -->
+
+        <div class="payment-note">
+
+            <div class="label">
+                Payment information
+            </div>
+
+            Please settle the outstanding balance by the due date shown above.
+            Where applicable, taxes, duties, and clearance charges must be paid
+            before shipment release or completion of delivery.
+
+        </div>
+
+
+        <!-- PAYMENT STRIP -->
+
+        <div class="payment">
+
+
+            <div>
+
+                <div class="label">
+                    Invoice no.
+                </div>
+
+                {{ invoice.invoice_number }}
+
+            </div>
+
+
+            <div>
+
+                <div class="label">
+                    Currency
+                </div>
+
+                {{ invoice.currency }}
+
+            </div>
+
+
+            <div>
+
+                <div class="label">
+                    Payment status
+                </div>
+
+                {{ invoice.payment_status }}
+
+            </div>
+
+
+            <div>
+
+                <div class="label">
+                    Tracking no.
+                </div>
+
+                {{ invoice.shipment.tracking_number }}
+
+            </div>
+
+
+        </div>
+
+
+        <!-- NOTES -->
+
+        {% if invoice.notes %}
+
+        <div class="notes">
+
+            <strong>
+                Notes:
+            </strong>
+
+            {{ invoice.notes }}
+
+        </div>
+
+        {% endif %}
+
+
+        <!-- AUTHORIZATION -->
+
+        <div class="authorization">
+
+
+            <div>
+
+                <div class="signature-area">
+
+                    <span class="signature-mark">
+                        Worldlink
+                    </span>
+
+                </div>
+
+                <div class="signature-label">
+                    Authorized Worldlink Billing Officer
+                </div>
+
+            </div>
+
+
+            <div class="stamp">
+
+                <div>
+
+                    WORLDLINK
+                    <br>
+
+                    AUTHORIZED BILLING
+
+                    <small>
+                        CUSTOMS &amp; CLEARANCE
+                    </small>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+        <!-- FOOTER -->
+
+        <div class="footer">
+
+            Worldlink Courier Service · Billing &amp; Customer Documentation ·
+            {{ invoice.invoice_number }}
+
+        </div>
+
+
+    </article>
+
+</main>
+
+</body>
+</html>
