@@ -3041,7 +3041,7 @@ def initialize_database():
             db.session.execute(
                 text(
                     "ALTER TABLE chat_message "
-                    "ADD COLUMN human_requested BOOLEAN NOT NULL DEFAULT 0"
+                    "ADD COLUMN human_requested BOOLEAN NOT NULL DEFAULT FALSE"
                 )
             )
             db.session.commit()
